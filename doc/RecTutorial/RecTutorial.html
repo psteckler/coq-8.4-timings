@@ -1,0 +1,2692 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="generator" content="hevea 2.09">
+<style type="text/css">
+.li-itemize{margin:1ex 0ex;}
+.li-enumerate{margin:1ex 0ex;}
+.dd-description{margin:0ex 0ex 1ex 4ex;}
+.dt-description{margin:0ex;}
+.toc{list-style:none;}
+.footnotetext{margin:0ex; padding:0ex;}
+div.footnotetext P{margin:0px; text-indent:1em;}
+.thefootnotes{text-align:left;margin:0ex;}
+.dt-thefootnotes{margin:0em;}
+.dd-thefootnotes{margin:0em 0em 0em 2em;}
+.footnoterule{margin:1em auto 1em 0px;width:50%;}
+.caption{padding-left:2ex; padding-right:2ex; margin-left:auto; margin-right:auto}
+.title{margin:2ex auto;text-align:center}
+.titlemain{margin:1ex 2ex 2ex 1ex;}
+.titlerest{margin:0ex 2ex;}
+.center{text-align:center;margin-left:auto;margin-right:auto;}
+.flushleft{text-align:left;margin-left:0ex;margin-right:auto;}
+.flushright{text-align:right;margin-left:auto;margin-right:0ex;}
+div table{margin-left:inherit;margin-right:inherit;margin-bottom:2px;margin-top:2px}
+td table{margin:auto;}
+table{border-collapse:collapse;}
+td{padding:0;}
+.cellpadding0 tr td{padding:0;}
+.cellpadding1 tr td{padding:1px;}
+pre{text-align:left;margin-left:0ex;margin-right:auto;}
+blockquote{margin-left:4ex;margin-right:4ex;text-align:left;}
+td p{margin:0px;}
+.boxed{border:1px solid black}
+.textboxed{border:1px solid black}
+.vbar{border:none;width:2px;background-color:black;}
+.hbar{border:none;height:2px;width:100%;background-color:black;}
+.hfill{border:none;height:1px;width:200%;background-color:black;}
+.vdisplay{border-collapse:separate;border-spacing:2px;width:auto; empty-cells:show; border:2px solid red;}
+.vdcell{white-space:nowrap;padding:0px; border:2px solid green;}
+.display{border-collapse:separate;border-spacing:2px;width:auto; border:none;}
+.dcell{white-space:nowrap;padding:0px; border:none;}
+.dcenter{margin:0ex auto;}
+.vdcenter{border:solid #FF8000 2px; margin:0ex auto;}
+.minipage{text-align:left; margin-left:0em; margin-right:auto;}
+.marginpar{border:solid thin black; width:20%; text-align:left;}
+.marginparleft{float:left; margin-left:0ex; margin-right:1ex;}
+.marginparright{float:right; margin-left:1ex; margin-right:0ex;}
+.theorem{text-align:left;margin:1ex auto 1ex 0ex;}
+.part{margin:2ex auto;text-align:center}
+</style>
+<title>A Tutorial on [Co-]Inductive Types in Coq
+</title>
+</head>
+<body >
+<!--HEVEA command line is: /usr/bin/hevea -fix -exec xxdate.exe RecTutorial -->
+<!--CUT STYLE article--><!--CUT DEF section 1 --><table class="title"><tr><td style="padding:1ex"><h1 class="titlemain">A Tutorial on [Co-]Inductive Types in Coq</h1><h3 class="titlerest">Eduardo Giménez<sup><a id="text1" href="#note1">*</a></sup>,
+Pierre Castéran<sup><a id="text2" href="#note2">#</a></sup></h3><h3 class="titlerest">May 1998 &#X2014; April 7, 2016</h3></td></tr>
+</table><blockquote class="abstract"><span style="font-weight:bold">Abstract: </span>
+This document<sup><a id="text3" href="#note3">1</a></sup> is an introduction to the definition and
+use of inductive and co-inductive types in the <em>Coq</em> proof environment. It explains how types like natural numbers and infinite streams are defined
+in <em>Coq</em>, and the kind of proof techniques that can be used to reason
+about them (case analysis, induction, inversion of predicates,
+co-induction, etc). Each technique is illustrated through an
+executable and self-contained <em>Coq</em> script. 
+</blockquote><!--TOC section id="sec1" Contents-->
+<h2 id="sec1" class="section">Contents</h2><!--SEC END --><ul class="toc"><li class="li-toc">
+<a href="#sec2">1  About this document</a>
+</li><li class="li-toc"><a href="#sec4">2  Introducing Inductive Types</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec5">2.1  Lists</a>
+</li><li class="li-toc"><a href="#sec6">2.2  Vectors.</a>
+</li><li class="li-toc"><a href="#sec7">2.3  The contradictory proposition.</a>
+</li><li class="li-toc"><a href="#sec8">2.4  The tautological proposition.</a>
+</li><li class="li-toc"><a href="#sec9">2.5  Relations as inductive types.</a>
+</li><li class="li-toc"><a href="#sec10">2.6  About general parameters (<em>Coq</em> version &#X2265; 8.1)</a>
+</li><li class="li-toc"><a href="#sec11">2.7  The propositional equality type.</a>
+</li><li class="li-toc"><a href="#sec12">2.8  Logical connectives.</a>
+</li><li class="li-toc"><a href="#sec13">2.9  The existential quantifier.</a>
+</li><li class="li-toc"><a href="#sec14">2.10  Mutually Dependent Definitions</a>
+</li></ul>
+</li><li class="li-toc"><a href="#sec15">3  Case Analysis and Pattern-matching</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec16">3.1  Non-dependent Case Analysis</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec17">3.1.1  Example: the predecessor function.</a>
+</li></ul>
+</li><li class="li-toc"><a href="#sec18">3.2  Dependent Case Analysis</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec19">3.2.1  Example: strong specification of the predecessor function.</a>
+</li></ul>
+</li><li class="li-toc"><a href="#sec20">3.3  Some Examples of Case Analysis</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec21">3.3.1  The Empty Type</a>
+</li><li class="li-toc"><a href="#sec22">3.3.2  The Equality Type</a>
+</li><li class="li-toc"><a href="#sec23">3.3.3  The Predicate <span style="font-style:italic">n</span> &#X2264; <span style="font-style:italic">m</span></a>
+</li><li class="li-toc"><a href="#sec24">3.3.4  Vectors</a>
+</li></ul>
+</li><li class="li-toc"><a href="#sec25">3.4  Case Analysis and Logical Paradoxes</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec26">3.4.1  The Positivity Condition</a>
+</li><li class="li-toc"><a href="#sec28">3.4.2  Impredicative Inductive Types</a>
+</li><li class="li-toc"><a href="#sec29">3.4.3  Extraction Constraints</a>
+</li><li class="li-toc"><a href="#sec30">3.4.4  Strong Case Analysis on Proofs</a>
+</li><li class="li-toc"><a href="#sec31">3.4.5  Summary of Constraints</a>
+</li></ul>
+</li></ul>
+</li><li class="li-toc"><a href="#sec32">4  Some Proof Techniques Based on Case Analysis</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec33">4.1  Discrimination of introduction rules</a>
+</li><li class="li-toc"><a href="#sec34">4.2  Injectiveness of introduction rules</a>
+</li><li class="li-toc"><a href="#sec35">4.3  Inversion Techniques</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec36">4.3.1  Interactive mode</a>
+</li><li class="li-toc"><a href="#sec37">4.3.2  Static mode</a>
+</li></ul>
+</li></ul>
+</li><li class="li-toc"><a href="#sec38">5  Inductive Types and Structural Induction</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec39">5.1  Proofs by Structural Induction</a>
+</li><li class="li-toc"><a href="#sec40">5.2  Using Elimination Combinators.</a>
+</li><li class="li-toc"><a href="#sec41">5.3  Well-founded Recursion</a>
+</li></ul>
+</li><li class="li-toc"><a href="#sec42">6  A case study in dependent elimination</a>
+</li><li class="li-toc"><a href="#sec43">7  Co-inductive Types and Non-ending Constructions</a>
+<ul class="toc"><li class="li-toc">
+<a href="#sec44">7.1  Extensional Properties</a>
+</li><li class="li-toc"><a href="#sec45">7.2  About injection, discriminate, and inversion</a>
+</li></ul>
+</li></ul>
+<!--TOC section id="sec2" About this document-->
+<h2 id="sec2" class="section">1  About this document</h2><!--SEC END --><p>This document is an introduction to the definition and use of
+inductive and co-inductive types in the <em>Coq</em> proof environment. It was born from the
+notes written for the course about the version V5.10 of <em>Coq</em>, given
+by Eduardo Gimenez at
+the Ecole Normale Supérieure de Lyon in March 1996. This article is
+a revised and improved version of these notes for the version V8.0 of
+the system.</p><p>We assume that the reader has some familiarity with the
+proofs-as-programs paradigm of Logic [<a href="#Coquand%3Ametamathematical"></a>] and the generalities
+of the <em>Coq</em> system [<a href="#coqrefman"></a>]. You would take a greater advantage of
+this document if you first read the general tutorial about <em>Coq</em> and
+<em>Coq</em>&#X2019;s FAQ, both available on [<a href="#coqsite"></a>].
+A text book [<a href="#coqart"></a>], accompanied with a lot of
+examples and exercises [<a href="#Booksite"></a>], presents a detailed description
+of the <em>Coq</em> system and its underlying
+formalism: the Calculus of Inductive Construction.
+Finally, the complete description of <em>Coq</em> is given in the reference manual
+[<a href="#coqrefman"></a>]. Most of the tactics and commands we describe have
+several options, which we do not present exhaustively. 
+If some script herein uses a non described feature, please refer to
+the Reference Manual.</p><p>If you are familiar with other proof environments
+based on type theory and the LCF style &#X2014;like PVS, LEGO, Isabelle,
+etc&#X2014; then you will find not difficulty to guess the unexplained
+details.</p><p>The better way to read this document is to start up the <em>Coq</em> system,
+type by yourself the examples and exercises, and observe the
+behavior of the system. All the examples proposed in this tutorial
+can be downloaded from the same site as the present document. </p><p>The tutorial is organised as follows. The next section describes how
+inductive types are defined in <em>Coq</em>, and introduces some useful ones,
+like natural numbers, the empty type, the propositional equality type,
+and the logical connectives. Section <a href="#CaseAnalysis">3</a> explains
+definitions by pattern-matching and their connection with the
+principle of case analysis. This principle is the most basic
+elimination rule associated with inductive or co-inductive types
+and follows a
+general scheme that we illustrate for some of the types introduced in
+Section <a href="#Introduction">2</a>. Section <a href="#CaseTechniques">4</a> illustrates
+the pragmatics of this principle, showing different proof techniques
+based on it. Section <a href="#StructuralInduction">5</a> introduces definitions
+by structural recursion and proofs by induction. 
+Section <a href="#CaseStudy">6</a> presents some elaborate techniques
+about dependent case analysis. Finally, Section
+<a href="#CoInduction">7</a> is a brief introduction to co-inductive types
+&#X2013;i.e., types containing infinite objects&#X2013; and the principle of
+co-induction.</p><p>Thanks to Bruno Barras, Yves Bertot, Hugo Herbelin, Jean-François Monin
+and Michel Lévy for their help.</p><!--TOC subsection id="sec3" Lexical conventions-->
+<h3 id="sec3" class="subsection">Lexical conventions</h3><!--SEC END --><p>
+The <span style="font-family:monospace">typewriter</span> font is used to represent text
+input by the user, while the <span style="font-style:italic">italic</span> font is used to represent
+the text output by the system as answers. </p><p>Moreover, the mathematical symbols &#X2264;, &#X2260;, &#X2203;,
+&#X2200;, &#X2192;, &#X2192; &#X2228;, &#X2227;, and &#X21D2; 
+stand for the character strings <span style="font-family:monospace">&lt;=</span>, <span style="font-family:monospace">&lt;&gt;</span>,
+<span style="font-family:monospace">exists</span>, <span style="font-family:monospace">forall</span>, <span style="font-family:monospace">-&gt;</span>, <span style="font-family:monospace">&lt;-</span>,
+<span style="font-family:monospace">\/</span>, <span style="font-family:monospace">/\</span>, and <span style="font-family:monospace">=&gt;</span>,
+respectively. For instance, the <em>Coq</em> statement
+</p><pre>
+forall A:Type,(exists x : A, forall (y:A), x &lt;&gt; y) -&gt; 2 = 3
+</pre><p>
+is written as follows in this tutorial:
+</p><pre>
+&#X2200; A:Type,(&#X2203; x:A, &#X2200; y:A, x &#X2260; y) &#X2192; 2 = 3
+</pre><p>When a fragment of <em>Coq</em> input text appears in the middle of
+regular text, we often place this fragment between double quotes
+&#X201C;&#X2026;.&#X201D; These double quotes do not belong to the <em>Coq</em> syntax.</p><p>Finally, any
+string enclosed between <span style="font-family:monospace">(*</span> and <span style="font-family:monospace">*)</span> is a comment and
+is ignored by the <em>Coq</em> system.</p>
+<!--TOC section id="sec4" Introducing Inductive Types-->
+<h2 id="sec4" class="section">2  Introducing Inductive Types</h2><!--SEC END --><p> 
+<a id="Introduction"></a></p><p>Inductive types are types closed with respect to their introduction
+rules. These rules explain the most basic or <span style="font-style:oblique">canonical</span> ways
+of constructing an element of the type. In this sense, they
+characterize the recursive type. Different rules must be considered as
+introducing different objects. In order to fix ideas, let us introduce
+in <em>Coq</em> the most well-known example of a recursive type: the type of
+natural numbers.</p><pre>
+Inductive nat : Set := 
+ | O : nat 
+ | S : nat&#X2192;nat.
+</pre><p>The definition of a recursive type has two main parts. First, we
+establish what kind of recursive type we will characterize (a set, in
+this case). Second, we present the introduction rules that define the
+type (<span style="font-family:monospace">O</span> and <span style="font-family:monospace">S</span>), also called its <span style="font-style:oblique">constructors</span>. The constructors
+<span style="font-family:monospace">O</span> and <span style="font-family:monospace">S</span> determine all the elements of this type. In other
+words, if <span style="font-style:italic">n</span>:<span style="font-family:monospace">nat</span>, then <span style="font-style:italic">n</span> must have been introduced either
+by the rule <span style="font-family:monospace">O</span> or by an application of the rule <span style="font-family:monospace">S</span> to a
+previously constructed natural number. In this sense, we can say
+that <span style="font-family:monospace">nat</span> is <em>closed</em>. On the contrary, the type
+<span style="font-family:monospace">Set</span> is an <span style="font-style:italic">open</span> type, since we do not know <span style="font-style:italic">a priori</span> all
+the possible ways of introducing an object of type <span style="font-family:monospace">Set</span>.</p><p>After entering this command, the constants <span style="font-family:monospace">nat</span>, <span style="font-family:monospace">O</span> and <span style="font-family:monospace">S</span> are
+available in the current context. We can see their types using the
+<span style="font-family:monospace">Check</span> command :</p><pre>
+Check nat.
+<span style="font-style:italic">nat : Set
+<span style="font-family:monospace">Check O.
+<span style="font-style:italic">O : nat
+<span style="font-family:monospace">Check S.
+<span style="font-style:italic">S : nat </span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace">&#X2192;</span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> nat
+</span></span></span></span></span></pre><p>Moreover, <em>Coq</em> adds to the context three constants named
+<span style="font-family:monospace">nat_ind</span>, <span style="font-family:monospace">nat_rec</span> and <span style="font-family:monospace">nat_rect</span>, which
+correspond to different principles of structural induction on
+natural numbers that <em>Coq</em> infers automatically from the definition. We
+will come back to them in Section <a href="#StructuralInduction">5</a>.</p><p>In fact, the type of natural numbers as well as several useful
+theorems about them are already defined in the basic library of <em>Coq</em>,
+so there is no need to introduce them. Therefore, let us throw away
+our (re)definition of <span style="font-family:monospace">nat</span>, using the command <span style="font-family:monospace">Reset</span>.</p><pre>
+Reset nat.
+Print nat.
+<span style="font-style:italic">Inductive nat : Set :=  O : nat | S : nat </span>&#X2192;<span style="font-style:italic"> nat
+For S: Argument scope is [nat_scope]
+</span></pre><p>Notice that <em>Coq</em>&#X2019;s <em>interpretation scope</em> for natural numbers
+(called <span style="font-family:monospace">nat_scope</span>) 
+allows us to read and write natural numbers in decimal form (see [<a href="#coqrefman"></a>]). For instance, the constructor <span style="font-family:monospace">O</span> can be read or written
+as the digit 0, and the term &#X201C; <span style="font-family:monospace">S (S (S O))</span> &#X201D; as 3.</p><pre>
+Check O.
+<span style="font-style:italic"> 0 : nat.
+<span style="font-family:monospace">
+Check (S (S (S O))).
+<span style="font-style:italic"> 3 : nat
+</span></span></span></pre><p>Let us now take a look to some other
+recursive types contained in the standard library of <em>Coq</em>.</p>
+<!--TOC subsection id="sec5" Lists-->
+<h3 id="sec5" class="subsection">2.1  Lists</h3><!--SEC END --><p>
+Lists are defined in library <span style="font-family:monospace">List</span><sup><a id="text4" href="#note4">2</a></sup></p><pre>
+Require Import List.
+Print list.
+<span style="font-style:italic">
+Inductive list (A : Type) : Type:=
+    nil : list A | cons : A </span>&#X2192;<span style="font-style:italic"> list A </span>&#X2192;<span style="font-style:italic"> list A
+For nil: Argument A is implicit
+For cons: Argument A is implicit
+For list: Argument scope is [type_scope]
+For nil: Argument scope is [type_scope]
+For cons: Argument scopes are [type_scope _ _]
+</span></pre><p>In this definition, <span style="font-family:monospace">A</span> is a <em>general parameter</em>, global
+to both constructors.
+This kind of definition allows us to build a whole family of
+inductive types, indexed over the sort <span style="font-family:monospace">Type</span>.
+This can be observed if we consider the type of identifiers
+<span style="font-family:monospace">list</span>, <span style="font-family:monospace">cons</span> and <span style="font-family:monospace">nil</span>.
+Notice the notation <span style="font-family:monospace">(A := &#X2026;)</span> which must be used 
+when <em>Coq</em>&#X2019;s type inference algorithm cannot infer the implicit
+parameter <span style="font-family:monospace">A</span>.
+</p><pre>
+Check list.
+<span style="font-style:italic"> list
+     : Type </span>&#X2192;<span style="font-style:italic"> Type
+
+<span style="font-family:monospace"> Check (nil (A:=nat)).
+<span style="font-style:italic"> nil
+     : list nat
+
+<span style="font-family:monospace"> Check (nil (A:= nat </span></span></span></span><span style="font-family:monospace">&#X2192;</span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"> nat)).
+<span style="font-style:italic"> nil
+     : list (nat </span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace">&#X2192;</span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> nat)
+
+<span style="font-family:monospace"> Check (fun A: Type </span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-family:monospace">&#X21D2;</span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"> (cons (A:=A))).
+<span style="font-style:italic"> fun A : Type </span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X21D2;</span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> cons (A:=A)
+     : </span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X2200; </span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> A : Type, A </span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X2192;</span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> list A </span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X2192;</span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> list A
+
+<span style="font-family:monospace"> Check (cons 3 (cons 2 nil)).
+<span style="font-style:italic"> 3 :: 2 :: nil
+     : list nat
+
+<span style="font-family:monospace"> Check (nat :: bool ::nil).
+<span style="font-style:italic"> nat :: bool :: nil
+     : list Set
+
+<span style="font-family:monospace"> Check ((3&lt;=4) :: True ::nil).
+<span style="font-style:italic"> (3&lt;=4) :: True :: nil
+     : list Prop
+
+<span style="font-family:monospace"> Check (Prop::Set::nil).
+<span style="font-style:italic"> Prop::Set::nil
+     : list Type
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre>
+<!--TOC subsection id="sec6" Vectors.-->
+<h3 id="sec6" class="subsection">2.2  Vectors.</h3><!--SEC END --><p>
+<a id="vectors"></a></p><p>Like <span style="font-family:monospace">list</span>, <span style="font-family:monospace">vector</span> is a polymorphic type:
+if <span style="font-style:italic">A</span> is a type, and <span style="font-style:italic">n</span> a natural number, &#X201C; <span style="font-family:monospace">vector </span><span style="font-style:italic">A</span><span style="font-family:monospace"> </span><span style="font-style:italic">n</span> &#X201D;
+is the type of vectors of elements of <span style="font-style:italic">A</span> and size <span style="font-style:italic">n</span>.</p><pre>
+Require Import  Bvector.
+
+Print vector.
+<span style="font-style:italic">
+Inductive vector (A : Type) : nat </span>&#X2192;<span style="font-style:italic"> Type :=
+    Vnil : vector A 0
+  | Vcons : A </span>&#X2192;<span style="font-style:italic"> </span>&#X2200; <span style="font-style:italic"> n : nat, vector A n </span>&#X2192;<span style="font-style:italic"> vector A (S n)
+For vector: Argument scopes are [type_scope nat_scope]
+For Vnil: Argument scope is [type_scope]
+For Vcons: Argument scopes are [type_scope _ nat_scope _]
+</span></pre><p>Remark the difference between the two parameters <span style="font-style:italic">A</span> and <span style="font-style:italic">n</span>:
+The first one is a <span style="font-style:oblique">general parameter</span>, global to all the
+introduction rules,while the second one is an <span style="font-style:oblique">index</span>, which is
+instantiated differently in the introduction rules.
+Such types parameterized by regular
+values are called <em>dependent types</em>.</p><pre>
+Check (Vnil nat).
+<span style="font-style:italic"> Vnil nat
+     : vector nat 0
+
+<span style="font-family:monospace"> Check (fun (A:Type)(a:A)</span></span>&#X21D2;<span style="font-style:italic"><span style="font-family:monospace"> Vcons _ a _ (Vnil _)).
+<span style="font-style:italic"> fun (A : Type) (a : A) </span></span></span>&#X21D2;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> Vcons A a 0 (Vnil A)
+     : </span></span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> A : Type, A </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> vector A 1
+
+
+<span style="font-family:monospace"> Check (Vcons _ 5 _ (Vcons _ 3 _ (Vnil _))).
+<span style="font-style:italic"> Vcons nat 5 1 (Vcons nat 3 0 (Vnil nat))
+     : vector nat 2
+</span></span></span></span></span></pre>
+<!--TOC subsection id="sec7" The contradictory proposition.-->
+<h3 id="sec7" class="subsection">2.3  The contradictory proposition.</h3><!--SEC END --><p>
+Another example of an inductive type is the contradictory proposition.
+This type inhabits the universe of propositions, and has no element
+at all.
+</p><pre>
+Print False.
+<span style="font-style:italic"> Inductive False : Prop :=
+</span></pre><p>Notice that no constructor is given in this definition.</p>
+<!--TOC subsection id="sec8" The tautological proposition.-->
+<h3 id="sec8" class="subsection">2.4  The tautological proposition.</h3><!--SEC END --><p>
+Similarly, the
+tautological proposition <span style="font-family:monospace">True</span> is defined as an inductive type
+with only one element <span style="font-family:monospace">I</span>:</p><pre>
+Print True.
+<span style="font-style:italic">Inductive True : Prop :=  I : True
+</span></pre>
+<!--TOC subsection id="sec9" Relations as inductive types.-->
+<h3 id="sec9" class="subsection">2.5  Relations as inductive types.</h3><!--SEC END --><p>
+Some relations can also be introduced in a smart way as an inductive family
+of propositions. Let us take as example the order <span style="font-style:italic">n</span> &#X2264; <span style="font-style:italic">m</span> on natural
+numbers, called <span style="font-family:monospace">le</span> in <em>Coq</em>.
+This relation is introduced through
+the following definition, quoted from the standard library<sup><a id="text5" href="#note5">3</a></sup>:</p><pre>
+Print le. <span style="font-style:italic">
+Inductive le (n:nat) : nat</span>&#X2192;<span style="font-style:italic">Prop := 
+|  le_n: n </span>&#X2264;<span style="font-style:italic"> n 
+|  le_S: </span>&#X2200; <span style="font-style:italic"> m, n </span>&#X2264;<span style="font-style:italic"> m </span>&#X2192;<span style="font-style:italic"> n </span>&#X2264;<span style="font-style:italic"> S m.
+</span></pre><p>Notice that in this definition <span style="font-style:italic">n</span> is a general parameter,
+while the second argument of <span style="font-family:monospace">le</span> is an index (see section
+ <a href="#vectors">2.2</a>).
+This definition
+introduces the binary relation <span style="font-style:italic">n</span> &#X2264; <span style="font-style:italic">m</span> as the family of unary predicates
+&#X201C;<span style="font-style:oblique">to be greater or equal than a given </span><span style="font-style:italic">n</span>&#X201D;, parameterized by <span style="font-style:italic">n</span>.</p><p>The introduction rules of this type can be seen as a sort of Prolog
+rules for proving that a given integer <span style="font-style:italic">n</span> is less or equal than another one.
+In fact, an object of type <span style="font-style:italic">n</span>&#X2264; <span style="font-style:italic">m</span> is nothing but a proof 
+built up using the constructors <span style="font-style:oblique">le_n</span> and
+<span style="font-style:oblique">le_S</span> of this type. As an example, let us construct
+a proof that zero is less or equal than three using <em>Coq</em>&#X2019;s interactive
+proof mode.
+Such an object can be obtained applying three times the second
+introduction rule of <span style="font-family:monospace">le</span>, to a proof that zero is less or equal
+than itself,
+which is provided by the first constructor of <span style="font-family:monospace">le</span>:</p><pre>
+Theorem zero_leq_three: 0 &#X2264; 3.
+Proof.
+<span style="font-style:italic"> 1 subgoal
+
+============================
+ 0 </span>&#X2264;<span style="font-style:italic"> 3
+
+<span style="font-family:monospace">Proof.
+ constructor 2. 
+
+<span style="font-style:italic"> 1 subgoal
+============================
+  0 </span></span></span>&#X2264;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> 2
+
+<span style="font-family:monospace"> constructor 2.  
+<span style="font-style:italic"> 1 subgoal
+============================
+  0 </span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace">&#X2264;</span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> 1
+
+<span style="font-family:monospace"> constructor 2
+<span style="font-style:italic"> 1 subgoal
+============================
+  0 </span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X2264;</span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> 0
+
+<span style="font-family:monospace"> constructor 1.
+
+<span style="font-style:italic">Proof completed
+<span style="font-family:monospace">Qed.
+</span></span></span></span></span></span></span></span></span></span></pre><p>When
+the current goal is an inductive type, the tactic 
+&#X201C; <span style="font-family:monospace">constructor </span><span style="font-style:italic">i</span> &#X201D;  applies the <span style="font-style:italic">i</span>-th constructor in the
+definition of the type. We can take a look at the proof constructed
+using the command <span style="font-family:monospace">Print</span>:</p><pre>
+Print Print zero_leq_three.
+<span style="font-style:italic">zero_leq_three = 
+zero_leq_three = le_S 0 2 (le_S 0 1 (le_S 0 0 (le_n 0)))
+     : 0 </span>&#X2264;<span style="font-style:italic"> 3
+</span></pre><p>When the parameter <span style="font-style:italic">i</span> is not supplied, the tactic <span style="font-family:monospace">constructor</span>
+tries to apply &#X201C; <span style="font-family:monospace">constructor </span>1 &#X201D;, &#X201C; <span style="font-family:monospace">constructor </span>2 &#X201D;,&#X2026;,
+&#X201C; <span style="font-family:monospace">constructor </span><span style="font-style:italic">n</span> &#X201D; where <span style="font-style:italic">n</span> is the number of constructors
+of the inductive type (2 in our example) of the conclusion of the goal.
+Our little proof can thus be obtained iterating the tactic
+<span style="font-family:monospace">constructor</span> until it fails:</p><pre>
+Lemma zero_leq_three&#X2019;: 0 &#X2264; 3.
+ repeat constructor.
+Qed.
+</pre><p>Notice that the strict order on <span style="font-family:monospace">nat</span>, called <span style="font-family:monospace">lt</span>
+is not inductively defined: the proposition <span style="font-style:italic">n</span>&lt;<span style="font-style:italic">p</span> (notation for <span style="font-family:monospace">lt </span><span style="font-style:italic">n</span><span style="font-family:monospace"> </span><span style="font-style:italic">p</span>)
+is reducible to <span style="font-family:monospace">(S </span><span style="font-style:italic">n</span><span style="font-family:monospace">) </span>&#X2264;<span style="font-family:monospace"> p</span>.</p><pre>
+Print lt.
+<span style="font-style:italic">
+lt = fun n m : nat </span>&#X21D2;<span style="font-style:italic"> S n </span>&#X2264;<span style="font-style:italic"> m
+     : nat </span>&#X2192;<span style="font-style:italic"> nat </span>&#X2192;<span style="font-style:italic"> Prop
+<span style="font-family:monospace">
+Lemma zero_lt_three : 0 &lt; 3.
+Proof.
+ repeat constructor. 
+Qed.
+
+Print zero_lt_three.
+<span style="font-style:italic"> zero_lt_three = le_S 1 2 (le_S 1 1 (le_n 1))
+     : 0 &lt; 3
+</span></span></span></pre>
+<!--TOC subsection id="sec10" About general parameters (<em>Coq</em> version &#X2265; 8.1)-->
+<h3 id="sec10" class="subsection">2.6  About general parameters (<em>Coq</em> version &#X2265; 8.1)</h3><!--SEC END --><p>
+<a id="parameterstuff"></a></p><p>Since version 8.1, it is possible to write more compact inductive definitions
+than in earlier versions.</p><p>Consider the following alternative definition of the relation &#X2264; on 
+type <span style="font-family:monospace">nat</span>:</p><pre>
+Inductive le&#X2019;(n:nat):nat -&gt; Prop :=
+ | le&#X2019;_n : le&#X2019; n n
+ | le&#X2019;_S : forall p, le&#X2019; (S n) p -&gt; le&#X2019; n p.
+
+Hint Constructors le&#X2019;.
+</pre><p>We notice that the type of the second constructor of <span style="font-family:monospace">le&#X2019;</span>
+has an argument whose type is <span style="font-family:monospace">le&#X2019; (S n) p</span>. 
+This constrasts with earlier versions 
+of <em>Coq</em>, in which a general parameter <span style="font-style:italic">a</span> of an inductive
+type <span style="font-style:italic">I</span> had to appear only in applications of the form <span style="font-style:italic">I</span> &#X2026; <span style="font-style:italic">a</span>.</p><p>Since version 8.1, if <span style="font-style:italic">a</span> is a general parameter of an inductive 
+type <span style="font-style:italic">I</span>, the type of an argument of a constructor of <span style="font-style:italic">I</span> may be
+of the form <span style="font-style:italic">I</span> &#X2026; <span style="font-style:italic">t</span><sub><span style="font-style:italic">a</span></sub> , where <span style="font-style:italic">t</span><sub><span style="font-style:italic">a</span></sub> is any term.
+Notice that the final type of the constructors must be of the form
+<span style="font-style:italic">I</span> &#X2026; <span style="font-style:italic">a</span>, since these constructors describe how to form 
+inhabitants of type <span style="font-style:italic">I</span> &#X2026; <span style="font-style:italic">a</span> (this is the role of parameter <span style="font-style:italic">a</span>).</p><p>Another example of this new feature is <em>Coq</em>&#X2019;s definition of accessibility
+(see Section <a href="#WellFoundedRecursion">5.3</a>), which has a general parameter
+<span style="font-style:italic">x</span>; the constructor for the predicate
+&#X201C;<span style="font-style:italic">x</span> is accessible&#X201D; takes an argument of type &#X201C;<span style="font-style:italic">y</span> is accessible&#X201D;.</p><p>In earlier versions of <em>Coq</em>, a relation like <span style="font-family:monospace">le&#X2019;</span> would have to be
+defined without <span style="font-style:italic">n</span> being a general parameter.</p><pre>
+Reset le&#X2019;.
+
+Inductive le&#X2019;: nat-&gt; nat -&gt; Prop :=
+ | le&#X2019;_n : forall n, le&#X2019; n n
+ | le&#X2019;_S : forall n p, le&#X2019; (S n) p -&gt; le&#X2019; n p.
+</pre>
+<!--TOC subsection id="sec11" The propositional equality type.-->
+<h3 id="sec11" class="subsection">2.7  The propositional equality type.</h3><!--SEC END --><p> <a id="equality"></a>
+In <em>Coq</em>, the propositional equality between two inhabitants <span style="font-style:italic">a</span> and
+<span style="font-style:italic">b</span> of
+the same type <span style="font-style:italic">A</span> ,
+noted <span style="font-style:italic">a</span>=<span style="font-style:italic">b</span>, is introduced as a family of recursive predicates
+&#X201C; <span style="font-style:oblique">to be equal to </span><span style="font-style:italic">a</span> &#X201D;, parameterised by both <span style="font-style:italic">a</span> and its type
+<span style="font-style:italic">A</span>. This family of types has only one introduction rule, which
+corresponds to reflexivity.
+Notice that the syntax &#X201C;<span style="font-style:italic">a</span><span style="font-family:monospace"> = </span><span style="font-style:italic">b</span> &#X201D; is an abbreviation 
+for &#X201C;<span style="font-family:monospace">eq </span><span style="font-style:italic">a</span><span style="font-family:monospace"> </span><span style="font-style:italic">b</span> &#X201D;, and that the parameter <span style="font-style:italic">A</span> is <em>implicit</em>,
+as it can be infered from <span style="font-style:italic">a</span>.
+</p><pre>
+Print eq.
+<span style="font-style:italic"> Inductive eq (A : Type) (x : A) : A </span>&#X2192;<span style="font-style:italic"> Prop :=  
+    eq_refl : x = x
+For eq: Argument A is implicit
+For eq_refl: Argument A is implicit
+For eq: Argument scopes are [type_scope _ _]
+For eq_refl: Argument scopes are [type_scope _]
+</span></pre><p>Notice also that the first parameter <span style="font-style:italic">A</span> of <span style="font-family:monospace">eq</span> has type
+<span style="font-family:monospace">Type</span>. The type system of <em>Coq</em> allows us to consider equality between 
+various kinds of terms: elements of a set, proofs, propositions,
+types, and so on.
+Look at [<a href="#coqrefman"></a>, <a href="#coqart"></a>] to get more details on <em>Coq</em>&#X2019;s type
+system, as well as implicit arguments and argument scopes.</p><pre>
+Lemma eq_3_3 : 2 + 1 = 3.
+Proof.
+ reflexivity.
+Qed.
+
+Lemma eq_proof_proof : eq_refl (2*6) = eq_refl (3*4).
+Proof.
+ reflexivity.
+Qed.
+
+Print eq_proof_proof.
+<span style="font-style:italic"> eq_proof_proof = 
+eq_refl (eq_refl (3 * 4))
+     : eq_refl (2 * 6) = eq_refl (3 * 4)
+<span style="font-family:monospace">
+
+Lemma eq_lt_le : ( 2 &lt; 4) = (3 </span></span>&#X2264;<span style="font-style:italic"><span style="font-family:monospace"> 4).
+Proof.
+ reflexivity.
+Qed.
+
+Lemma eq_nat_nat : nat = nat.
+Proof.
+ reflexivity.
+Qed.
+
+Lemma eq_Set_Set : Set = Set.
+Proof.
+ reflexivity.
+Qed.
+</span></span></pre>
+<!--TOC subsection id="sec12" Logical connectives.-->
+<h3 id="sec12" class="subsection">2.8  Logical connectives.</h3><!--SEC END --><p> <a id="LogicalConnectives"></a>
+The conjunction and disjunction of two propositions are also examples
+of recursive types:</p><pre>
+Inductive or (A B : Prop) : Prop :=
+    or_introl : A &#X2192; A &#X2228; B | or_intror : B &#X2192; A &#X2228; B
+
+Inductive and (A B : Prop) : Prop :=  
+    conj : A &#X2192; B &#X2192; A &#X2227; B
+
+</pre><p>The propositions <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> are general parameters of these
+connectives. Choosing different universes for 
+<span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> and for the inductive type itself gives rise to different
+type constructors. For example, the type <span style="font-style:oblique">sumbool</span> is a
+disjunction but with computational contents.</p><pre>
+Inductive sumbool (A B : Prop) : Set :=
+    left : A &#X2192; {A} + {B} | right : B &#X2192; {A} + {B}
+</pre><p>This type &#X2013;noted <span style="font-family:monospace">{</span><span style="font-style:italic">A</span><span style="font-family:monospace">}+{</span><span style="font-style:italic">B</span><span style="font-family:monospace">}</span> in <em>Coq</em>&#X2013; can be used in <em>Coq</em>
+programs as a sort of boolean type, to check whether it is <span style="font-style:italic">A</span> or <span style="font-style:italic">B</span>
+that is true. The values &#X201C; <span style="font-family:monospace">left </span><span style="font-style:italic">p</span> &#X201D; and
+&#X201C; <span style="font-family:monospace">right </span><span style="font-style:italic">q</span> &#X201D; replace the boolean values <span style="font-style:oblique">true</span> and
+<span style="font-style:oblique">false</span>, respectively. The advantage of this type over
+<span style="font-style:oblique">bool</span> is that it makes available the proofs <span style="font-style:italic">p</span> of <span style="font-style:italic">A</span> or <span style="font-style:italic">q</span>
+of <span style="font-style:italic">B</span>, which could be necessary to construct a verification proof
+about the program.
+For instance, let us consider the certified program <span style="font-family:monospace">le_lt_dec</span>
+of the Standard Library.</p><pre>
+Require Import Compare_dec.
+Check le_lt_dec.
+<span style="font-style:italic">
+le_lt_dec
+     : </span>&#X2200; <span style="font-style:italic"> n m : nat, {n </span>&#X2264;<span style="font-style:italic"> m} + {m &lt; n}
+
+</span></pre><p>We use <span style="font-family:monospace">le_lt_dec</span> to build a function for computing
+the max of two natural numbers:</p><pre>
+Definition max (n p :nat) := match le_lt_dec n p with 
+                             | left _ &#X21D2; p
+                             | right _ &#X21D2; n
+                             end.
+</pre><p>In the following proof, the case analysis on the term
+&#X201C; <span style="font-family:monospace">le_lt_dec n p</span> &#X201D; gives us an access to proofs
+of <span style="font-style:italic">n</span>&#X2264; <span style="font-style:italic">p</span> in the first case, <span style="font-style:italic">p</span>&lt;<span style="font-style:italic">n</span> in the other.</p><pre>
+Theorem le_max : &#X2200;  n p, n &#X2264; p &#X2192; max n p = p.
+Proof.
+ intros n p ; unfold max ; case (le_lt_dec n p); simpl.
+<span style="font-style:italic">
+2 subgoals
+  
+  n : nat
+  p : nat
+  ============================
+   n </span>&#X2264;<span style="font-style:italic"> p </span>&#X2192;<span style="font-style:italic"> n </span>&#X2264;<span style="font-style:italic"> p </span>&#X2192;<span style="font-style:italic"> p = p
+
+subgoal 2 is:
+ p &lt; n </span>&#X2192;<span style="font-style:italic"> n </span>&#X2264;<span style="font-style:italic"> p </span>&#X2192;<span style="font-style:italic"> n = p
+<span style="font-family:monospace">
+ trivial.
+ intros; absurd (p &lt; p); eauto with arith.
+Qed.
+</span></span></pre><p>Once the program verified, the proofs are
+erased by the extraction procedure:</p><pre>
+Extraction max.
+<span style="font-style:italic">
+(** val max : nat </span>&#X2192;<span style="font-style:italic"> nat </span>&#X2192;<span style="font-style:italic"> nat **)
+
+let max n p =
+  match le_lt_dec n p with
+    | Left </span>&#X2192;<span style="font-style:italic"> p
+    | Right </span>&#X2192;<span style="font-style:italic"> n
+</span></pre><p>Another example of use of <span style="font-family:monospace">sumbool</span> is given in Section
+<a href="#WellFoundedRecursion">5.3</a>: the theorem <span style="font-family:monospace">eq_nat_dec</span> of
+library <span style="font-family:monospace">Coq.Arith.Peano_dec</span> is used in an euclidean division
+algorithm.</p>
+<!--TOC subsection id="sec13" The existential quantifier.-->
+<h3 id="sec13" class="subsection">2.9  The existential quantifier.</h3><!--SEC END --><p><a id="ex-def"></a>
+The existential quantifier is yet another example of a logical
+connective introduced as an inductive type.</p><pre>
+Inductive ex (A : Type) (P : A &#X2192; Prop) : Prop :=
+    ex_intro : &#X2200;  x : A, P x &#X2192; ex P
+</pre><p>Notice that <em>Coq</em> uses the abreviation &#X201C; &#X2203; <span style="font-family:monospace"> </span><span style="font-style:italic">x</span><span style="font-family:monospace">:</span><span style="font-style:italic">A</span><span style="font-family:monospace">, </span><span style="font-style:italic">B</span> &#X201D;
+for <br>
+&#X201C; <span style="font-family:monospace">ex (fun </span><span style="font-style:italic">x</span><span style="font-family:monospace">:</span><span style="font-style:italic">A</span><span style="font-family:monospace"> </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">B</span><span style="font-family:monospace">)</span> &#X201D;.</p><p>The former quantifier inhabits the universe of propositions.
+As for the conjunction and disjunction connectives, there is also another
+version of existential quantification inhabiting the universes <span style="font-family:monospace">Type</span><sub><span style="font-style:italic">i</span></sub>,
+which is written <span style="font-family:monospace">sig </span><span style="font-style:italic">P</span>. The syntax
+&#X201C; <span style="font-family:monospace">{</span><span style="font-style:italic">x</span><span style="font-family:monospace">:</span><span style="font-style:italic">A</span><span style="font-family:monospace"> | </span><span style="font-style:italic">B</span><span style="font-family:monospace">}</span> &#X201D; is an abreviation for &#X201C; <span style="font-family:monospace">sig (fun </span><span style="font-style:italic">x</span><span style="font-family:monospace">:</span><span style="font-style:italic">A</span><span style="font-family:monospace"> </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">B</span><span style="font-family:monospace">)</span> &#X201D;.</p>
+<!--TOC subsection id="sec14" Mutually Dependent Definitions-->
+<h3 id="sec14" class="subsection">2.10  Mutually Dependent Definitions</h3><!--SEC END --><p>
+<a id="MutuallyDependent"></a></p><p>Mutually dependent definitions of recursive types are also allowed in
+<em>Coq</em>. A typical example of these kind of declaration is the
+introduction of the trees of unbounded (but finite) width:
+<a id="Forest"></a>
+</p><pre> 
+Inductive tree(A:Type)   : Type :=
+    node : A &#X2192; forest A &#X2192; tree A 
+with  forest (A: Set)   : Type := 
+    nochild  : forest A |
+    addchild : tree A &#X2192; forest A &#X2192; forest A.
+</pre><p>
+Yet another example of mutually dependent types are the
+predicates <span style="font-family:monospace">even</span> and <span style="font-family:monospace">odd</span> on natural numbers:
+<a id="Even"></a>
+</p><pre> 
+Inductive 
+  even    : nat&#X2192;Prop :=
+    evenO : even  O |
+    evenS : &#X2200;  n, odd n &#X2192; even (S n)
+with
+  odd    : nat&#X2192;Prop :=
+    oddS : &#X2200;  n, even n &#X2192; odd (S n).
+</pre><pre>
+Lemma odd_49 : odd (7 * 7).
+ simpl; repeat constructor.
+Qed.
+</pre>
+<!--TOC section id="sec15" Case Analysis and Pattern-matching-->
+<h2 id="sec15" class="section">3  Case Analysis and Pattern-matching</h2><!--SEC END --><p>
+<a id="CaseAnalysis"></a>
+</p>
+<!--TOC subsection id="sec16" Non-dependent Case Analysis-->
+<h3 id="sec16" class="subsection">3.1  Non-dependent Case Analysis</h3><!--SEC END --><p>
+An <span style="font-style:oblique">elimination rule</span> for the type <span style="font-style:italic">A</span> is some way to use an
+object <span style="font-style:italic">a</span>:<span style="font-style:italic">A</span> in order to define an object in some type <span style="font-style:italic">B</span>. 
+A natural elimination rule for an inductive type is <em>case analysis</em>.</p><p>For instance, any value of type <span style="font-family:monospace">nat</span> is built using either <span style="font-family:monospace">O</span> or <span style="font-family:monospace">S</span>.
+Thus, a systematic way of building a value of type <span style="font-style:italic">B</span> from any 
+value of type <span style="font-family:monospace">nat</span> is to associate to <span style="font-family:monospace">O</span> a constant <span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub>:<span style="font-style:italic">B</span> and
+to every term of the form &#X201C; <span style="font-family:monospace">S </span><span style="font-style:italic">p</span> &#X201D; a term <span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub>:<span style="font-style:italic">B</span>. The following
+construction has type <span style="font-style:italic">B</span>:
+</p><pre>
+match <span style="font-style:italic">n</span> return <span style="font-style:italic">B</span> with O &#X21D2; <span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub> | S p &#X21D2; <span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub> end
+</pre><p>In most of the cases, <em>Coq</em> is able to infer the type <span style="font-style:italic">B</span> of the object
+defined, so the &#X201C;<span style="font-family:monospace">return </span><span style="font-style:italic">B</span>&#X201D; part can be omitted.</p><p>The computing rules associated with this construct are the expected ones 
+(the notation <span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub>{<span style="font-style:italic">q</span>/<span style="font-family:monospace">p</span>} stands for the substitution of <span style="font-style:italic">p</span> by
+<span style="font-style:italic">q</span> in <span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub> :)</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:right;white-space:nowrap" ><span style="font-family:monospace">match </span><span style="font-style:italic">O</span><span style="font-family:monospace"> return </span><span style="font-style:italic">b</span><span style="font-family:monospace"> with O </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub><span style="font-family:monospace"> | S p </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub><span style="font-family:monospace"> end</span></td><td style="text-align:center;white-space:nowrap" >=&#X21D2;</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub></td></tr>
+<tr><td style="text-align:right;white-space:nowrap" ><span style="font-family:monospace">match </span><span style="font-style:italic">S</span> <span style="font-style:italic">q</span><span style="font-family:monospace"> return </span><span style="font-style:italic">b</span><span style="font-family:monospace"> with O </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub><span style="font-family:monospace"> | S p </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub><span style="font-family:monospace"> end</span></td><td style="text-align:center;white-space:nowrap" >=&#X21D2;</td><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub>{<span style="font-style:italic">q</span>/<span style="font-family:monospace">p</span>}
+</td></tr>
+</table></td></tr>
+</table>
+<!--TOC subsubsection id="sec17" Example: the predecessor function.-->
+<h4 id="sec17" class="subsubsection">3.1.1  Example: the predecessor function.</h4><!--SEC END --><p><a id="firstpred"></a>
+An example of a definition by case analysis is the function which
+computes the predecessor of any given natural number:
+</p><pre>
+Definition pred (n:nat) := match n with
+                                   | O &#X21D2; O 
+                                   | S m &#X21D2; m 
+                           end.
+
+Eval simpl in pred 56.
+<span style="font-style:italic">    = 55
+     : nat
+<span style="font-family:monospace">
+Eval simpl in pred 0.
+<span style="font-style:italic">    = 0
+     : nat
+
+<span style="font-family:monospace">Eval simpl in fun p </span></span></span></span><span style="font-family:monospace">&#X21D2;</span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"> pred (S p).
+<span style="font-style:italic">     = fun p : nat </span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace">&#X21D2;</span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> p
+     : nat </span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace">&#X2192;</span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> nat
+</span></span></span></span></span></pre><p>As in functional programming, tuples and wild-cards can be used in
+patterns . Such
+definitions are automatically compiled by <em>Coq</em> into an expression which
+may contain several nested case expressions. For example, the 
+exclusive <em>or</em> on booleans can be defined as follows:
+</p><pre>
+Definition xorb (b1 b2:bool) :=
+ match b1, b2 with 
+ | false, true &#X21D2; true
+ | true, false &#X21D2; true
+ | _ , _       &#X21D2; false
+ end.
+</pre><p>This kind of definition is compiled in <em>Coq</em> as follows<sup><a id="text6" href="#note6">4</a></sup>:</p><pre>
+Print xorb.
+xorb = 
+fun b1 b2 : bool &#X21D2;
+if b1 then if b2 then false else true 
+      else if b2 then true else false
+     : bool &#X2192; bool &#X2192; bool
+</pre>
+<!--TOC subsection id="sec18" Dependent Case Analysis-->
+<h3 id="sec18" class="subsection">3.2  Dependent Case Analysis</h3><!--SEC END --><p>
+<a id="DependentCase"></a></p><p>For a pattern matching construct of the form
+&#X201C; <span style="font-family:monospace">match n with &#X2026;end</span> &#X201D; a more general typing rule
+is obtained considering that the type of the whole expression
+may also depend on <span style="font-family:monospace">n</span>.
+For instance, let us consider some function 
+<span style="font-style:italic">Q</span>:<span style="font-family:monospace">nat</span>&#X2192;<span style="font-family:monospace">Type</span>, and <span style="font-style:italic">n</span>:<span style="font-family:monospace">nat</span>.
+In order to build a term of type <span style="font-style:italic">Q</span> <span style="font-style:italic">n</span>, we can associate
+to the constructor <span style="font-family:monospace">O</span> some term <span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub>: <span style="font-style:italic">Q</span> <span style="font-family:monospace">O</span> and to
+the pattern &#X201C; <span style="font-family:monospace">S p</span> &#X201D; some term <span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub> : <span style="font-style:italic">Q</span> (<span style="font-style:italic">S</span> <span style="font-style:italic">p</span>).
+Notice that the terms <span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub> and <span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub> do not have the same type.</p><p>The syntax of the <em>dependent case analysis</em> and its
+associated typing rule make precise how the resulting
+type depends on the argument of the pattern matching, and
+which constraint holds on the branches of the pattern matching:</p><p><a id="Prod-sup-rule"></a>
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:left;white-space:nowrap" ><span style="font-style:italic">Q</span>: <span style="font-family:monospace">nat</span>&#X2192;<span style="font-family:monospace">Type</span>  <span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub>:<span style="font-style:italic">Q</span> <span style="font-family:monospace">O</span>    
+<span style="font-style:italic">p</span>:<span style="font-family:monospace">nat</span> <span style="font-size:large">&#X22A2;</span> <span style="font-style:italic">t</span><sub><span style="font-style:italic">p</span></sub> : <span style="font-style:italic">Q</span> (<span style="font-family:monospace">S</span> <span style="font-style:italic">p</span>)     <span style="font-style:italic">n</span>:<span style="font-family:monospace">nat</span> </td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td style="text-align:left;white-space:nowrap" ><span style="font-family:monospace">match </span><span style="font-style:italic">n</span><span style="font-family:monospace"> as </span><span style="font-style:italic">n</span><sub>0</sub><span style="font-family:monospace"> return </span><span style="font-style:italic">Q</span> <span style="font-style:italic">n</span><sub>0</sub><span style="font-family:monospace"> with | O </span>&#X21D2;<span style="font-style:italic">t</span><sub><span style="font-style:italic">O</span></sub><span style="font-family:monospace"> | S p </span>&#X21D2;<span style="font-style:italic">t</span><sub><span style="font-style:italic">S</span></sub><span style="font-family:monospace"> end</span>:<span style="font-style:italic">Q</span> <span style="font-style:italic">n</span>
+</td></tr>
+</table></td></tr>
+</table><p>The interest of this rule of <span style="font-style:oblique">dependent</span> pattern-matching is
+that it can also be read as the following logical principle (when <span style="font-style:italic">Q</span> has type <span style="font-family:monospace">nat</span>&#X2192;<span style="font-family:monospace">Prop</span>
+by <span style="font-family:monospace">Prop</span> in the type of <span style="font-style:italic">Q</span>): in order to prove
+that a property <span style="font-style:italic">Q</span> holds for all <span style="font-style:italic">n</span>, it is sufficient to prove that
+<span style="font-style:italic">Q</span> holds for <span style="font-family:monospace">O</span> and that for all <span style="font-style:italic">p</span>:<span style="font-family:monospace">nat</span>, <span style="font-style:italic">Q</span> holds for
+(<span style="font-family:monospace">S</span> <span style="font-style:italic">p</span>). The former, non-dependent version of case analysis can
+be obtained from this latter rule just taking <span style="font-style:italic">Q</span> as a constant
+function on <span style="font-style:italic">n</span>.</p><p>Notice that destructuring <span style="font-style:italic">n</span> into <span style="font-family:monospace">O</span> or &#X201C; <span style="font-family:monospace">S p</span> &#X201D;
+doesn&#X2019;t
+make appear in the goal the equalities &#X201C; <span style="font-style:italic">n</span>=<span style="font-family:monospace">O</span> &#X201D;
+and &#X201C; <span style="font-style:italic">n</span>=<span style="font-family:monospace">S p</span> &#X201D;.
+They are &#X201C;internalized&#X201D; in the rules above (see section <a href="#inversion">4.3</a>.)</p>
+<!--TOC subsubsection id="sec19" Example: strong specification of the predecessor function.-->
+<h4 id="sec19" class="subsubsection">3.2.1  Example: strong specification of the predecessor function.</h4><!--SEC END --><p>In Section <a href="#firstpred">3.1.1</a>, the predecessor function was defined directly
+as a function from <span style="font-family:monospace">nat</span> to <span style="font-family:monospace">nat</span>. It remains to prove
+that this function has some desired properties. Another way to proceed
+is to, first introduce a specification of what is the predecessor of a 
+natural number, under the form of a <em>Coq</em> type, then build an inhabitant 
+of this type: in other words, a realization of this specification. This way, the correctness
+of this realization is ensured by <em>Coq</em>&#X2019;s type system.</p><p>A reasonable specification for <span style="font-family:monospace">pred</span> is to say that for all <span style="font-style:italic">n</span>
+there exists another <span style="font-style:italic">m</span> such that either <span style="font-style:italic">m</span>=<span style="font-style:italic">n</span>=0, or (<span style="font-family:monospace">S</span> <span style="font-style:italic">m</span>)
+is equal to <span style="font-style:italic">n</span>. The function <span style="font-family:monospace">pred</span> should be just the way to
+compute such an <span style="font-style:italic">m</span>. </p><pre>
+Definition pred_spec (n:nat) := 
+   {m:nat | n=0&#X2227; m=0 &#X2228; n = S m}.
+  
+Definition  predecessor : &#X2200;  n:nat, pred_spec n.
+ intro n; case n.
+<span style="font-style:italic">  
+  n : nat
+  ============================
+   pred_spec 0
+
+<span style="font-family:monospace"> unfold pred_spec;exists 0;auto.
+<span style="font-style:italic">
+ =========================================
+ </span></span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> n0 : nat, pred_spec (S n0)
+<span style="font-family:monospace">
+ unfold pred_spec; intro n0; exists n0; auto.
+Defined.
+</span></span></span></span></pre><p>If we print the term built by <em>Coq</em>, its dependent pattern-matching structure can be observed:</p><pre>
+predecessor =  fun n : nat &#X21D2;
+<span style="font-weight:bold">match n as n0 return (pred_spec n0) with</span>
+<span style="font-weight:bold">| O </span>&#X21D2;
+    exist (fun m : nat &#X21D2; 0 = 0 &#X2227; m = 0 &#X2228; 0 = S m) 0
+      (or_introl (0 = 1) 
+                 (conj (eq_refl 0) (eq_refl 0)))
+<span style="font-weight:bold">| S n0 </span>&#X21D2;
+    exist (fun m : nat &#X21D2; S n0 = 0 &#X2227; m = 0 &#X2228; S n0 = S m) n0
+      (or_intror (S n0 = 0 &#X2227; n0 = 0) (eq_refl (S n0)))
+<span style="font-weight:bold">end</span>  : &#X2200;  n : nat, <span style="font-weight:bold">pred_spec n</span>
+</pre><p>Notice that there are many variants to the pattern &#X201C; <span style="font-family:monospace">intros &#X2026;; case &#X2026;</span> &#X201D;. Look at for tactics
+&#X201C; <span style="font-family:monospace">destruct</span> &#X201D;, &#X201C; <span style="font-family:monospace">intro </span><span style="font-family:monospace"><em>pattern</em></span> &#X201D;, etc. in 
+the reference manual and/or the book. </p><p>The command <span style="font-family:monospace">Extraction</span>  can be used to see the computational
+contents associated to the <em>certified</em> function <span style="font-family:monospace">predecessor</span>:
+</p><pre>
+Extraction predecessor.
+<span style="font-style:italic">
+(** val predecessor : nat </span>&#X2192;<span style="font-style:italic"> pred_spec **)
+
+let predecessor = function
+  | O </span>&#X2192;<span style="font-style:italic"> O
+  | S n0 </span>&#X2192;<span style="font-style:italic"> n0
+</span></pre><div class="theorem"><span style="font-weight:bold">Exercise 1</span>  <em> </em><a id="expand"></a><em>
+Prove the following theorem:
+</em><pre><em>
+Theorem nat_expand : </em>&#X2200; <em> n:nat, 
+      n = match n with 
+                  | 0 </em>&#X21D2;<em> 0 
+                  | S p </em>&#X21D2;<em> S p 
+          end.
+</em></pre><em>
+</em></div>
+<!--TOC subsection id="sec20" Some Examples of Case Analysis-->
+<h3 id="sec20" class="subsection">3.3  Some Examples of Case Analysis</h3><!--SEC END --><p>
+<a id="CaseScheme"></a>
+The reader will find in the Reference manual all details about
+typing case analysis (chapter 4: Calculus of Inductive Constructions,
+and chapter 15: Extended Pattern-Matching).</p><p>The following commented examples will show the different situations to consider.</p>
+<!--TOC subsubsection id="sec21" The Empty Type-->
+<h4 id="sec21" class="subsubsection">3.3.1  The Empty Type</h4><!--SEC END --><p>In a definition by case analysis, there is one branch for each
+introduction rule of the type. Hence, in a definition by case analysis
+on <span style="font-style:italic">p</span>:<span style="font-family:monospace">False</span> there are no cases to be considered. In other words, the
+rule of (non-dependent) case analysis for the type <span style="font-family:monospace">False</span> is 
+(for <span style="font-style:italic">s</span> in <span style="font-family:monospace">Prop</span>, <span style="font-family:monospace">Set</span> or <span style="font-family:monospace">Type</span>):</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" > <span style="font-style:italic">Q</span> : <span style="font-style:italic">s</span>     
+<span style="font-style:italic">p</span> : <span style="font-family:monospace">False</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-family:monospace">match </span><span style="font-style:italic">p</span><span style="font-family:monospace"> return </span><span style="font-style:italic">Q</span><span style="font-family:monospace"> with end</span> : <span style="font-style:italic">Q</span> </td></tr>
+</table>
+</div><p>As a corollary, if we could construct an object in <span style="font-family:monospace">False</span>, then it
+could be possible to define an object in any type. The tactic
+<span style="font-family:monospace">contradiction</span> 
+corresponds to the application of the elimination rule above. It
+searches in the context for an absurd hypothesis (this is, a
+hypothesis whose type is <span style="font-family:monospace">False</span>) and then proves the goal by a case
+analysis of it.</p><pre>
+Theorem fromFalse : False &#X2192; 0=1.
+Proof.
+ intro H. 
+ contradiction.
+Qed.
+</pre><p>In <em>Coq</em> the negation is defined as follows :</p><pre>
+Definition not (P:Prop) := P &#X2192; False
+</pre><p>The proposition &#X201C; <span style="font-family:monospace">not </span><span style="font-style:italic">A</span> &#X201D; is also written &#X201C; &#X223C; <span style="font-style:italic">A</span> &#X201D;.</p><p>If <span style="font-style:italic">A</span> and <span style="font-style:italic">B</span> are propositions, <span style="font-style:italic">a</span> is a proof of <span style="font-style:italic">A</span> and
+<span style="font-style:italic">H</span> is a proof of &#X223C; <span style="font-style:italic">A</span>,
+the term &#X201C; <span style="font-family:monospace">match </span><span style="font-style:italic">H</span> <span style="font-style:italic">a</span><span style="font-family:monospace"> return </span><span style="font-style:italic">B</span><span style="font-family:monospace"> with end</span> &#X201D; is a proof term of
+<span style="font-style:italic">B</span>.
+Thus, if your goal is <span style="font-style:italic">B</span> and you have some hypothesis <span style="font-style:italic">H</span>:&#X223C; <span style="font-style:italic">A</span>,
+the tactic &#X201C; <span style="font-family:monospace">case </span><span style="font-style:italic">H</span> &#X201D; generates a new subgoal with
+statement <span style="font-style:italic">A</span>, as shown by the following example<sup><a id="text7" href="#note7">5</a></sup>.</p><pre>
+Fact Nosense : 0 &#X2260; 0 &#X2192; 2 = 3.
+Proof.
+  intro H; case H.
+<span style="font-style:italic">
+===========================
+  0 = 0
+<span style="font-family:monospace">
+  reflexivity.
+Qed.
+</span></span></pre><p>The tactic &#X201C; <span style="font-family:monospace">absurd </span><span style="font-style:italic">A</span> &#X201D; (where <span style="font-style:italic">A</span> is any proposition), 
+is based on the same principle, but
+generates two subgoals: <span style="font-style:italic">A</span> and &#X223C; <span style="font-style:italic">A</span>, for solving <span style="font-style:italic">B</span>.</p>
+<!--TOC subsubsection id="sec22" The Equality Type-->
+<h4 id="sec22" class="subsubsection">3.3.2  The Equality Type</h4><!--SEC END --><p>Let <span style="font-style:italic">A</span>:<span style="font-family:monospace">Type</span>, <span style="font-style:italic">a</span>, <span style="font-style:italic">b</span> of type <span style="font-style:italic">A</span>, and &#X3C0; a proof of 
+<span style="font-style:italic">a</span>=<span style="font-style:italic">b</span>. Non dependent case analysis of &#X3C0; allows us to
+associate to any proof of &#X201C; <span style="font-style:italic">Q</span> <span style="font-style:italic">a</span> &#X201D; a proof of &#X201C; <span style="font-style:italic">Q</span> <span style="font-style:italic">b</span> &#X201D;,
+where <span style="font-style:italic">Q</span>:<span style="font-style:italic">A</span>&#X2192; <span style="font-style:italic">s</span> (where <span style="font-style:italic">s</span>&#X2208;{<span style="font-family:monospace">Prop</span>, <span style="font-family:monospace">Set</span>, <span style="font-family:monospace">Type</span>}).
+The following term is a proof of &#X201C; <span style="font-style:italic">Q</span> <span style="font-style:italic">a</span>  &#X2192;  <span style="font-style:italic">Q</span> <span style="font-style:italic">b</span> &#X201D;.</p><pre>
+fun H : Q a &#X21D2;
+  match &#X3C0; in (_ = y) return Q y with
+     eq_refl &#X21D2; H
+  end
+</pre><p>
+Notice the header of the <span style="font-family:monospace">match</span> construct.
+It expresses how the resulting type &#X201C; <span style="font-family:monospace">Q y</span> &#X201D; depends on 
+the <em>type</em> of <span style="font-family:monospace">p</span>.
+Notice also that in the pattern introduced by the keyword <span style="font-family:monospace">in</span>,
+the parameter <span style="font-family:monospace">a</span> in the type &#X201C; <span style="font-family:monospace">a = y</span> &#X201D; must be
+implicit, and replaced by a wildcard &#X2019;<span style="font-family:monospace">_</span>&#X2019;.</p><p>Therefore, case analysis on a proof of the equality <span style="font-style:italic">a</span>=<span style="font-style:italic">b</span>
+amounts to replacing all the occurrences of the term <span style="font-style:italic">b</span> with the term
+<span style="font-style:italic">a</span> in the goal to be proven. Let us illustrate this through an
+example: the transitivity property of this equality. 
+</p><pre>
+Theorem trans : &#X2200;  n m p:nat, n=m &#X2192; m=p &#X2192; n=p.
+Proof.
+ intros n m p eqnm.  
+<span style="font-style:italic">  
+  n : nat
+  m : nat
+  p : nat
+  eqnm : n = m
+  ============================
+   m = p </span>&#X2192;<span style="font-style:italic"> n = p
+<span style="font-family:monospace"> case eqnm.
+<span style="font-style:italic">
+  n : nat
+  m : nat
+  p : nat
+  eqnm : n = m
+  ============================
+   n = p </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> n = p
+<span style="font-family:monospace"> trivial.
+Qed.
+</span></span></span></span></pre><div class="theorem"><span style="font-weight:bold">Exercise 2</span>  <em>
+Prove the symmetry property of equality.
+</em></div><p>Instead of using <span style="font-family:monospace">case</span>, we can use the tactic 
+<span style="font-family:monospace">rewrite</span> . If <span style="font-style:italic">H</span> is a proof
+of <span style="font-style:italic">a</span>=<span style="font-style:italic">b</span>, then
+&#X201C; <span style="font-family:monospace">rewrite </span><span style="font-style:italic">H</span> &#X201D;
+performs a case analysis on a proof of <span style="font-style:italic">b</span>=<span style="font-style:italic">a</span>, obtained by applying a
+symmetry theorem to <span style="font-style:italic">H</span>. This application of symmetry allows us to rewrite
+the equality from left to right, which looks more natural. An optional
+parameter (either &#X2192; or &#X2190;) can be used to precise
+in which sense the equality must be rewritten. By default,
+&#X201C; <span style="font-family:monospace">rewrite</span> <span style="font-style:italic">H</span> &#X201D; corresponds to &#X201C; <span style="font-family:monospace">rewrite </span>&#X2192; <span style="font-style:italic">H</span> &#X201D;
+</p><pre>
+Lemma Rw :  &#X2200;  x y: nat, y = y * x &#X2192; y * x * x = y.
+ intros x y e; do 2 rewrite &lt;- e.
+<span style="font-style:italic">
+1 subgoal
+  
+  x : nat
+  y : nat
+  e : y = y * x
+  ============================
+   y = y
+<span style="font-family:monospace">
+ reflexivity.
+Qed.
+</span></span></pre><p>Notice that, if <span style="font-style:italic">H</span>:<span style="font-style:italic">a</span>=<span style="font-style:italic">b</span>, then the tactic &#X201C; <span style="font-family:monospace">rewrite </span><span style="font-style:italic">H</span> &#X201D;
+replaces <span style="font-style:oblique">all</span> the
+occurrences of <span style="font-style:italic">a</span> by <span style="font-style:italic">b</span>. However, in certain situations we could be
+interested in rewriting some of the occurrences, but not all of them.
+This can be done using the tactic <span style="font-family:monospace">pattern</span> . Let us consider yet another example to
+illustrate this.</p><p>Let us start with some simple theorems of arithmetic; two of them 
+are already proven in the Standard Library, the last is left as an exercise.</p><pre>
+<span style="font-style:italic">
+mult_1_l
+     : </span>&#X2200; <span style="font-style:italic"> n : nat, 1 * n = n
+
+mult_plus_distr_r
+     : </span>&#X2200; <span style="font-style:italic"> n m p : nat, (n + m) * p = n * p + m * p
+
+mult_distr_S : </span>&#X2200; <span style="font-style:italic"> n p : nat, n * p + p = (S n)* p.
+</span></pre><p>Let us now prove a simple result:</p><pre>
+Lemma four_n : &#X2200;  n:nat, n+n+n+n = 4*n.
+Proof.
+ intro n;rewrite &lt;- (mult_1_l n).
+<span style="font-style:italic">
+  n : nat
+  ============================
+   1 * n + 1 * n + 1 * n + 1 * n = 4 * (1 * n)
+</span></pre><p>We can see that the <span style="font-family:monospace">rewrite</span> tactic call replaced <em>all</em>
+the occurrences of <span style="font-family:monospace">n</span> by the term &#X201C; <span style="font-family:monospace">1 * n</span> &#X201D;.
+If we want to do the rewriting ony on the leftmost occurrence of
+<span style="font-family:monospace">n</span>, we can mark this occurrence using the <span style="font-family:monospace">pattern</span>
+tactic:</p><pre>
+ Undo.
+ intro n; pattern n at 1.
+ <span style="font-style:italic">
+ n : nat
+  ============================
+ (fun n0 : nat </span>&#X21D2;<span style="font-style:italic"> n0 + n + n + n = 4 * n) n
+</span></pre><p>
+Applying the tactic &#X201C; <span style="font-family:monospace">pattern n at 1</span> &#X201D; allowed us
+to explicitly abstract the first occurrence of <span style="font-family:monospace">n</span> from the
+goal, putting this goal under the form &#X201C; <span style="font-style:italic">Q</span><span style="font-family:monospace"> n</span> &#X201D;,
+thus pointing to <span style="font-family:monospace">rewrite</span> the particular predicate on <span style="font-style:italic">n</span>
+that we search to prove. </p><pre>
+ rewrite &lt;- mult_1_l.
+<span style="font-style:italic">
+1 subgoal
+  
+  n : nat
+  ============================
+   1 * n + n + n + n = 4 * n
+<span style="font-family:monospace">
+ repeat rewrite   mult_distr_S.
+<span style="font-style:italic">
+  n : nat
+  ============================
+   4 * n = 4 * n
+<span style="font-family:monospace">
+ trivial.
+Qed.
+</span></span></span></span></pre>
+<!--TOC subsubsection id="sec23" The Predicate <span style="font-style:italic">n</span> &#X2264; <span style="font-style:italic">m</span>-->
+<h4 id="sec23" class="subsubsection">3.3.3  The Predicate <span style="font-style:italic">n</span> &#X2264; <span style="font-style:italic">m</span></h4><!--SEC END --><p>The last but one instance of the elimination schema that we will illustrate is
+case analysis for the predicate <span style="font-style:italic">n</span> &#X2264; <span style="font-style:italic">m</span>:</p><p>Let <span style="font-style:italic">n</span> and <span style="font-style:italic">p</span> be terms of type <span style="font-family:monospace">nat</span>, and <span style="font-style:italic">Q</span> a predicate 
+of type <span style="font-family:monospace">nat</span>&#X2192;<span style="font-family:monospace">Prop</span>.
+If <span style="font-style:italic">H</span> is a proof of &#X201C; <span style="font-family:monospace">n </span>&#X2264;<span style="font-family:monospace"> p</span> &#X201D;,
+<span style="font-style:italic">H</span><sub>0</sub> a proof of &#X201C; <span style="font-style:italic">Q</span><span style="font-family:monospace"> n</span> &#X201D; and
+<span style="font-style:italic">H</span><sub><span style="font-style:italic">S</span></sub> a proof of the statement &#X201C; &#X2200; <span style="font-family:monospace">m:nat, n </span>&#X2264;<span style="font-family:monospace"> m </span>&#X2192;<span style="font-family:monospace"> Q (S m)</span> &#X201D;,
+then the term
+</p><pre>
+match H in (_ &#X2264; q) return (Q q) with
+    | le_n &#X21D2; H0
+    | le_S m Hm &#X21D2; HS m Hm
+end
+</pre><p>
+is a proof term of &#X201C; <span style="font-style:italic">Q</span><span style="font-family:monospace"> </span><span style="font-style:italic">p</span> &#X201D;.</p><p>The two patterns of this <span style="font-family:monospace">match</span> construct describe
+all possible forms of proofs of &#X201C; <span style="font-family:monospace">n </span>&#X2264;<span style="font-family:monospace"> m</span> &#X201D; (notice
+again that the general parameter <span style="font-family:monospace">n</span> is implicit in
+the &#X201C; <span style="font-family:monospace">in &#X2026;</span> &#X201D;
+clause and is absent from the match patterns.</p><p>Notice that the choice of introducing some of the arguments of the
+predicate as being general parameters in its definition has
+consequences on the rule of case analysis that is derived. In
+particular, the type <span style="font-style:italic">Q</span> of the object defined by the case expression
+only depends on the indexes of the predicate, and not on the general
+parameters. In the definition of the predicate &#X2264;, the first
+argument of this relation is a general parameter of the
+definition. Hence, the predicate <span style="font-style:italic">Q</span> to be proven only depends on the
+second argument of the relation. In other words, the integer <span style="font-style:italic">n</span> is
+also a general parameter of the rule of case analysis.</p><p>An example of an application of this rule is the following theorem,
+showing that any integer greater or equal than 1 is the successor of another
+natural number:</p><pre>
+Lemma predecessor_of_positive : 
+ &#X2200;  n, 1 &#X2264; n &#X2192; &#X2203;  p:nat, n = S p.
+Proof.
+ intros n H;case H.
+<span style="font-style:italic">
+  n : nat
+  H : 1 </span>&#X2264;<span style="font-style:italic"> n
+  ============================
+   </span>&#X2203; <span style="font-style:italic"> p : nat, 1 = S p
+<span style="font-family:monospace">
+  exists 0; trivial.
+<span style="font-style:italic">
+
+  n : nat
+  H : 1 </span></span></span>&#X2264;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> n
+  ============================
+   </span></span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> m : nat, 0 </span></span></span>&#X2264;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> m </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> </span></span></span>&#X2203; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> p : nat, S m = S p
+<span style="font-family:monospace">
+  intros m _  .
+  exists m.
+  trivial.
+Qed.
+</span></span></span></span></pre>
+<!--TOC subsubsection id="sec24" Vectors-->
+<h4 id="sec24" class="subsubsection">3.3.4  Vectors</h4><!--SEC END --><p>The <span style="font-family:monospace">vector</span> polymorphic and dependent family of types will
+give an idea of the most general scheme of pattern-matching.</p><p>For instance, let us define a function for computing the tail of
+any vector. Notice that we shall build a <em>total</em> function,
+by considering that the tail of an empty vector is this vector itself.
+In that sense, it will be slightly different from the <span style="font-family:monospace">Vtail</span>
+function of the Standard Library, which is defined only for vectors
+of type &#X201C; <span style="font-family:monospace">vector </span><span style="font-style:italic">A</span><span style="font-family:monospace"> (S </span><span style="font-style:italic">n</span><span style="font-family:monospace">)</span> &#X201D;.</p><p>The header of the function we want to build is the following:</p><pre class="verbatim">Definition Vtail_total 
+   (A : Type) (n : nat) (v : vector A n) : vector A (pred n):=
+</pre><p>Since the branches will not have the same type
+(depending on the parameter <span style="font-family:monospace">n</span>),
+the body of this function is a dependent pattern matching on 
+<span style="font-family:monospace">v</span>.
+So we will have :
+</p><pre class="verbatim">match v in (vector _ n0) return (vector A (pred n0)) with
+</pre><p>The first branch deals with the constructor <span style="font-family:monospace">Vnil</span> and must
+return a value in &#X201C; <span style="font-family:monospace">vector A (pred 0)</span> &#X201D;, convertible
+to &#X201C; <span style="font-family:monospace">vector A 0</span> &#X201D;. So, we propose:
+</p><pre>
+| Vnil &#X21D2; Vnil A
+</pre><p>The second branch considers a vector in &#X201C; <span style="font-family:monospace">vector A (S n0)</span> &#X201D;
+of the form
+&#X201C; <span style="font-family:monospace">Vcons A n0 v0</span> &#X201D;, with &#X201C; <span style="font-family:monospace">v0:vector A n0</span> &#X201D;,
+and must return a value of type &#X201C; <span style="font-family:monospace">vector A (pred (S n0))</span> &#X201D;,
+which is convertible to &#X201C; <span style="font-family:monospace">vector A n0</span> &#X201D;.
+This second branch is thus :
+</p><pre>
+| Vcons _ n0 v0 &#X21D2; v0
+</pre><p>Here is the full definition:</p><pre>
+Definition Vtail_total 
+   (A : Type) (n : nat) (v : vector A n) : vector A (pred n):=
+match v in (vector _ n0) return (vector A (pred n0)) with
+| Vnil &#X21D2; Vnil A
+| Vcons _ n0 v0 &#X21D2; v0
+end.
+</pre>
+<!--TOC subsection id="sec25" Case Analysis and Logical Paradoxes-->
+<h3 id="sec25" class="subsection">3.4  Case Analysis and Logical Paradoxes</h3><!--SEC END --><p>In the previous section we have illustrated the general scheme for
+generating the rule of case analysis associated to some recursive type
+from the definition of the type. However, if the logical soundness is
+to be preserved, certain restrictions to this schema are
+necessary. This section provides a brief explanation of these
+restrictions.</p>
+<!--TOC subsubsection id="sec26" The Positivity Condition-->
+<h4 id="sec26" class="subsubsection">3.4.1  The Positivity Condition</h4><!--SEC END --><p>
+<a id="postypes"></a></p><p>In order to make sense of recursive types as types closed under their
+introduction rules, a constraint has to be imposed on the possible
+forms of such rules. This constraint, known as the
+<span style="font-style:oblique">positivity condition</span>, is necessary to prevent the user from
+naively introducing some recursive types which would open the door to
+logical paradoxes. An example of such a dangerous type is the
+&#X201C;inductive type&#X201D; <span style="font-family:monospace">Lambda</span>, whose only constructor is 
+<span style="font-family:monospace">lambda</span> of type <span style="font-family:monospace">(Lambda</span>&#X2192;<span style="font-family:monospace">False)</span>&#X2192;<span style="font-family:monospace">Lambda</span>.
+Following the pattern
+given in Section <a href="#CaseScheme">3.3</a>, the rule of (non dependent) case
+analysis for <span style="font-family:monospace">Lambda</span> would be the following:</p><div class="center">
+<table style="border-spacing:6px;border-collapse:separate;" class="cellpading0"><tr><td style="text-align:center;white-space:nowrap" > <span style="font-style:italic">Q</span> : <span style="font-family:monospace">Prop</span>     
+<span style="font-style:italic">p</span> : <span style="font-family:monospace">Lambda</span>     
+<span style="font-style:italic">h</span> : <span style="font-family:monospace">Lambda</span>&#X2192;<span style="font-family:monospace">False</span>  &#X22A2;  <span style="font-style:italic">t</span> : <span style="font-style:italic">Q</span></td></tr>
+<tr><td class="hbar"></td></tr>
+<tr><td style="text-align:center;white-space:nowrap" ><span style="font-family:monospace">match </span><span style="font-style:italic">p</span><span style="font-family:monospace"> return </span><span style="font-style:italic">Q</span><span style="font-family:monospace"> with lambda h </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">t</span><span style="font-family:monospace"> end</span> : <span style="font-style:italic">Q</span> </td></tr>
+</table>
+</div><p>In order to avoid paradoxes, it is impossible to construct
+the type <span style="font-family:monospace">Lambda</span> in <em>Coq</em>:</p><pre>
+Inductive Lambda : Set :=
+  lambda : (Lambda &#X2192; False) &#X2192; Lambda. 
+<span style="font-style:italic">
+Error: Non strictly positive occurrence of "Lambda" in
+ "(Lambda </span>&#X2192;<span style="font-style:italic"> False) </span>&#X2192;<span style="font-style:italic"> Lambda"
+</span></pre><p>In order to explain this danger, we
+will declare some constants for simulating the construction of 
+<span style="font-family:monospace">Lambda</span> as an inductive type.</p><p>Let us open some section, and declare two variables, the first one for
+<span style="font-family:monospace">Lambda</span>, the other for the constructor <span style="font-family:monospace">lambda</span>.</p><pre>
+Section Paradox.
+Variable Lambda : Set.
+Variable lambda : (Lambda &#X2192; False) &#X2192;Lambda.
+</pre><p>Since <span style="font-family:monospace">Lambda</span> is not a truely inductive type, we can&#X2019;t use
+the <span style="font-family:monospace">match</span> construct. Nevertheless, we can simulate it by a
+variable <span style="font-family:monospace">matchL</span> such that the term 
+&#X201C; <span style="font-family:monospace">matchL </span><span style="font-style:italic">l</span><span style="font-family:monospace"> </span><span style="font-style:italic">Q</span><span style="font-family:monospace"> (fun </span><span style="font-style:italic">h</span><span style="font-family:monospace"> : Lambda </span>&#X2192;<span style="font-family:monospace"> False </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">t</span><span style="font-family:monospace">)</span> &#X201D;
+should be understood as 
+&#X201C; <span style="font-family:monospace">match </span><span style="font-style:italic">l</span><span style="font-family:monospace"> return </span><span style="font-style:italic">Q</span><span style="font-family:monospace"> with | lambda h </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">t</span><span style="font-family:monospace">)</span> &#X201D;</p><pre>
+Variable matchL : Lambda &#X2192; 
+                  &#X2200;  Q:Prop, ((Lambda &#X2192;False) &#X2192; Q) &#X2192;
+                  Q.
+</pre><p>&gt;From these constants, it is possible to define application by case
+analysis. Then, through auto-application, the well-known looping term
+(&#X3BB; <span style="font-style:italic">x</span>.(<span style="font-style:italic">x</span> <span style="font-style:italic">x</span>) &#X3BB; <span style="font-style:italic">x</span>.(<span style="font-style:italic">x</span> <span style="font-style:italic">x</span>)) provides a proof of falsehood.</p><pre>
+Definition application (f x: Lambda) :False :=
+  matchL f False (fun h &#X21D2; h x).
+
+Definition Delta :  Lambda := 
+  lambda (fun x : Lambda &#X21D2; application x x).
+
+Definition loop : False := application Delta Delta.
+
+Theorem two_is_three : 2 = 3.
+Proof.
+ elim loop.
+Qed.
+
+End Paradox.
+</pre><p>This example can be seen as a formulation of Russell&#X2019;s
+paradox in type theory associating (<span style="font-style:oblique">application</span> <span style="font-style:italic">x</span> <span style="font-style:italic">x</span>) to the
+formula <span style="font-style:italic">x</span>&#X2209;<span style="font-style:italic">x</span>, and <span style="font-style:oblique">Delta</span> to the set { <span style="font-style:italic">x</span> &#X2223;
+<span style="font-style:italic">x</span>&#X2209;<span style="font-style:italic">x</span>}. If <span style="font-family:monospace">matchL</span> would satisfy the reduction rule
+associated to case analysis, that is, 
+</p><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><span style="font-family:monospace">matchL (lambda </span><span style="font-style:italic">f</span><span style="font-family:monospace">) </span><span style="font-style:italic">Q</span><span style="font-family:monospace"> </span><span style="font-style:italic">h</span> =&#X21D2; <span style="font-style:italic">h</span> <span style="font-style:italic">f</span></td></tr>
+</table><p>
+then the term <span style="font-family:monospace">loop</span>
+would compute into itself. This is not actually surprising, since the
+proof of the logical soundness of <em>Coq</em> strongly lays on the property
+that any well-typed term must terminate. Hence, non-termination is
+usually a synonymous of inconsistency.</p><!--TOC subsubsection id="sec27" Remark-->
+<h4 id="sec27" class="subsubsection">Remark</h4><!--SEC END --><p> In this case, the construction of a non-terminating
+program comes from the so-called <span style="font-style:oblique">negative occurrence</span> of
+<span style="font-family:monospace">Lambda</span> in the argument of the constructor <span style="font-family:monospace">lambda</span>. </p><p>The reader will find in the Reference Manual a complete formal 
+definition of the notions of <em>positivity condition</em> and
+<em>strict positivity</em> that an inductive definition must satisfy.</p><p>Notice that the positivity condition does not forbid us to
+put functional recursive
+arguments in the constructors. </p><p>For instance, let us consider the type of infinitely branching trees,
+with labels in <span style="font-family:monospace">Z</span>.
+</p><pre>
+Require Import ZArith.
+
+Inductive itree : Set :=
+| ileaf : itree
+| inode : Z &#X2192; (nat &#X2192; itree) &#X2192; itree.
+</pre><p>In this representation, the <span style="font-style:italic">i</span>-th child of a tree 
+represented by &#X201C; <span style="font-family:monospace">inode </span><span style="font-style:italic">z</span><span style="font-family:monospace"> </span><span style="font-style:italic">s</span> &#X201D; is obtained by applying
+the function <span style="font-style:italic">s</span> to <span style="font-style:italic">i</span>.
+The following definitions show how to construct a tree with a single 
+node, a tree of height 1 and a tree of height 2:</p><pre>
+Definition isingle l := inode l (fun i &#X21D2; ileaf).
+
+Definition t1 := inode 0 (fun n &#X21D2; isingle (Z.of_nat n)).
+
+Definition t2 := 
+ inode 0 
+      (fun n : nat &#X21D2; 
+                   inode (Z.of_nat n)
+                   (fun p &#X21D2; isingle (Z.of_nat (n*p)))).
+</pre><p>Let us define a preorder on infinitely branching trees.
+In order to compare two non-leaf trees,
+it is necessary to compare each of their children 
+without taking care of the order in which they
+appear:</p><pre>
+Inductive itree_le : itree&#X2192; itree &#X2192; Prop :=
+  | le_leaf : &#X2200;  t, itree_le  ileaf t
+  | le_node : &#X2200;  l l&#X2019; s s&#X2019;, 
+                Z.le l l&#X2019; &#X2192;
+                (&#X2200;  i, &#X2203;  j:nat, itree_le (s i) (s&#X2019; j))&#X2192; 
+                itree_le  (inode  l s) (inode  l&#X2019; s&#X2019;).
+
+</pre><p>Notice that a call to the predicate <span style="font-family:monospace">itree_le</span> appears as
+a general parameter of the inductive type <span style="font-family:monospace">ex</span> (see Sect.<a href="#ex-def">2.9</a>).
+This kind of definition is accepted by <em>Coq</em>, but may lead to some
+difficulties, since the induction principle automatically 
+generated by the system
+is not the most appropriate (see chapter 14 of [<a href="#coqart"></a>] for a detailed
+explanation).</p><p>The following definition, obtained by 
+skolemising the
+proposition <br>
+&#X2200;  <span style="font-style:italic">i</span>,&#X2203;  <span style="font-style:italic">j</span>,(<span style="font-family:monospace">itree_le</span> (<span style="font-style:italic">s</span> <span style="font-style:italic">i</span>) (<span style="font-style:italic">s</span>&#X2032; <span style="font-style:italic">j</span>)) in
+the type of <span style="font-family:monospace">itree_le</span>, does not present this problem:</p><pre> 
+Inductive itree_le&#X2019; : itree&#X2192; itree &#X2192; Prop :=
+  | le_leaf&#X2019;  : &#X2200;  t, itree_le&#X2019;  ileaf t
+  | le_node&#X2019; : &#X2200;  l l&#X2019; s s&#X2019; g, 
+                  Z.le l l&#X2019; &#X2192;
+                  (&#X2200;  i, itree_le&#X2019; (s i) (s&#X2019; (g i))) &#X2192; 
+                  itree_le&#X2019;  (inode  l s) (inode  l&#X2019; s&#X2019;).
+
+</pre><p>Another example is the type of trees 
+of unbounded width, in which a recursive subterm 
+<span style="font-family:monospace">(ltree A)</span> instantiates the type of polymorphic lists:</p><pre> 
+Require Import List.
+
+Inductive ltree  (A:Set) : Set :=  
+          lnode   : A &#X2192; list (ltree A) &#X2192; ltree A.
+</pre><p>This declaration can be transformed 
+adding an extra type to the definition, as was done in Section
+<a href="#MutuallyDependent">2.10</a>.</p>
+<!--TOC subsubsection id="sec28" Impredicative Inductive Types-->
+<h4 id="sec28" class="subsubsection">3.4.2  Impredicative Inductive Types</h4><!--SEC END --><p>An inductive type <span style="font-style:italic">I</span> inhabiting a universe <span style="font-style:italic">U</span> is <span style="font-style:oblique">predicative</span>
+if the introduction rules of <span style="font-style:italic">I</span> do not make a universal
+quantification on a universe containing <span style="font-style:italic">U</span>. All the recursive types
+previously introduced are examples of predicative types. An example of
+an impredicative one is the following type:
+</p><pre>
+Inductive prop : Prop :=
+ prop_intro : Prop &#X2192; prop.
+</pre><p>Notice
+that the constructor of this type can be used to inject any
+proposition &#X2013;even itself!&#X2013; into the type. </p><pre>
+Check (prop_intro prop).<span style="font-style:italic">
+prop_intro prop
+     : prop
+</span></pre><p>A careless use of such a
+self-contained objects may lead to a variant of Burali-Forti&#X2019;s
+paradox. The construction of Burali-Forti&#X2019;s paradox is more
+complicated than Russel&#X2019;s one, so we will not describe it here, and
+point the interested reader to [<a href="#Bar98"></a>, <a href="#Coq86"></a>].</p><p>Another example is the second order existential quantifier for propositions:</p><pre>
+Inductive ex_Prop  (P : Prop &#X2192; Prop) : Prop :=
+  exP_intro : &#X2200;  X : Prop, P X &#X2192; ex_Prop P.
+</pre><p>Notice that predicativity on sort <span style="font-family:monospace">Set</span> forbids us to build
+the following definitions.</p><pre>
+Inductive aSet : Set :=
+  aSet_intro: Set &#X2192; aSet.
+
+<span style="font-style:italic">User error: Large non-propositional inductive types must be in Type
+<span style="font-family:monospace"> 
+Inductive ex_Set  (P : Set </span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"> Prop) : Set :=
+  exS_intro : </span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"> X : Set, P X </span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"> ex_Set P.
+
+<span style="font-style:italic">User error: Large non-propositional inductive types must be in Type
+</span></span></span></pre><p>Nevertheless, one can define types like <span style="font-family:monospace">aSet</span> and <span style="font-family:monospace">ex_Set</span>, as inhabitants of <span style="font-family:monospace">Type</span>.</p><pre>
+Inductive ex_Set  (P : Set &#X2192; Prop) : Type :=
+  exS_intro : &#X2200;  X : Set, P X &#X2192; ex_Set P.
+</pre><p>In the following example, the inductive type <span style="font-family:monospace">typ</span> can be defined,
+but the term associated with the interactive Definition of
+<span style="font-family:monospace">typ_inject</span> is incompatible with <em>Coq</em>&#X2019;s hierarchy of universes:</p><pre>
+Inductive  typ : Type := 
+  typ_intro : Type &#X2192; typ. 
+
+Definition typ_inject: typ.
+ split; exact typ.
+<span style="font-style:italic"> Proof completed
+
+<span style="font-family:monospace">Defined.
+<span style="font-style:italic"> Error: Universe Inconsistency.
+<span style="font-family:monospace">
+Abort.
+</span></span></span></span></pre><p>One possible way of avoiding this new source of paradoxes is to
+restrict the kind of eliminations by case analysis that can be done on
+impredicative types. In particular, projections on those universes
+equal or bigger than the one inhabited by the impredicative type must
+be forbidden [<a href="#Coq86"></a>]. A consequence of this restriction is that it
+is not possible to define the first projection of the type
+&#X201C; <span style="font-family:monospace">ex_Prop </span><span style="font-style:italic">P</span> &#X201D;:
+</p><pre>
+Check (fun (P:Prop&#X2192;Prop)(p: ex_Prop P) &#X21D2;
+      match p with exP_intro X HX &#X21D2; X end).
+<span style="font-style:italic">
+Error:
+Incorrect elimination of "p" in the inductive type  
+"ex_Prop", the return type has sort "Type" while it should be 
+"Prop"
+
+Elimination of an inductive object of sort "Prop"
+is not allowed on a predicate in sort "Type"
+because proofs can be eliminated only to build proofs.
+</span></pre>
+<!--TOC subsubsection id="sec29" Extraction Constraints-->
+<h4 id="sec29" class="subsubsection">3.4.3  Extraction Constraints</h4><!--SEC END --><p>There is a final constraint on case analysis that is not motivated by
+the potential introduction of paradoxes, but for compatibility reasons
+with <em>Coq</em>&#X2019;s extraction mechanism . This mechanism is based on the
+classification of basic types into the universe <span style="font-family:monospace">Set</span> of sets and the
+universe <span style="font-family:monospace">Prop</span> of propositions. The objects of a type in the
+universe <span style="font-family:monospace">Set</span> are considered as relevant for computation
+purposes. The objects of a type in <span style="font-family:monospace">Prop</span> are considered just as
+formalised comments, not necessary for execution. The extraction
+mechanism consists in erasing such formal comments in order to obtain
+an executable program. Hence, in general, it is not possible to define
+an object in a set (that should be kept by the extraction mechanism)
+by case analysis of a proof (which will be thrown away).</p><p>Nevertheless, this general rule has an exception which is important in
+practice: if the definition proceeds by case analysis on a proof of a
+<span style="font-style:oblique">singleton proposition</span> or an empty type (<em>e.g.</em> <span style="font-family:monospace">False</span>),
+then it is allowed. A singleton
+proposition is a non-recursive proposition with a single constructor
+<span style="font-style:italic">c</span>, all whose arguments are proofs. For example, the propositional
+equality and the conjunction of two propositions are examples of
+singleton propositions.</p>
+<!--TOC subsubsection id="sec30" Strong Case Analysis on Proofs-->
+<h4 id="sec30" class="subsubsection">3.4.4  Strong Case Analysis on Proofs</h4><!--SEC END --><p>One could consider allowing 
+to define a proposition <span style="font-style:italic">Q</span> by case
+analysis on the proofs of another recursive proposition <span style="font-style:italic">R</span>. As we
+will see in Section <a href="#Discrimination">4.1</a>, this would enable one to prove that
+different introduction rules of <span style="font-style:italic">R</span> construct different
+objects. However, this property would be in contradiction with the principle
+of excluded middle of classical logic, because this principle entails
+that the proofs of a proposition cannot be distinguished. This
+principle is not provable in <em>Coq</em>, but it is frequently introduced by
+the users as an axiom, for reasoning in classical logic. For this
+reason, the definition of propositions by case analysis on proofs is
+not allowed in <em>Coq</em>.</p><pre>
+
+Definition comes_from_the_left (P Q:Prop)(H:P&#X2228;Q): Prop :=
+ match H with
+         |  or_introl p &#X21D2; True 
+         |  or_intror q &#X21D2; False
+ end.
+<span style="font-style:italic">
+Error:
+Incorrect elimination of "H" in the inductive type  
+"or", the return type has sort "Type" while it should be 
+"Prop"
+
+Elimination of an inductive object of sort "Prop"
+is not allowed on a predicate in sort "Type"
+because proofs can be eliminated only to build proofs.
+
+</span></pre><p>On the other hand, if we replace the proposition <span style="font-style:italic">P</span> &#X2228; <span style="font-style:italic">Q</span> with
+the informative type {<span style="font-style:italic">P</span>}+{<span style="font-style:italic">Q</span>}, the elimination is accepted:</p><pre>
+Definition comes_from_the_left_sumbool
+            (P Q:Prop)(x:{P} + {Q}): Prop :=
+  match x with
+         |  left  p &#X21D2; True 
+         |  right q &#X21D2; False
+  end.
+</pre>
+<!--TOC subsubsection id="sec31" Summary of Constraints-->
+<h4 id="sec31" class="subsubsection">3.4.5  Summary of Constraints</h4><!--SEC END --><p>To end with this section, the following table summarizes which
+universe <span style="font-style:italic">U</span><sub>1</sub> may inhabit an object of type <span style="font-style:italic">Q</span> defined by case
+analysis on <span style="font-style:italic">x</span>:<span style="font-style:italic">R</span>, depending on the universe <span style="font-style:italic">U</span><sub>2</sub> inhabited by the
+inductive types <span style="font-style:italic">R</span>.<sup><a id="text8" href="#note8">6</a></sup></p><div class="center">
+
+<table border=1  style="border-spacing:0;" class="cellpadding1"><tr><td style="text-align:center;border:solid 1px;white-space:nowrap" >5*<span style="font-style:italic">x</span> : <span style="font-style:italic">R</span> : <span style="font-style:italic">U</span><sub>2</sub></td><td style="text-align:center;border:solid 1px;white-space:nowrap"  colspan=4><span style="font-style:italic">Q</span> : <span style="font-style:italic">U</span><sub>1</sub></td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" >&nbsp;</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >&nbsp;</td><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-style:oblique">Set</span></td><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-style:oblique">Prop</span></td><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-style:oblique">Type</span></td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" >&nbsp;</td><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-style:oblique">Set</span></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >yes</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >yes</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >yes</td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" >&nbsp;</td><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-style:oblique">Prop</span></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >if <span style="font-style:italic">R</span> singleton</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >yes</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >no</td></tr>
+<tr><td style="text-align:center;border:solid 1px;white-space:nowrap" >&nbsp;</td><td style="text-align:center;border:solid 1px;white-space:nowrap" ><span style="font-style:oblique">Type</span></td><td style="text-align:center;border:solid 1px;white-space:nowrap" >yes</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >yes</td><td style="text-align:center;border:solid 1px;white-space:nowrap" >yes</td></tr>
+</table>
+</div>
+<!--TOC section id="sec32" Some Proof Techniques Based on Case Analysis-->
+<h2 id="sec32" class="section">4  Some Proof Techniques Based on Case Analysis</h2><!--SEC END --><p>
+<a id="CaseTechniques"></a></p><p>In this section we illustrate the use of case analysis as a proof
+principle, explaining the proof techniques behind three very useful
+<em>Coq</em> tactics, called <span style="font-family:monospace">discriminate</span>, <span style="font-family:monospace">injection</span> and
+<span style="font-family:monospace">inversion</span>. </p>
+<!--TOC subsection id="sec33" Discrimination of introduction rules-->
+<h3 id="sec33" class="subsection">4.1  Discrimination of introduction rules</h3><!--SEC END --><p>
+<a id="Discrimination"></a></p><p>In the informal semantics of recursive types described in Section
+<a href="#Introduction">2</a> it was said that each of the introduction rules of a
+recursive type is considered as being different from all the others. 
+It is possible to capture this fact inside the logical system using
+the propositional equality. We take as example the following theorem,
+stating that <span style="font-style:oblique">O</span> constructs a natural number different 
+from any of those constructed with <span style="font-family:monospace">S</span>. </p><pre>
+Theorem S_is_not_O : &#X2200;  n, S n &#X2260; 0. 
+</pre><p>In order to prove this theorem, we first define a proposition by case
+analysis on natural numbers, so that the proposition is true for <span style="font-family:monospace">O</span>
+and false for any natural number constructed with <span style="font-family:monospace">S</span>. This uses
+the empty and singleton type introduced in Sections <a href="#Introduction">2</a>.</p><pre>
+Definition Is_zero (x:nat):= match x with 
+                                     | 0 &#X21D2; True  
+                                     | _ &#X21D2; False
+                             end.
+</pre><p>Then, we prove the following lemma:</p><pre>
+Lemma O_is_zero : &#X2200;  m, m = 0 &#X2192; Is_zero m.
+Proof.
+  intros m H; subst m. 
+<span style="font-style:italic">
+================
+ Is_zero 0
+<span style="font-family:monospace">
+simpl;trivial.
+Qed.
+</span></span></pre><p>Finally, the proof of <span style="font-family:monospace">S_is_not_O</span> follows by the
+application of the previous lemma to <span style="font-style:italic">S</span> <span style="font-style:italic">n</span>.</p><pre>
+
+ red; intros n Hn.
+ <span style="font-style:italic">   
+  n : nat
+  Hn : S n = 0
+  ============================
+   False <span style="font-family:monospace">
+
+ apply O_is_zero with (m := S n).
+ assumption.
+Qed.
+</span></span></pre><p>The tactic <span style="font-family:monospace">discriminate</span>  is
+a special-purpose tactic for proving disequalities between two
+elements of a recursive type introduced by different constructors. It
+generalizes the proof method described here for natural numbers to any
+[co]-inductive type. This tactic is also capable of proving disequalities
+where the difference is not in the constructors at the head of the
+terms, but deeper inside them. For example, it can be used to prove
+the following theorem:</p><pre>
+Theorem disc2 : &#X2200;  n, S (S n) &#X2260; 1. 
+Proof.
+ intros n Hn; discriminate.
+Qed.
+</pre><p>When there is an assumption <span style="font-style:italic">H</span> in the context stating a false
+equality <span style="font-style:italic">t</span><sub>1</sub>=<span style="font-style:italic">t</span><sub>2</sub>, <span style="font-family:monospace">discriminate</span> solves the goal by first
+proving (<span style="font-style:italic">t</span><sub>1</sub>&#X2260;<span style="font-style:italic">t</span><sub>2</sub>) and then reasoning by absurdity with respect
+to <span style="font-style:italic">H</span>:</p><pre>
+Theorem disc3 : &#X2200;  n, S (S n) = 0 &#X2192; &#X2200;  Q:Prop, Q.
+Proof.
+ intros n Hn Q.
+ discriminate.
+Qed.
+</pre><p>In this case, the proof proceeds by absurdity with respect
+to the false equality assumed, whose negation is proved by
+discrimination.</p>
+<!--TOC subsection id="sec34" Injectiveness of introduction rules-->
+<h3 id="sec34" class="subsection">4.2  Injectiveness of introduction rules</h3><!--SEC END --><p>Another useful property about recursive types is the
+<span style="font-style:oblique">injectiveness</span> of introduction rules, i.e., that whenever two
+objects were built using the same introduction rule, then this rule
+should have been applied to the same element. This can be stated
+formally using the propositional equality:</p><pre>
+Theorem inj : &#X2200;  n m, S n = S m &#X2192; n = m.
+Proof.
+</pre><p>This theorem is just a corollary of a lemma about the
+predecessor function:</p><pre>
+ Lemma inj_pred : &#X2200;  n m, n = m &#X2192; pred n = pred m.
+ Proof.
+  intros n m eq_n_m.
+  rewrite eq_n_m.
+  trivial.
+ Qed.
+</pre><p>
+Once this lemma is proven, the theorem follows directly
+from it:
+</p><pre>
+ intros n m eq_Sn_Sm.
+ apply inj_pred with (n:= S n) (m := S m); assumption.
+Qed.
+</pre><p>This proof method is implemented by the tactic <span style="font-family:monospace">injection</span>
+. This tactic is applied to
+a term <span style="font-style:italic">t</span> of type &#X201C; <span style="font-style:italic">c</span> <span style="font-style:italic">t</span><sub>1</sub> &#X2026; <span style="font-style:italic">t</span><sub><span style="font-style:italic">n</span></sub> = <span style="font-style:italic">c</span> <span style="font-style:italic">t</span>&#X2032;<sub>1</sub> &#X2026; <span style="font-style:italic">t</span>&#X2032;<sub><span style="font-style:italic">n</span></sub> &#X201D;, where <span style="font-style:italic">c</span> is some constructor of
+an inductive type. The tactic <span style="font-family:monospace">injection</span> is applied as deep as 
+possible to derive the equality of all pairs of subterms of <span style="font-style:italic">t</span><sub><span style="font-style:italic">i</span></sub> and <span style="font-style:italic">t</span>&#X2032;<sub><span style="font-style:italic">i</span></sub>
+placed in the same position. All these equalities are put as antecedents 
+of the current goal.</p><p>Like <span style="font-family:monospace">discriminate</span>, the tactic <span style="font-family:monospace">injection</span> 
+can be also applied if <span style="font-style:italic">x</span> does not
+occur in a direct sub-term, but somewhere deeper inside it. Its
+application may leave some trivial goals that can be easily solved
+using the tactic <span style="font-family:monospace">trivial</span>.</p><pre>
+
+ Lemma list_inject : &#X2200;  (A:Type)(a b :A)(l l&#X2019;:list A),
+             a :: b :: l = b :: a :: l&#X2019; &#X2192; a = b &#X2227; l = l&#X2019;.
+Proof.
+ intros A a b l l&#X2019; e.
+
+
+<span style="font-style:italic">
+  e : a :: b :: l = b :: a :: l&#X2019;
+  ============================
+   a = b </span>&#X2227;<span style="font-style:italic"> l = l&#X2019;
+<span style="font-family:monospace">
+ injection e.
+<span style="font-style:italic">
+  ============================
+   l = l&#X2019; </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> b = a </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> a = b </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> a = b </span></span></span>&#X2227;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> l = l&#X2019;
+
+<span style="font-family:monospace"> auto.
+Qed.
+</span></span></span></span></pre>
+<!--TOC subsection id="sec35" Inversion Techniques-->
+<h3 id="sec35" class="subsection">4.3  Inversion Techniques</h3><!--SEC END --><p><a id="inversion"></a></p><p>In section <a href="#DependentCase">3.2</a>, we motivated the rule of dependent case
+analysis as a way of internalizing the informal equalities <span style="font-style:italic">n</span>=<span style="font-style:italic">O</span> and
+<span style="font-style:italic">n</span>=<span style="font-family:monospace">S</span> <span style="font-style:italic">p</span> associated to each case. This internalisation
+consisted in instantiating <span style="font-style:italic">n</span> with the corresponding term in the type
+of each branch. However, sometimes it could be better to internalise
+these equalities as extra hypotheses &#X2013;for example, in order to use
+the tactics <span style="font-family:monospace">rewrite</span>, <span style="font-family:monospace">discriminate</span> or
+<span style="font-family:monospace">injection</span> presented in the previous sections. This is
+frequently the case when the element analysed is denoted by a term
+which is not a variable, or when it is an object of a particular
+instance of a recursive family of types. Consider for example the
+following theorem:</p><pre>
+Theorem not_le_Sn_0 : &#X2200;  n:nat, ~ (S n &#X2264; 0).
+</pre><p>Intuitively, this theorem should follow by case analysis on
+the hypothesis <span style="font-style:italic">H</span>:(<span style="font-style:italic">S</span> <span style="font-style:italic">n</span> &#X2264; <span style="font-family:monospace">O</span>), because no introduction rule allows
+to instantiate the arguments of <span style="font-family:monospace">le</span> with respectively a successor
+and zero. However, there
+is no way of capturing this with the typing rule for case analysis
+presented in section <a href="#Introduction">2</a>, because it does not take into
+account what particular instance of the family the type of <span style="font-style:italic">H</span> is.
+Let us try it:
+</p><pre>
+Proof.
+ red; intros n H; case H.
+<span style="font-style:italic"> 2 subgoals
+  
+  n : nat
+  H : S n </span>&#X2264;<span style="font-style:italic"> 0
+  ============================
+   False
+
+subgoal 2 is:
+ </span>&#X2200; <span style="font-style:italic"> m : nat, S n </span>&#X2264;<span style="font-style:italic"> m </span>&#X2192;<span style="font-style:italic"> False
+<span style="font-family:monospace">
+Undo.
+</span></span></pre><p>What is necessary here is to make available the equalities
+&#X201C; <span style="font-family:monospace">S</span> <span style="font-style:italic">n</span> = <span style="font-family:monospace">O</span> &#X201D; and &#X201C; <span style="font-family:monospace">S</span> <span style="font-style:italic">m</span> = <span style="font-family:monospace">O</span> &#X201D;
+as extra hypotheses of the
+branches, so that the goal can be solved using the
+<span style="font-family:monospace">Discriminate</span> tactic. In order to obtain the desired
+equalities as hypotheses, let us prove an auxiliary lemma, that our
+theorem is a corollary of:</p><pre>
+ Lemma not_le_Sn_0_with_constraints :
+  &#X2200;  n p , S n &#X2264; p &#X2192;  p = 0 &#X2192; False.
+  Proof.
+   intros n p H; case H .
+<span style="font-style:italic">
+2 subgoals
+  
+  n : nat
+  p : nat
+  H : S n </span>&#X2264;<span style="font-style:italic"> p
+  ============================
+   S n = 0 </span>&#X2192;<span style="font-style:italic"> False
+
+subgoal 2 is:
+ </span>&#X2200; <span style="font-style:italic"> m : nat, S n </span>&#X2264;<span style="font-style:italic"> m </span>&#X2192;<span style="font-style:italic"> S m = 0 </span>&#X2192;<span style="font-style:italic"> False
+<span style="font-family:monospace">
+ intros;discriminate.
+ intros;discriminate.
+Qed.
+</span></span></pre><p>
+Our main theorem can now be solved by an application of this lemma:
+</p><pre>
+Show.
+<span style="font-style:italic">
+2 subgoals
+  
+  n : nat
+  p : nat
+  H : S n </span>&#X2264;<span style="font-style:italic"> p
+  ============================
+   S n = 0 </span>&#X2192;<span style="font-style:italic"> False
+
+subgoal 2 is:
+ </span>&#X2200; <span style="font-style:italic"> m : nat, S n </span>&#X2264;<span style="font-style:italic"> m </span>&#X2192;<span style="font-style:italic"> S m = 0 </span>&#X2192;<span style="font-style:italic"> False
+<span style="font-family:monospace">
+ eapply not_le_Sn_0_with_constraints; eauto.
+Qed.
+</span></span></pre><p>The general method to address such situations consists in changing the
+goal to be proven into an implication, introducing as preconditions
+the equalities needed to eliminate the cases that make no
+sense. This proof technique is implemented by the tactic
+<span style="font-family:monospace">inversion</span> . In order
+to prove a goal <span style="font-style:italic">G</span> <span style="font-style:italic">q</span><sup>&#X2192;</sup> from an object of type <span style="font-style:italic">R</span> <span style="font-style:italic">t</span><sup>&#X2192;</sup>,
+this tactic automatically generates a lemma &#X2200;, <span style="font-style:italic">x</span><sup>&#X2192;</sup>.
+(<span style="font-style:italic">R</span> <span style="font-style:italic">x</span><sup>&#X2192;</sup>) &#X2192; <span style="font-style:italic">x</span><sup>&#X2192;</sup>=<span style="font-style:italic">t</span><sup>&#X2192;</sup>&#X2192; <span style="font-style:italic">B</span><sup>&#X2192;</sup>&#X2192;
+(<span style="font-style:italic">G</span> <span style="font-style:italic">q</span><sup>&#X2192;</sup>), where the list of propositions <span style="font-style:italic">B</span><sup>&#X2192;</sup> correspond to
+the subgoals that cannot be directly proven using
+<span style="font-family:monospace">discriminate</span>. This lemma can either be saved for later
+use, or generated interactively. In this latter case, the subgoals
+yielded by the tactic are the hypotheses <span style="font-style:italic">B</span><sup>&#X2192;</sup> of the lemma. If the
+lemma has been stored, then the tactic <br>
+&#X201C; <span style="font-family:monospace">inversion &#X2026;using &#X2026;</span> &#X201D; can be
+used to apply it. </p><p>Let us show both techniques on our previous example:</p>
+<!--TOC subsubsection id="sec36" Interactive mode-->
+<h4 id="sec36" class="subsubsection">4.3.1  Interactive mode</h4><!--SEC END --><pre>
+Theorem not_le_Sn_0&#X2019; : &#X2200;  n:nat, ~ (S n &#X2264; 0).
+Proof.
+ red; intros n H ; inversion H.
+Qed.
+</pre>
+<!--TOC subsubsection id="sec37" Static mode-->
+<h4 id="sec37" class="subsubsection">4.3.2  Static mode</h4><!--SEC END --><pre>
+
+Derive Inversion le_Sn_0_inv with (&#X2200;  n :nat, S n &#X2264;  0).
+Theorem le_Sn_0&#X201D; : &#X2200;  n p : nat, ~ S n &#X2264; 0 .
+Proof.
+ intros n p H; 
+ inversion H using le_Sn_0_inv.
+Qed.
+</pre><p>In the example above, all the cases are solved using discriminate, so
+there remains no subgoal to be proven (i.e. the list <span style="font-style:italic">B</span><sup>&#X2192;</sup> is
+empty). Let us present a second example, where this list is not empty:</p><pre>
+TTheorem le_reverse_rules : 
+     &#X2200;  n m:nat, n &#X2264; m &#X2192; 
+                     n = m &#X2228;  
+                     &#X2203;  p, n &#X2264;  p &#X2227; m = S p.
+Proof.
+ intros n m H; inversion H.
+<span style="font-style:italic">
+2 subgoals
+
+
+
+  
+  n : nat
+  m : nat
+  H : n </span>&#X2264;<span style="font-style:italic"> m
+  H0 : n = m
+  ============================
+   m = m </span>&#X2228;<span style="font-style:italic"> (</span>&#X2203; <span style="font-style:italic"> p : nat, m </span>&#X2264;<span style="font-style:italic"> p </span>&#X2227;<span style="font-style:italic"> m = S p)
+
+subgoal 2 is:
+ n = S m0 </span>&#X2228;<span style="font-style:italic"> (</span>&#X2203; <span style="font-style:italic"> p : nat, n </span>&#X2264;<span style="font-style:italic"> p </span>&#X2227;<span style="font-style:italic"> S m0 = S p)
+<span style="font-family:monospace">
+ left;trivial.
+ right; exists m0; split; trivial.
+<span style="font-style:italic">
+Proof completed
+</span></span></span></pre><p>This example shows how this tactic can be used to &#X201C;reverse&#X201D; the
+introduction rules of a recursive type, deriving the possible premises
+that could lead to prove a given instance of the predicate. This is
+why these tactics are called <span style="font-family:monospace">inversion</span> tactics: they go back
+from conclusions to premises.</p><p>The hypotheses corresponding to the propositional equalities are not
+needed in this example, since the tactic does the necessary rewriting
+to solve the subgoals. When the equalities are no longer needed after
+the inversion, it is better to use the tactic
+<span style="font-family:monospace">Inversion_clear</span>. This variant of the tactic clears from the
+context all the equalities introduced.</p><pre>
+Restart.
+ intros n m H; inversion_clear H.
+<span style="font-style:italic">
+
+  
+  n : nat
+  m : nat
+  ============================
+   m = m </span>&#X2228;<span style="font-style:italic"> (</span>&#X2203; <span style="font-style:italic"> p : nat, m </span>&#X2264;<span style="font-style:italic"> p </span>&#X2227;<span style="font-style:italic"> m = S p)
+<span style="font-family:monospace">
+ left;trivial.
+<span style="font-style:italic">
+  n : nat
+  m : nat
+  m0 : nat
+  H0 : n </span></span></span>&#X2264;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> m0
+  ============================
+   n = S m0 </span></span></span>&#X2228;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> (</span></span></span>&#X2203; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> p : nat, n </span></span></span>&#X2264;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> p </span></span></span>&#X2227;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> S m0 = S p)
+<span style="font-family:monospace">
+ right; exists m0; split; trivial.
+Qed.
+</span></span></span></span></pre><div class="theorem"><span style="font-weight:bold">Exercise 1</span>  <em>
+Consider the following language of arithmetic expression, and 
+its operational semantics, described by a set of rewriting rules.
+</em><pre><em><em>
+Inductive ArithExp : Set :=
+   | Zero : ArithExp 
+   | Succ : ArithExp </em></em><em>&#X2192;</em><em><em> ArithExp
+   | Plus : ArithExp </em></em><em>&#X2192;</em><em><em> ArithExp </em></em><em>&#X2192;</em><em><em> ArithExp.
+
+Inductive RewriteRel : ArithExp </em></em><em>&#X2192;</em><em><em> ArithExp </em></em><em>&#X2192;</em><em><em> Prop :=
+  |  RewSucc  : </em></em><em>&#X2200; </em><em><em> e1 e2 :ArithExp,
+                  RewriteRel e1 e2 </em></em><em>&#X2192;</em><em><em>
+                   RewriteRel (Succ e1) (Succ e2) 
+  |  RewPlus0 : </em></em><em>&#X2200; </em><em><em> e:ArithExp,
+                  RewriteRel (Plus Zero e) e 
+  |  RewPlusS : </em></em><em>&#X2200; </em><em><em> e1 e2:ArithExp,
+                  RewriteRel e1 e2 </em></em><em>&#X2192;</em><em><em>
+                  RewriteRel (Plus (Succ e1) e2) 
+                             (Succ (Plus e1 e2)).
+
+</em></em></pre><ol class="enumerate" type=1><li class="li-enumerate"><em><em>
+</em></em><em><em>Prove that </em></em><em><em><span style="font-family:monospace">Zero</span></em></em><em><em> cannot be rewritten any further.
+</em></em></li><li class="li-enumerate"><em><em>Prove that an expression of the form &#X201C; </em></em><em><span style="font-family:monospace">Succ</span></em><em> </em><em><span style="font-style:italic">e</span></em><em><em> &#X201D; is always 
+rewritten
+into an expression of the same form.
+</em></em></li></ol></div>
+<!--TOC section id="sec38" Inductive Types and Structural Induction-->
+<h2 id="sec38" class="section">5  Inductive Types and Structural Induction</h2><!--SEC END --><p> 
+<a id="StructuralInduction"></a></p><p>Elements of inductive types are well-founded with
+respect to the structural order induced by the constructors of the
+type. In addition to case analysis, this extra hypothesis about
+well-foundedness justifies a stronger elimination rule for them, called
+<span style="font-style:oblique">structural induction</span>. This form of elimination consists in
+defining a value &#X201C; <span style="font-style:italic">f</span> <span style="font-style:italic">x</span> &#X201D; from some element <span style="font-style:italic">x</span> of the inductive type
+<span style="font-style:italic">I</span>, assuming that values have been already associated in the same way
+to the sub-parts of <span style="font-style:italic">x</span> of type <span style="font-style:italic">I</span>.</p><p>Definitions by structural induction are expressed through the
+<span style="font-family:monospace">Fixpoint</span> command . This command is quite close to the
+<span style="font-family:monospace">let-rec</span> construction of functional programming languages.
+For example, the following definition introduces the addition of two
+natural numbers (already defined in the Standard Library:)</p><pre> 
+Fixpoint plus (n p:nat) {struct n} : nat :=
+  match n with
+          | 0 &#X21D2; p
+          | S m &#X21D2; S (plus m p)
+ end.
+</pre><p>The definition is by structural induction on the first argument of the
+function. This is indicated by the &#X201C; <span style="font-family:monospace">{struct n}</span> &#X201D;
+directive in the function&#X2019;s header<sup><a id="text9" href="#note9">7</a></sup>.
+In
+order to be accepted, the definition must satisfy a syntactical
+condition, called the <span style="font-style:oblique">guardedness condition</span>. Roughly
+speaking, this condition constrains the arguments of a recursive call
+to be pattern variables, issued from a case analysis of the formal
+argument of the function pointed by the <span style="font-family:monospace">struct</span> directive.
+In the case of the
+function <span style="font-family:monospace">plus</span>, the argument <span style="font-family:monospace">m</span> in the recursive call is a
+pattern variable issued from a case analysis of <span style="font-family:monospace">n</span>. Therefore, the
+definition is accepted.</p><p>Notice that we could have defined the addition with structural induction 
+on its second argument:
+</p><pre> 
+Fixpoint plus&#X2019; (n p:nat) {struct p} : nat :=
+    match p with
+          | 0 &#X21D2; n
+          | S q &#X21D2; S (plus&#X2019; n q)
+    end.
+</pre><p>In the following definition of addition, 
+the second argument of <span style="font-family:monospace">plus</span><span style="font-family:monospace">&#X2019;</span><span style="font-family:monospace">&#X2019;</span> grows at each
+recursive call. However, as the first one always decreases, the
+definition is sound.
+</p><pre>
+Fixpoint plus&#X201D; (n p:nat) {struct n} : nat :=
+ match n with
+          | 0 &#X21D2; p
+          | S m &#X21D2; plus&#X201D; m (S p)
+ end.
+</pre><p>Moreover, the argument in the recursive call
+could be a deeper component of <span style="font-style:italic">n</span>. This is the case in the following
+definition of a boolean function determining whether a number is even
+or odd:</p><pre> 
+Fixpoint even_test (n:nat) : bool :=
+  match n 
+  with 0 &#X21D2;  true
+     | 1 &#X21D2;  false
+     | S (S p) &#X21D2; even_test p
+  end.
+</pre><p>Mutually dependent definitions by structural induction are also
+allowed. For example, the previous function <span style="font-style:oblique">even</span> could alternatively
+be defined using an auxiliary function <span style="font-style:oblique">odd</span>:</p><pre>
+Reset even_test.
+
+
+
+Fixpoint even_test (n:nat) : bool :=
+  match n 
+  with 
+      | 0 &#X21D2;  true
+      | S p &#X21D2; odd_test p
+  end
+with odd_test (n:nat) : bool :=
+  match n
+  with 
+     | 0 &#X21D2; false
+     | S p &#X21D2; even_test p
+ end.
+</pre><p>Definitions by structural induction are computed 
+only when they are applied, and the decreasing argument
+is a term having a constructor at the head. We can check this using
+the <span style="font-family:monospace">Eval</span> command, which computes the normal form of a well
+typed term.</p><pre>
+Eval simpl in even_test.
+<span style="font-style:italic">
+    = even_test
+     : nat </span>&#X2192;<span style="font-style:italic"> bool
+<span style="font-family:monospace"> 
+Eval simpl in (fun x : nat </span></span>&#X21D2;<span style="font-style:italic"><span style="font-family:monospace"> even x).
+<span style="font-style:italic">
+     = fun x : nat </span></span></span>&#X21D2;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> even x
+     : nat </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> Prop
+<span style="font-family:monospace">
+Eval simpl in (fun x : nat =&gt; plus 5 x).
+<span style="font-style:italic">
+     =  fun x : nat </span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace">&#X21D2;</span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> S (S (S (S (S x))))
+
+<span style="font-family:monospace">
+Eval simpl in (fun x : nat </span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-family:monospace">&#X21D2;</span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"> even_test (plus 5 x)).
+<span style="font-style:italic">
+    = fun x : nat </span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X21D2;</span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> odd_test x
+     : nat </span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X2192;</span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> bool
+<span style="font-family:monospace">
+Eval simpl in (fun x : nat </span></span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-family:monospace">&#X21D2;</span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"> even_test (plus x 5)).
+<span style="font-style:italic">
+    = fun x : nat </span></span></span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X21D2;</span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> even_test (x + 5)
+     : nat </span></span></span></span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace">&#X2192;</span></span></span></span></span></span><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> bool
+</span></span></span></span></span></span></span></span></span></pre>
+<!--TOC subsection id="sec39" Proofs by Structural Induction-->
+<h3 id="sec39" class="subsection">5.1  Proofs by Structural Induction</h3><!--SEC END --><p>The principle of structural induction can be also used in order to
+define proofs, that is, to prove theorems. Let us call an
+<span style="font-style:oblique">elimination combinator</span> any function that, given a predicate
+<span style="font-style:italic">P</span>, defines a proof of &#X201C; <span style="font-style:italic">P</span> <span style="font-style:italic">x</span> &#X201D; by structural induction on <span style="font-style:italic">x</span>. In
+<em>Coq</em>, the principle of proof by induction on natural numbers is a
+particular case of an elimination combinator. The definition of this
+combinator depends on three general parameters: the predicate to be
+proven, the base case, and the inductive step:</p><pre>
+Section Principle_of_Induction.
+Variable    P               : nat &#X2192; Prop.
+Hypothesis  base_case       : P 0.
+Hypothesis  inductive_step  : &#X2200;  n:nat, P n &#X2192; P (S n).
+Fixpoint nat_ind  (n:nat)   : (P n) := 
+   match n return P n with
+          | 0 &#X21D2; base_case
+          | S m &#X21D2; inductive_step m (nat_ind m)
+   end. 
+
+End Principle_of_Induction.
+</pre><p>As this proof principle is used very often, <em>Coq</em> automatically generates it
+when an inductive type is introduced. Similar principles
+<span style="font-family:monospace">nat_rec</span> and <span style="font-family:monospace">nat_rect</span> for defining objects in the
+universes <span style="font-family:monospace">Set</span> and <span style="font-family:monospace">Type</span> are also automatically generated
+<sup><a id="text10" href="#note10">8</a></sup>. The
+command <span style="font-family:monospace">Scheme</span>  can be
+used to generate an elimination combinator from certain parameters,
+like the universe that the defined objects must inhabit, whether the
+case analysis in the definitions must be dependent or not, etc. For
+example, it can be used to generate an elimination combinator for
+reasoning on even natural numbers from the mutually dependent
+predicates introduced in page <a href="#Even">??</a>. We do not display the
+combinators here by lack of space, but you can see them using the
+<span style="font-family:monospace">Print</span> command.</p><pre>
+Scheme Even_induction := Minimality for even Sort Prop
+with   Odd_induction  := Minimality for odd  Sort Prop.
+</pre><pre>
+Theorem even_plus_four : &#X2200;  n:nat, even n &#X2192; even (4+n).
+Proof.
+ intros n H.
+ elim H using Even_induction with (P0 := fun n &#X21D2; odd (4+n));
+ simpl;repeat constructor;assumption.
+Qed.
+</pre><p>Another example of an elimination combinator is the principle 
+of double induction on natural numbers, introduced by the following
+definition:</p><pre>
+Section Principle_of_Double_Induction.
+Variable    P              : nat &#X2192; nat &#X2192;Prop.
+Hypothesis  base_case1     : &#X2200;  m:nat, P 0 m.
+Hypothesis  base_case2     : &#X2200;  n:nat, P (S n) 0.
+Hypothesis  inductive_step : &#X2200;  n m:nat, P n m &#X2192;
+                                          P (S n) (S m).
+
+Fixpoint nat_double_ind (n m:nat){struct n} : P n m := 
+ match n, m return P n m with 
+ |     0 ,    x   &#X21D2;  base_case1 x 
+ |  (S x),    0   &#X21D2; base_case2 x
+ |  (S x), (S y) &#X21D2; inductive_step x y (nat_double_ind x y)
+ end.
+End Principle_of_Double_Induction.
+</pre><p>Changing the type of <span style="font-style:italic">P</span> into <span style="font-family:monospace">nat</span>&#X2192;<span style="font-family:monospace">nat</span>&#X2192;<span style="font-family:monospace">Type</span>,
+another combinator for constructing 
+(certified) programs, <span style="font-family:monospace">nat_double_rect</span>, can be defined in exactly the same way.
+This definition is left as an exercise.<a id="natdoublerect"></a></p><p>For instance the function computing the minimum of two natural
+numbers can be defined in the following way:</p><pre>
+Definition min : nat &#X2192; nat &#X2192; nat  := 
+  nat_double_rect (fun (x y:nat) &#X21D2; nat)
+                 (fun (x:nat) &#X21D2; 0)
+                 (fun (y:nat) &#X21D2; 0)
+                 (fun (x y r:nat) &#X21D2; S r).
+Eval compute in (min 5 8).
+<span style="font-style:italic">
+= 5 : nat
+</span></pre>
+<!--TOC subsection id="sec40" Using Elimination Combinators.-->
+<h3 id="sec40" class="subsection">5.2  Using Elimination Combinators.</h3><!--SEC END --><p> 
+The tactic <span style="font-family:monospace">apply</span> can be used to apply one of these proof
+principles during the development of a proof. </p><pre>
+Lemma not_circular : &#X2200;  n:nat, n &#X2260; S n.
+Proof.
+ intro n.
+ apply nat_ind with (P:= fun n &#X21D2; n &#X2260; S n).
+<span style="font-style:italic">
+
+
+
+2 subgoals
+  
+  n : nat
+  ============================
+   0 </span>&#X2260;<span style="font-style:italic"> 1
+
+
+subgoal 2 is:
+ </span>&#X2200; <span style="font-style:italic"> n0 : nat, n0 </span>&#X2260;<span style="font-style:italic"> S n0 </span>&#X2192;<span style="font-style:italic"> S n0 </span>&#X2260;<span style="font-style:italic"> S (S n0)
+
+<span style="font-family:monospace">
+ discriminate.
+ red; intros n0 Hn0 eqn0Sn0;injection eqn0Sn0;trivial.
+Qed.
+</span></span></pre><p>The tactic <span style="font-family:monospace">elim</span>  is a
+refinement of <span style="font-family:monospace">apply</span>, specially designed for the application
+of elimination combinators. If <span style="font-style:italic">t</span> is an object of an inductive type
+<span style="font-style:italic">I</span>, then &#X201C; <span style="font-family:monospace">elim </span><span style="font-style:italic">t</span> &#X201D; tries to find an abstraction <span style="font-style:italic">P</span> of the
+current goal <span style="font-style:italic">G</span> such that (<span style="font-style:italic">P</span> <span style="font-style:italic">t</span>)&#X2261; <span style="font-style:italic">G</span>. Then it solves the goal
+applying &#X201C; <span style="font-style:italic">I</span><span style="font-family:monospace">_ind</span> <span style="font-style:italic">P</span> &#X201D;, where <span style="font-style:italic">I</span><span style="font-family:monospace">_ind</span> is the
+combinator associated to <span style="font-style:italic">I</span>. The different cases of the induction
+then appear as subgoals that remain to be solved.
+In the previous proof, the tactic call &#X201C; <span style="font-family:monospace">apply nat_ind with (P:= fun n </span>&#X21D2;<span style="font-family:monospace"> n </span>&#X2260;<span style="font-family:monospace"> S n)</span> &#X201D; can simply be replaced with &#X201C; <span style="font-family:monospace">elim n</span> &#X201D;.</p><p>The option &#X201C; <span style="font-family:monospace">elim</span><span style="font-family:monospace"> </span><span style="font-style:italic">t</span><span style="font-family:monospace"> </span><span style="font-family:monospace">using</span><span style="font-family:monospace"> </span><span style="font-style:italic">C</span> &#X201D;
+allows to use a
+derived combinator <span style="font-style:italic">C</span> instead of the default one. Consider the
+following theorem, stating that equality is decidable on natural
+numbers:</p><p><a id="iseqpage"></a>
+</p><pre>
+Lemma eq_nat_dec : &#X2200;  n p:nat, {n=p}+{n &#X2260; p}.
+Proof.
+ intros n p.
+</pre><p>Let us prove this theorem using the combinator <span style="font-family:monospace">nat_double_rect</span>
+of section <a href="#natdoublerect">5.1</a>. The example also illustrates how
+<span style="font-family:monospace">elim</span> may sometimes fail in finding a suitable abstraction <span style="font-style:italic">P</span>
+of the goal. Note that if &#X201C; <span style="font-family:monospace">elim n</span> &#X201D;
+is used directly on the
+goal, the result is not the expected one.</p><p><br>
+</p><pre>
+ elim n using nat_double_rect.
+<span style="font-style:italic">
+4 subgoals
+  
+  n : nat
+  p : nat
+  ============================
+   </span>&#X2200; <span style="font-style:italic"> x : nat, {x = p} + {x </span>&#X2260;<span style="font-style:italic"> p}
+
+subgoal 2 is:
+ nat </span>&#X2192;<span style="font-style:italic"> {0 = p} + {0 </span>&#X2260;<span style="font-style:italic"> p}
+
+subgoal 3 is:
+ nat </span>&#X2192;<span style="font-style:italic"> </span>&#X2200; <span style="font-style:italic"> m : nat, {m = p} + {m </span>&#X2260;<span style="font-style:italic"> p} </span>&#X2192;<span style="font-style:italic"> {S m = p} + {S m </span>&#X2260;<span style="font-style:italic"> p}
+
+subgoal 4 is:
+ nat
+</span></pre><p>The four sub-goals obtained do not correspond to the premises that
+would be expected for the principle <span style="font-family:monospace">nat_double_rec</span>. The
+problem comes from the fact that 
+this principle for eliminating <span style="font-style:italic">n</span>
+has a universally quantified formula as conclusion, which confuses
+<span style="font-family:monospace">elim</span> about the right way of abstracting the goal. </p><p>Therefore,
+in this case the abstraction must be explicited using the 
+<span style="font-family:monospace">pattern</span> tactic. Once the right abstraction is provided, the rest of
+the proof is immediate:</p><pre>
+Undo.
+ pattern p,n.
+<span style="font-style:italic">
+  n : nat
+  p : nat
+  ============================
+   (fun n0 n1 : nat </span>&#X21D2;<span style="font-style:italic"> {n1 = n0} + {n1 </span>&#X2260;<span style="font-style:italic"> n0}) p n
+<span style="font-family:monospace">
+ elim n using nat_double_rec.
+<span style="font-style:italic">
+3 subgoals
+  
+  n : nat
+  p : nat
+  ============================
+   </span></span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> x : nat, {x = 0} + {x </span></span></span>&#X2260;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> 0}
+
+subgoal 2 is:
+ </span></span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> x : nat, {0 = S x} + {0 </span></span></span>&#X2260;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> S x}
+subgoal 3 is:
+ </span></span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> n0 m : nat, {m = n0} + {m </span></span></span>&#X2260;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> n0} </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> {S m = S n0} + {S m </span></span></span>&#X2260;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> S n0}
+
+<span style="font-family:monospace">
+ destruct x; auto.
+ destruct x; auto.
+ intros n0 m H; case H.
+ intro eq; rewrite eq ; auto.
+ intro neg; right; red ; injection 1; auto.
+Defined.
+</span></span></span></span></pre><p>Notice that the tactic &#X201C; <span style="font-family:monospace">decide equality</span> &#X201D;
+ generalises the proof
+above to a large class of inductive types. It can be used for proving
+a proposition of the form 
+&#X2200; (<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>:<span style="font-style:italic">R</span>),{<span style="font-style:italic">x</span>=<span style="font-style:italic">y</span>}+{<span style="font-style:italic">x</span>&#X2260;<span style="font-style:italic">y</span>}, where <span style="font-style:italic">R</span> is an inductive datatype
+all whose constructors take informative arguments &#X2014;like for example
+the type <span style="font-family:monospace">nat</span>:</p><pre>
+Definition eq_nat_dec&#X2019; : &#X2200;  n p:nat, {n=p} + {n&#X2260;p}.
+ decide equality.
+Defined.
+</pre><div class="theorem"><span style="font-weight:bold">Exercise 1</span>  <em>
+</em><ol class="enumerate" type=1><li class="li-enumerate"><em>
+</em><em>Define a recursive function of name </em>nat2itree<em>
+that maps any natural number </em><span style="font-style:italic">n</span><em> into an infinitely branching
+tree of height </em><span style="font-style:italic">n</span><em>.
+</em></li><li class="li-enumerate"><em>Provide an elimination combinator for these trees.
+</em></li><li class="li-enumerate"><em>Prove that the relation </em><em><span style="font-family:monospace">itree_le</span></em><em> is a preorder 
+(i.e. reflexive and transitive).
+</em></li></ol><em>
+</em></div><div class="theorem"><span style="font-weight:bold">Exercise 2</span>  <em> </em><a id="zeroton"></a><em>
+Define the type of lists, and a predicate &#X201C;being an ordered list&#X201D;
+using an inductive family. Then, define the function
+</em>(<span style="font-style:italic">from</span> <span style="font-style:italic">n</span>)=0::1 &#X2026;  <span style="font-style:italic">n</span>::<span style="font-family:monospace">nil</span><em> and prove that it always generates an
+ordered list.
+</em></div><div class="theorem"><span style="font-weight:bold">Exercise 3</span>  <em>
+Prove that </em><em><span style="font-family:monospace">le&#X2019; n p</span></em><em> and </em><em><span style="font-family:monospace">n </span></em>&#X2264;<em><span style="font-family:monospace"> p</span></em><em> are logically equivalent
+for all n and p. (</em><em><span style="font-family:monospace">le&#X2019;</span></em><em> is defined in section </em><a href="#parameterstuff"><em>2.6</em></a><em>).
+</em></div>
+<!--TOC subsection id="sec41" Well-founded Recursion-->
+<h3 id="sec41" class="subsection">5.3  Well-founded Recursion</h3><!--SEC END --><p>
+<a id="WellFoundedRecursion"></a></p><p>Structural induction is a strong elimination rule for inductive types.
+This method can be used to define any function whose termination is
+a consequence of the well-foundedness of a certain order relation <span style="font-style:italic">R</span> decreasing
+at each recursive call. What makes this principle so strong is the
+possibility of reasoning by structural induction on the proof that
+certain <span style="font-style:italic">R</span> is well-founded. In order to illustrate this we have
+first to introduce the predicate of accessibility.</p><pre>
+Print Acc.
+<span style="font-style:italic">
+Inductive Acc (A : Type) (R : A </span>&#X2192;<span style="font-style:italic"> A </span>&#X2192;<span style="font-style:italic"> Prop) (x:A) : Prop :=
+    Acc_intro : (</span>&#X2200; <span style="font-style:italic"> y : A, R y x </span>&#X2192;<span style="font-style:italic"> Acc R y) </span>&#X2192;<span style="font-style:italic"> Acc R x
+For Acc: Argument A is implicit
+For Acc_intro: Arguments A, R are implicit
+
+&#X2026;
+</span></pre><p>This inductive predicate characterizes those elements <span style="font-style:italic">x</span> of
+<span style="font-style:italic">A</span> such that any descending <span style="font-style:italic">R</span>-chain &#X2026; <span style="font-style:italic">x</span><sub>2</sub> <span style="font-style:italic">R</span> <span style="font-style:italic">x</span><sub>1</sub> <span style="font-style:italic">R</span> <span style="font-style:italic">x</span>
+starting from <span style="font-style:italic">x</span> is finite. A well-founded relation is a relation
+such that all the elements of <span style="font-style:italic">A</span> are accessible. 
+<em>Notice the use of parameter </em><span style="font-style:italic">x</span><em> (see Section </em><a href="#parameterstuff"><em>2.6</em></a><em>, page
+</em><a href="#parameterstuff"><em>??</em></a><em>).</em></p><p>Consider now the problem of representing in <em>Coq</em> the following ML
+function <span style="font-style:oblique">div</span>(<span style="font-style:italic">x</span>,<span style="font-style:italic">y</span>) on natural numbers, which computes
+&#X2308;<span style="font-style:italic">x</span>/<span style="font-style:italic">y</span>&#X2309; if <span style="font-style:italic">y</span>&gt;0 and yields <span style="font-style:italic">x</span> otherwise.</p><pre class="verbatim">let rec div x y = 
+  if x = 0 then 0
+  else if y = 0 then x
+       else (div (x-y) y)+1;;
+</pre><p>The equality test on natural numbers can be implemented using the
+function <span style="font-style:oblique">eq_nat_dec</span> that is defined page <a href="#iseqpage">??</a>. Giving <span style="font-style:italic">x</span> and
+<span style="font-style:italic">y</span>, this function yields either the value (<span style="font-style:oblique">left</span> <span style="font-style:italic">p</span>) if
+there exists a proof <span style="font-style:italic">p</span>:<span style="font-style:italic">x</span>=<span style="font-style:italic">y</span>, or the value (<span style="font-style:oblique">right</span> <span style="font-style:italic">q</span>) if
+there exists <span style="font-style:italic">q</span>:<span style="font-style:italic">a</span>&#X2260; <span style="font-style:italic">b</span>. The subtraction function is already
+defined in the library <span style="font-family:monospace">Minus</span>. </p><p>Hence, direct translation of the ML function <span style="font-style:oblique">div</span> would be:</p><pre>
+Require Import Minus.
+
+Fixpoint div (x y:nat){struct x}: nat :=
+ if eq_nat_dec x 0 
+  then 0
+  else if eq_nat_dec y 0
+       then x
+       else S (div (x-y) y).
+
+<span style="font-style:italic"> Error:
+Recursive definition of div is ill-formed.
+In environment
+div : nat </span>&#X2192;<span style="font-style:italic"> nat </span>&#X2192;<span style="font-style:italic"> nat
+x : nat
+y : nat
+_ : x </span>&#X2260;<span style="font-style:italic"> 0
+_ : y </span>&#X2260;<span style="font-style:italic"> 0
+
+Recursive call to div has principal argument equal to
+"x - y"
+instead of a subterm of x
+</span></pre><p>The program <span style="font-family:monospace">div</span> is rejected by <em>Coq</em> because it does not verify
+the syntactical condition to ensure termination. In particular, the
+argument of the recursive call is not a pattern variable issued from a
+case analysis on <span style="font-style:italic">x</span>. 
+We would have the same problem if we had the directive
+&#X201C; <span style="font-family:monospace">{struct y}</span> &#X201D; instead of &#X201C; <span style="font-family:monospace">{struct x}</span> &#X201D;.
+However, we know that this program always
+stops. One way to justify its termination is to define it by
+structural induction on a proof that <span style="font-style:italic">x</span> is accessible trough the
+relation &lt;. Notice that any natural number <span style="font-style:italic">x</span> is accessible
+for this relation. In order to do this, it is first necessary to prove
+some auxiliary lemmas, justifying that the first argument of
+<span style="font-family:monospace">div</span> decreases at each recursive call.</p><pre>
+Lemma minus_smaller_S : &#X2200;  x y:nat, x - y &lt; S x.
+Proof.
+ intros x y; pattern y, x;
+ elim x using nat_double_ind.
+ destruct x0; auto with arith.
+ simpl; auto with arith.
+ simpl; auto with arith.
+Qed.
+
+
+Lemma minus_smaller_positive : 
+ &#X2200;  x y:nat, x &#X2260;0 &#X2192; y &#X2260; 0 &#X2192;  x - y &lt; x.
+Proof.
+ destruct x; destruct y; 
+ ( simpl;intros; apply minus_smaller || 
+   intros; absurd (0=0); auto).
+Qed.
+</pre><p>The last two lemmas are necessary to prove that for any pair
+of positive natural numbers <span style="font-style:italic">x</span> and <span style="font-style:italic">y</span>, if <span style="font-style:italic">x</span> is accessible with
+respect to <span style="font-family:monospace">lt</span>, then so is <span style="font-style:italic">x</span>&#X2212;<span style="font-style:italic">y</span>.</p><pre>
+Definition minus_decrease : &#X2200;  x y:nat, Acc lt x &#X2192; 
+                                         x &#X2260; 0 &#X2192; 
+                                         y &#X2260; 0 &#X2192;
+                                         Acc lt (x-y).
+Proof.
+ intros x y H; case H.
+ intros Hz posz posy. 
+ apply Hz; apply minus_smaller_positive; assumption.
+Defined.
+</pre><p>Let us take a look at the proof of the lemma <span style="font-style:oblique">minus_decrease</span>, since
+the way in which it has been proven is crucial for what follows.
+</p><pre>
+Print minus_decrease.
+<span style="font-style:italic">
+minus_decrease = 
+fun (x y : nat) (H : Acc lt x) </span>&#X21D2;<span style="font-style:italic">
+match H in (Acc _ y0) return (y0 </span>&#X2260;<span style="font-style:italic"> 0 </span>&#X2192;<span style="font-style:italic"> y </span>&#X2260;<span style="font-style:italic"> 0 </span>&#X2192;<span style="font-style:italic"> Acc lt (y0 - y)) with
+| Acc_intro z Hz </span>&#X21D2;<span style="font-style:italic">
+    fun (posz : z </span>&#X2260;<span style="font-style:italic"> 0) (posy : y </span>&#X2260;<span style="font-style:italic"> 0) </span>&#X21D2;<span style="font-style:italic">
+    Hz (z - y) (minus_smaller_positive z y posz posy)
+end
+     : </span>&#X2200; <span style="font-style:italic"> x y : nat, Acc lt x </span>&#X2192;<span style="font-style:italic"> x </span>&#X2260;<span style="font-style:italic"> 0 </span>&#X2192;<span style="font-style:italic"> y </span>&#X2260;<span style="font-style:italic"> 0 </span>&#X2192;<span style="font-style:italic"> Acc lt (x - y)
+
+</span></pre><p>
+Notice that the function call 
+(<span style="font-family:monospace">minus_decrease</span> <span style="font-style:italic">n</span> <span style="font-style:italic">m</span> <span style="font-style:italic">H</span>)
+indeed yields an accessibility proof that is <span style="font-style:oblique">structurally
+smaller</span> than its argument <span style="font-style:italic">H</span>, because it is (an application of) its
+recursive component <span style="font-style:italic">Hz</span>. This enables to justify the following
+definition of <span style="font-style:oblique">div_aux</span>:</p><pre>
+Definition div_aux (x y:nat)(H: Acc lt x):nat.
+ fix 3.
+ intros.
+ refine (if eq_nat_dec x 0 
+         then 0 
+         else if eq_nat_dec y 0 
+              then y
+              else div_aux (x-y) y _).
+<span style="font-style:italic">
+ div_aux : </span>&#X2200; <span style="font-style:italic"> x : nat, nat </span>&#X2192;<span style="font-style:italic"> Acc lt x </span>&#X2192;<span style="font-style:italic"> nat
+  x : nat
+  y : nat
+  H : Acc lt x
+  _ : x </span>&#X2260;<span style="font-style:italic"> 0
+  _0 : y </span>&#X2260;<span style="font-style:italic"> 0
+  ============================
+   Acc lt (x - y)
+
+<span style="font-family:monospace">
+ apply (minus_decrease x y H);auto. 
+Defined.
+</span></span></pre><p>The main division function is easily defined, using the theorem
+<span style="font-family:monospace">lt_wf</span> of the library <span style="font-family:monospace">Wf_nat</span>. This theorem asserts that
+<span style="font-family:monospace">nat</span> is well founded w.r.t. <span style="font-family:monospace">lt</span>, thus any natural number
+is accessible.
+</p><pre>
+Definition div x y := div_aux x y (lt_wf x). 
+</pre><p>Let us explain the proof above. In the definition of <span style="font-family:monospace">div_aux</span>,
+what decreases is not <span style="font-style:italic">x</span> but the <span style="font-style:oblique">proof</span> of the accessibility
+of <span style="font-style:italic">x</span>. The tactic &#X201C; <span style="font-family:monospace">fix 3</span> &#X201D; is used to indicate that the proof
+proceeds by structural induction on the third argument of the theorem
+&#X2013;that is, on the accessibility proof. It also introduces a new
+hypothesis in the context, named as the current theorem, and with the
+same type as the goal. Then, the proof is refined with an incomplete
+proof term, containing a hole <span style="font-family:monospace">_</span>. This hole corresponds to the proof
+of accessibility for <span style="font-style:italic">x</span>&#X2212;<span style="font-style:italic">y</span>, and is filled up with the (smaller!)
+accessibility proof provided by the function <span style="font-family:monospace">minus_decrease</span>. </p><p>Let us take a look to the term <span style="font-style:oblique">div_aux</span> defined:</p><pre>
+Print div_aux.
+<span style="font-style:italic">
+div_aux = 
+(fix div_aux (x y : nat) (H : Acc lt x) {struct H} : nat :=
+   match eq_nat_dec x 0 with
+   | left _ </span>&#X21D2;<span style="font-style:italic"> 0
+   | right _ </span>&#X21D2;<span style="font-style:italic">
+       match eq_nat_dec y 0 with
+       | left _ </span>&#X21D2;<span style="font-style:italic"> y
+       | right _0 </span>&#X21D2;<span style="font-style:italic"> div_aux (x - y) y (minus_decrease x y H _ _0)
+       end
+   end)
+     : </span>&#X2200; <span style="font-style:italic"> x : nat, nat </span>&#X2192;<span style="font-style:italic"> Acc lt x </span>&#X2192;<span style="font-style:italic"> nat
+
+</span></pre><p>If the non-informative parts from this proof &#X2013;that is, the
+accessibility proof&#X2013; are erased, then we obtain exactly the program
+that we were looking for. 
+</p><pre>
+
+Extraction div.
+
+<span style="font-style:italic">
+let div x y =
+  div_aux x y
+<span style="font-family:monospace">
+
+Extraction div_aux.
+
+<span style="font-style:italic">
+let rec div_aux x y =
+  match eq_nat_dec x O with
+    | Left </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> O
+    | Right </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic">
+        (match eq_nat_dec y O with
+           | Left </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> y
+           | Right </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> div_aux (minus x y) y)
+</span></span></span></pre><p>This methodology enables the representation
+of any program whose termination can be proved in <em>Coq</em>. Once the
+expected properties from this program have been verified, the
+justification of its termination can be thrown away, keeping just the
+desired computational behavior for it.</p>
+<!--TOC section id="sec42" A case study in dependent elimination-->
+<h2 id="sec42" class="section">6  A case study in dependent elimination</h2><!--SEC END --><p><a id="CaseStudy"></a></p><p>Dependent types are very expressive, but ignoring some useful
+techniques can cause some problems to the beginner.
+Let us consider again the type of vectors (see section <a href="#vectors">2.2</a>).
+We want to prove a quite trivial property: the only value of type
+&#X201C; <span style="font-family:monospace">vector A 0</span> &#X201D; is &#X201C; <span style="font-family:monospace">Vnil </span><span style="font-style:italic">A</span> &#X201D;.</p><p>Our first naive attempt leads to a <em>cul-de-sac</em>.
+</p><pre>
+Lemma vector0_is_vnil : 
+  &#X2200;  (A:Type)(v:vector A 0), v = Vnil A.
+Proof.
+ intros A v;inversion v.
+<span style="font-style:italic">
+1 subgoal
+  
+  A : Set
+  v : vector A 0
+  ============================
+   v = Vnil A
+<span style="font-family:monospace">
+Abort.
+</span></span></pre><p>Another attempt is to do a case analysis on a vector of any length
+<span style="font-style:italic">n</span>, under an explicit hypothesis <span style="font-style:italic">n</span>=0. The tactic 
+<span style="font-family:monospace">discriminate</span> will help us to get rid of the case 
+<span style="font-style:italic">n</span>=<span style="font-family:monospace">S </span><span style="font-style:italic">p</span>. 
+Unfortunately, even the statement of our lemma is refused!</p><pre>
+ Lemma vector0_is_vnil_aux : 
+ &#X2200;  (A:Type)(n:nat)(v:vector A n), n = 0 &#X2192; v = Vnil A.
+
+<span style="font-style:italic">
+Error: In environment
+A : Type
+n : nat
+v : vector A n
+e : n = 0
+The term "Vnil A" has type "vector A 0" while it is expected to have type
+ "vector A n"
+</span></pre><p>In effect, the equality &#X201C; <span style="font-family:monospace">v = Vnil A</span> &#X201D; is ill-typed and this is
+because the type &#X201C; <span style="font-family:monospace">vector A n</span> &#X201D; is not <em>convertible</em>
+with &#X201C; <span style="font-family:monospace">vector A 0</span> &#X201D;.</p><p>This problem can be solved if we consider the heterogeneous 
+equality <span style="font-family:monospace">JMeq</span> [<a href="#conor%3Amotive"></a>]
+which allows us to consider terms of different types, even if this
+equality can only be proven for terms in the same type.
+The axiom <span style="font-family:monospace">JMeq_eq</span>, from the library <span style="font-family:monospace">JMeq</span> allows us to convert a
+heterogeneous equality to a standard one.</p><pre>
+Lemma vector0_is_vnil_aux : 
+   &#X2200;  (A:Type)(n:nat)(v:vector A n), 
+      n= 0 &#X2192; JMeq v (Vnil A).
+Proof.
+ destruct v.
+ auto.
+ intro; discriminate.
+Qed.
+</pre><p>Our property of vectors of null length can be easily proven:</p><pre>
+Lemma vector0_is_vnil : &#X2200;  (A:Type)(v:vector A 0), v = Vnil A.
+ intros a v;apply JMeq_eq.
+ apply vector0_is_vnil_aux.
+ trivial.
+Qed.
+</pre><p>It is interesting to look at another proof of 
+<span style="font-family:monospace">vector0_is_vnil</span>, which illustrates a technique developed
+and used by various people (consult in the <em>Coq-club</em> mailing
+list archive the contributions by Yves Bertot, Pierre Letouzey, Laurent Théry,
+Jean Duprat, and Nicolas Magaud, Venanzio Capretta and Conor McBride).
+This technique is also used for unfolding infinite list definitions
+(see chapter13 of [<a href="#coqart"></a>]).
+Notice that this definition does not rely on any axiom (<em>e.g.</em> <span style="font-family:monospace">JMeq_eq</span>).</p><p>We first give a new definition of the identity on vectors. Before that,
+we make the use of constructors and selectors lighter thanks to
+the implicit arguments feature:</p><pre>
+Implicit Arguments Vcons [A n].
+Implicit Arguments Vnil [A].
+Implicit Arguments Vhead [A n].
+Implicit Arguments Vtail [A n].
+
+Definition Vid : &#X2200;  (A : Type)(n:nat), vector A n &#X2192; vector A n.
+Proof.
+ destruct n; intro v.
+ exact Vnil.
+ exact (Vcons (Vhead v) (Vtail v)).
+Defined.
+</pre><p>Then we prove that <span style="font-family:monospace">Vid</span> is the identity on vectors:</p><pre>
+Lemma Vid_eq : &#X2200;  (n:nat) (A:Type)(v:vector A n), v=(Vid _ n v).
+Proof.
+ destruct v.
+
+<span style="font-style:italic">
+   A : Type
+  ============================
+   Vnil = Vid A 0 Vnil
+
+subgoal 2 is:
+  Vcons a v = Vid A (S n) (Vcons a v)
+<span style="font-family:monospace">
+ reflexivity.
+ reflexivity.
+Defined.
+</span></span></pre><p>Why defining a new identity function on vectors? The following
+dialogue shows that <span style="font-family:monospace">Vid</span> has some interesting computational
+properties:</p><pre>
+Eval simpl in (fun (A:Type)(v:vector A 0) &#X21D2; (Vid _ _ v)).
+<span style="font-style:italic"> = fun (A : Type) (_ : vector A 0) </span>&#X21D2;<span style="font-style:italic"> Vnil
+     : </span>&#X2200; <span style="font-style:italic"> A : Type, vector A 0 </span>&#X2192;<span style="font-style:italic"> vector A 0
+
+</span></pre><p>Notice that the plain identity on vectors doesn&#X2019;t convert <span style="font-family:monospace">v</span>
+into <span style="font-family:monospace">Vnil</span>.
+</p><pre>
+Eval simpl in (fun (A:Type)(v:vector A 0) &#X21D2; v).
+<span style="font-style:italic"> = fun (A : Type) (v : vector A 0) </span>&#X21D2;<span style="font-style:italic"> v
+     : </span>&#X2200; <span style="font-style:italic"> A : Type, vector A 0 </span>&#X2192;<span style="font-style:italic"> vector A 0
+</span></pre><p>Then we prove easily that any vector of length 0 is <span style="font-family:monospace">Vnil</span>:</p><pre>
+Theorem zero_nil : &#X2200;  A (v:vector A 0), v = Vnil.
+Proof.
+ intros.
+ change (Vnil (A:=A)) with (Vid _ 0 v). 
+<span style="font-style:italic">
+1 subgoal
+  
+  A : Type
+  v : vector A 0
+  ============================
+   v = Vid A 0 v
+<span style="font-family:monospace">
+ apply Vid_eq.
+Defined.
+</span></span></pre><p>A similar result can be proven about vectors of strictly positive
+length<sup><a id="text11" href="#note11">9</a></sup>.</p><pre>
+
+
+Theorem decomp :
+  &#X2200;  (A : Type) (n : nat) (v : vector A (S n)),
+  v = Vcons (Vhead v) (Vtail v).
+Proof.
+ intros.
+ change (Vcons (Vhead v) (Vtail v)) with (Vid _  (S n) v).
+<span style="font-style:italic">
+ 1 subgoal
+  
+  A : Type
+  n : nat
+  v : vector A (S n)
+  ============================
+   v = Vid A (S n) v
+
+<span style="font-family:monospace"> apply Vid_eq.
+Defined.
+</span></span></pre><p>Both lemmas: <span style="font-family:monospace">zero_nil</span> and <span style="font-family:monospace">decomp</span>,
+can be used to easily derive a double recursion principle
+on vectors of same length:</p><pre>
+Definition vector_double_rect : 
+ &#X2200;  (A:Type) (P: &#X2200;  (n:nat),(vector A n)&#X2192;(vector A n) &#X2192; Type),
+     P 0 Vnil Vnil &#X2192;
+     (&#X2200;  n (v1 v2 : vector A n) a b, P n v1 v2 &#X2192;
+          P (S n) (Vcons a v1) (Vcons  b v2)) &#X2192;
+     &#X2200;  n (v1 v2 : vector A n), P n v1 v2.
+ induction n.
+ intros; rewrite (zero_nil _ v1); rewrite (zero_nil _ v2).
+ auto.
+ intros v1 v2; rewrite (decomp _ _ v1);rewrite (decomp _ _ v2).
+ apply X0; auto.
+Defined.
+</pre><p>Notice that, due to the conversion rule of <em>Coq</em>&#X2019;s type system,
+this function can be used directly with <span style="font-family:monospace">Prop</span> or <span style="font-family:monospace">Type</span>
+instead of type (thus it is useless to build 
+<span style="font-family:monospace">vector_double_ind</span> and <span style="font-family:monospace">vector_double_rec</span>) from scratch.</p><p>We finish this example with showing how to define the bitwise
+<em>or</em> on boolean vectors of the same length, 
+and proving a little property about this
+operation.</p><pre>
+Definition bitwise_or n v1 v2 : vector bool n :=
+   vector_double_rect 
+    bool 
+    (fun n v1 v2 &#X21D2; vector bool n)
+    Vnil
+    (fun n v1 v2 a b r &#X21D2; Vcons (orb a b) r) n v1 v2.
+</pre><p>Let us define recursively the <span style="font-style:italic">n</span>-th element of a vector. Notice
+that it must be a partial function, in case <span style="font-style:italic">n</span> is greater or equal
+than the length of the vector. Since <em>Coq</em> only considers total
+functions, the function returns a value in an <em>option</em> type.</p><pre>
+Fixpoint vector_nth (A:Type)(n:nat)(p:nat)(v:vector A p)
+                  {struct v}
+                  : option A :=
+  match n,v  with
+    _   , Vnil &#X21D2; None
+  | 0   , Vcons b  _ _ &#X21D2; Some b
+  | S n&#X2019;, Vcons _  p&#X2019; v&#X2019; &#X21D2; vector_nth A n&#X2019;  p&#X2019; v&#X2019;
+  end.
+Implicit Arguments vector_nth [A p].
+</pre><p>We can now prove &#X2014; using the double induction combinator &#X2014;
+a simple property relying <span style="font-family:monospace">vector_nth</span> and <span style="font-family:monospace">bitwise_or</span>:</p><pre>
+Lemma nth_bitwise :
+   &#X2200;  (n:nat) (v1 v2: vector bool n) i  a b,
+      vector_nth i v1 = Some a &#X2192;
+      vector_nth i v2 = Some b &#X2192;
+      vector_nth i (bitwise_or _ v1 v2) = Some (orb a b).
+Proof.
+ intros  n v1 v2; pattern n,v1,v2.
+ apply vector_double_rect.
+ simpl.
+ destruct i; discriminate 1.
+ destruct i; simpl;auto.
+ injection 1; injection 2;intros; subst a; subst b; auto.
+Qed.
+</pre>
+<!--TOC section id="sec43" Co-inductive Types and Non-ending Constructions-->
+<h2 id="sec43" class="section">7  Co-inductive Types and Non-ending Constructions</h2><!--SEC END --><p>
+<a id="CoInduction"></a></p><p>The objects of an inductive type are well-founded with respect to
+the constructors of the type. In other words, these objects are built
+by applying <em>a finite number of times</em> the constructors of the type.
+Co-inductive types are obtained by relaxing this condition,
+and may contain non-well-founded objects [<a href="#EG96"></a>, <a href="#EG95a"></a>]. An
+example of a co-inductive type is the type of infinite
+sequences formed with elements of type <span style="font-style:italic">A</span>, also called streams. This
+type can be introduced through the following definition:</p><pre>
+ CoInductive Stream (A: Type) :Type   := 
+ | Cons : A&#X2192;Stream A&#X2192;Stream A.
+</pre><p>If we are interested in finite or infinite sequences, we consider the type
+of <em>lazy lists</em>:</p><pre>
+CoInductive LList (A: Type) : Type :=
+ |  LNil : LList A
+ |  LCons : A &#X2192; LList A &#X2192; LList A.
+</pre><p>It is also possible to define co-inductive types for the 
+trees with infinitely-many branches (see Chapter 13 of [<a href="#coqart"></a>]).</p><p>Structural induction is the way of expressing that inductive types
+only contain well-founded objects. Hence, this elimination principle
+is not valid for co-inductive types, and the only elimination rule for
+streams is case analysis. This principle can be used, for example, to
+define the destructors <span style="font-style:oblique">head</span> and <span style="font-style:oblique">tail</span>.</p><pre>
+ Definition head (A:Type)(s : Stream A) := 
+   match s with Cons a s&#X2019; &#X21D2; a end.
+
+ Definition tail (A : Type)(s : Stream A) :=
+      match s with Cons a s&#X2019; &#X21D2; s&#X2019; end.
+</pre><p>Infinite objects are defined by means of (non-ending) methods of
+construction, like in lazy functional programming languages. Such
+methods can be defined using the <span style="font-family:monospace">CoFixpoint</span> command
+. For example, the following
+definition introduces the infinite list [<span style="font-style:italic">a</span>,<span style="font-style:italic">a</span>,<span style="font-style:italic">a</span>,&#X2026;]:</p><pre>
+ CoFixpoint repeat (A:Type)(a:A) : Stream A := 
+   Cons a (repeat a).
+</pre><p>However, not every co-recursive definition is an admissible method of
+construction. Similarly to the case of structural induction, the
+definition must verify a <span style="font-style:oblique">guardedness</span> condition to be
+accepted. This condition states that any recursive call in the
+definition must be protected &#X2013;i.e, be an argument of&#X2013; some
+constructor, and only an argument of constructors [<a href="#EG94a"></a>]. The
+following definitions are examples of valid methods of construction:</p><pre>
+CoFixpoint iterate (A: Type)(f: A &#X2192; A)(a : A) : Stream A:=
+    Cons a (iterate f (f a)).
+
+CoFixpoint map 
+  (A B:Type)(f: A &#X2192; B)(s : Stream A) : Stream B:=
+  match s with Cons a tl &#X21D2; Cons (f a) (map f tl) end.
+</pre><div class="theorem"><span style="font-weight:bold">Exercise 1</span>  <em>
+Define two different methods for constructing the stream which 
+infinitely alternates the values </em><em><span style="font-family:monospace">true</span></em><em> and </em><em><span style="font-family:monospace">false</span></em><em>.
+</em></div><div class="theorem"><span style="font-weight:bold">Exercise 2</span>  <em>
+Using the destructors </em><em><span style="font-family:monospace">head</span></em><em> and </em><em><span style="font-family:monospace">tail</span></em><em>, define a function
+which takes the n-th element of an infinite stream.
+</em></div><p>A non-ending method of construction is computed lazily. This means
+that its definition is unfolded only when the object that it
+introduces is eliminated, that is, when it appears as the argument of
+a case expression. We can check this using the command
+<span style="font-family:monospace">Eval</span>.</p><pre>
+Eval simpl in (fun (A:Type)(a:A) &#X21D2; repeat a).
+<span style="font-style:italic">  = fun (A : Type) (a : A) </span>&#X21D2;<span style="font-style:italic"> repeat a
+     : </span>&#X2200; <span style="font-style:italic"> A : Type, A </span>&#X2192;<span style="font-style:italic"> Stream A
+<span style="font-family:monospace">
+Eval simpl in (fun (A:Type)(a:A) </span></span>&#X21D2;<span style="font-style:italic"><span style="font-family:monospace"> head (repeat a)).
+<span style="font-style:italic">  = fun (A : Type) (a : A) </span></span></span>&#X21D2;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> a
+     : </span></span></span>&#X2200; <span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> A : Type, A </span></span></span>&#X2192;<span style="font-style:italic"><span style="font-family:monospace"><span style="font-style:italic"> A
+</span></span></span></pre>
+<!--TOC subsection id="sec44" Extensional Properties-->
+<h3 id="sec44" class="subsection">7.1  Extensional Properties</h3><!--SEC END --><p>Case analysis is also a valid proof principle for infinite
+objects. However, this principle is not sufficient to prove
+<span style="font-style:oblique">extensional</span> properties, that is, properties concerning the
+whole infinite object [<a href="#EG95a"></a>]. A typical example of an
+extensional property is the predicate expressing that two streams have
+the same elements. In many cases, the minimal reflexive relation <span style="font-style:italic">a</span>=<span style="font-style:italic">b</span>
+that is used as equality for inductive types is too small to capture
+equality between streams. Consider for example the streams
+<span style="font-family:monospace">iterate</span> <span style="font-style:italic">f</span> (<span style="font-style:italic">f</span> <span style="font-style:italic">x</span>) and
+(<span style="font-family:monospace">map</span> <span style="font-style:italic">f</span> (<span style="font-family:monospace">iterate</span> <span style="font-style:italic">f</span> <span style="font-style:italic">x</span>)). Even though these two streams have
+the same elements, no finite expansion of their definitions lead to
+equal terms. In other words, in order to deal with extensional
+properties, it is necessary to construct infinite proofs. The type of
+infinite proofs of equality can be introduced as a co-inductive
+predicate, as follows:
+</p><pre>
+CoInductive EqSt (A: Type) : Stream A &#X2192; Stream A &#X2192; Prop :=
+  eqst : &#X2200;  s1 s2: Stream A,
+      head s1 = head s2 &#X2192;
+      EqSt (tail s1) (tail s2) &#X2192;
+      EqSt s1 s2.
+</pre><p>It is possible to introduce proof principles for reasoning about
+infinite objects as combinators defined through
+<span style="font-family:monospace">CoFixpoint</span>. However, oppositely to the case of inductive
+types, proof principles associated to co-inductive types are not
+elimination but <span style="font-style:oblique">introduction</span> combinators. An example of such
+a combinator is Park&#X2019;s principle for proving the equality of two
+streams, usually called the <span style="font-style:oblique">principle of co-induction</span>. It
+states that two streams are equal if they satisfy a
+<span style="font-style:italic">bisimulation</span>. A bisimulation is a binary relation <span style="font-style:italic">R</span> such
+that any pair of streams <span style="font-style:italic">s</span><sub>1</sub> ad <span style="font-style:italic">s</span><sub>2</sub> satisfying <span style="font-style:italic">R</span> have equal
+heads, and tails also satisfying <span style="font-style:italic">R</span>. This principle is in fact a
+method for constructing an infinite proof:</p><pre>
+Section Parks_Principle.
+Variable A : Type.
+Variable    R      : Stream A &#X2192; Stream A &#X2192; Prop.
+Hypothesis  bisim1 : &#X2200;  s1 s2:Stream A, 
+                       R s1 s2 &#X2192; head s1 = head s2.
+
+Hypothesis  bisim2 : &#X2200;  s1 s2:Stream A, 
+                       R s1 s2 &#X2192; R (tail s1) (tail s2).
+
+CoFixpoint park_ppl     : 
+ &#X2200;  s1 s2:Stream A, R s1 s2 &#X2192; EqSt s1 s2 :=
+ fun s1 s2 (p : R s1 s2) &#X21D2;
+      eqst s1 s2 (bisim1 s1 s2 p) 
+                 (park_ppl (tail s1) 
+                           (tail s2) 
+                           (bisim2 s1 s2 p)).
+End Parks_Principle.
+</pre><p>Let us use the principle of co-induction to prove the extensional
+equality mentioned above. 
+</p><pre>
+Theorem map_iterate : &#X2200;  (A:Type)(f:A&#X2192;A)(x:A),
+                       EqSt (iterate f (f x)) 
+                            (map f (iterate f x)).
+Proof.
+ intros A f x.
+ apply park_ppl with
+   (R:= fun s1 s2 &#X21D2;
+       &#X2203;  x: A, s1 = iterate f (f x) &#X2227; 
+                s2 = map f (iterate f x)).
+
+ intros s1 s2 (x0,(eqs1,eqs2));
+    rewrite eqs1; rewrite eqs2; reflexivity.
+ intros s1 s2 (x0,(eqs1,eqs2)).
+ exists (f x0);split;
+    [rewrite eqs1|rewrite eqs2]; reflexivity.
+ exists x;split; reflexivity.
+Qed.
+</pre><p>The use of Park&#X2019;s principle is sometimes annoying, because it requires
+to find an invariant relation and prove that it is indeed a
+bisimulation. In many cases, a shorter proof can be obtained trying
+to construct an ad-hoc infinite proof, defined by a guarded
+declaration. The tactic &#X201C; &#X201C;<span style="font-family:monospace">Cofix </span><span style="font-style:italic">f</span> &#X201D; can be used to do
+that. Similarly to the tactic <span style="font-family:monospace">fix</span> indicated in Section
+<a href="#WellFoundedRecursion">5.3</a>, this tactic introduces an extra hypothesis
+<span style="font-style:italic">f</span> into the context, whose type is the same as the current goal. Note
+that the applications of <span style="font-style:italic">f</span> in the proof <span style="font-style:oblique">must be guarded</span>. In
+order to prevent us from doing unguarded calls, we can define a tactic
+that always apply a constructor before using <span style="font-style:italic">f</span>  :</p><pre>
+Ltac infiniteproof f :=
+  cofix f; 
+  constructor; 
+  [clear f| simpl; try (apply f; clear f)].
+</pre><p>In the example above, this tactic produces a much simpler proof
+that the former one:</p><pre>
+Theorem map_iterate&#X2019; : &#X2200;  ((A:Type)f:A&#X2192;A)(x:A),
+                       EqSt (iterate f (f x))
+                            (map f (iterate f x)).
+Proof.
+ infiniteproof map_iterate&#X2019;.
+ reflexivity.
+Qed.
+</pre><div class="theorem"><span style="font-weight:bold">Exercise 3</span>  <em>
+Define a co-inductive type of name </em><span style="font-style:italic">Nat</span><em> that contains non-standard 
+natural numbers &#X2013;this is, verifying </em><table class="display dcenter"><tr style="vertical-align:middle"><td class="dcell"><em>&#X2203; </em><em><span style="font-style:italic">m</span></em><em>  &#X2208; </em><em><span style="font-family:monospace">Nat</span></em><em>, &#X2200;  </em><em><span style="font-style:italic">n</span></em><em> &#X2208; </em><em><span style="font-family:monospace">Nat</span></em><em>, </em><em><span style="font-style:italic">n</span></em><em>&lt;</em><em><span style="font-style:italic">m</span></em></td></tr>
+</table><p><em><em>.
+</em></em></p></div><div class="theorem"><span style="font-weight:bold">Exercise 4</span>  <em>
+Prove that the extensional equality of streams is an equivalence relation
+using Park&#X2019;s co-induction principle.
+</em></div><div class="theorem"><span style="font-weight:bold">Exercise 5</span>  <em>
+Provide a suitable definition of &#X201C;being an ordered list&#X201D; for infinite lists
+and define a principle for proving that an infinite list is ordered. Apply
+this method to the list </em>[0,1,&#X2026; ]<em>. Compare the result with 
+exercise </em><a href="#zeroton"><em>2</em></a><em>.
+</em></div>
+<!--TOC subsection id="sec45" About injection, discriminate, and inversion-->
+<h3 id="sec45" class="subsection">7.2  About injection, discriminate, and inversion</h3><!--SEC END --><p>
+Since co-inductive types are closed w.r.t. their constructors,
+the techniques shown in Section <a href="#CaseTechniques">4</a> work also 
+with these types.</p><p>Let us consider the type of lazy lists, introduced on page <a href="#CoInduction">??</a>.
+The following lemmas are straightforward applications
+of <span style="font-family:monospace">discriminate</span> and <span style="font-family:monospace">injection</span>:</p><pre>
+Lemma Lnil_not_Lcons : &#X2200;  (A:Type)(a:A)(l:LList A),
+                               LNil &#X2260; (LCons a l).
+Proof.
+ intros;discriminate.
+Qed.
+
+Lemma injection_demo : &#X2200;  (A:Type)(a b : A)(l l&#X2019;: LList A),
+                  LCons a (LCons b l) = LCons b (LCons a l&#X2019;) &#X2192;
+                  a = b &#X2227; l = l&#X2019;.
+Proof.
+ intros A a b l l&#X2019; e; injection e; auto.
+Qed.
+
+</pre><p>In order to show <span style="font-family:monospace">inversion</span> at work, let us define
+two predicates on lazy lists:</p><pre>
+Inductive Finite (A:Type) : LList A &#X2192; Prop :=
+|  Lnil_fin : Finite (LNil (A:=A))
+|  Lcons_fin : &#X2200;  a l, Finite l &#X2192; Finite (LCons a l).
+
+CoInductive Infinite  (A:Type) : LList A &#X2192; Prop :=
+| LCons_inf : &#X2200;  a l, Infinite l &#X2192; Infinite (LCons a l).
+</pre><p>First, two easy theorems:
+</p><pre>
+Lemma LNil_not_Infinite : &#X2200;  (A:Type), ~ Infinite (LNil (A:=A)).
+Proof.
+  intros A H;inversion H.
+Qed.
+
+Lemma Finite_not_Infinite : &#X2200;  (A:Type)(l:LList A),
+                                Finite l &#X2192; ~ Infinite l.
+Proof.
+ intros A l H; elim H.
+ apply LNil_not_Infinite.
+ intros a l0 F0 I0&#X2019; I1.
+ case I0&#X2019;; inversion_clear I1.
+ trivial.
+Qed.
+</pre><p>On the other hand, the next proof uses the <span style="font-family:monospace">cofix</span> tactic. 
+Notice the destructuration of <span style="font-family:monospace">l</span>, which allows us to
+apply the constructor <span style="font-family:monospace">LCons_inf</span>, thus satisfying
+the guard condition: 
+</p><pre>
+Lemma Not_Finite_Infinite : &#X2200;  (A:Type)(l:LList A),
+                            ~ Finite l &#X2192; Infinite l.
+Proof.
+ cofix H.
+ destruct l.
+ intro; 
+  absurd (Finite (LNil (A:=A)));
+  [auto|constructor].
+<span style="font-style:italic">
+
+
+
+
+1 subgoal
+  
+  H : forall (A : Type) (l : LList A), ~ Finite l -&gt; Infinite l
+  A : Type
+  a : A
+  l : LList A
+  H0 : ~ Finite (LCons a l)
+  ============================
+   Infinite l
+</span></pre><p>
+At this point, one must not apply <span style="font-family:monospace">H</span>! . It would be possible
+to solve the current goal by an inversion of &#X201C; <span style="font-family:monospace">Finite (LCons a l)</span> &#X201D;, but, since the guard condition would be violated, the user
+would get an error message after typing <span style="font-family:monospace">Qed</span>.
+In order to satisfy the guard condition, we apply the constructor of
+<span style="font-family:monospace">Infinite</span>, <em>then</em> apply <span style="font-family:monospace">H</span>.</p><pre>
+ constructor.
+ apply H.
+ red; intro H1;case H0.
+ constructor.
+ trivial.
+Qed.
+</pre><p>The reader is invited to replay this proof and understand each of its steps.</p><!--BEGIN NOTES document-->
+<hr class="footnoterule"><dl class="thefootnotes"><dt class="dt-thefootnotes">
+<a id="note1" href="#text1">*</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">Eduardo.Gimenez@inria.fr</div>
+</dd><dt class="dt-thefootnotes"><a id="note2" href="#text2">#</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">Pierre.Casteran@labri.fr</div>
+</dd><dt class="dt-thefootnotes"><a id="note3" href="#text3">1</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">The first versions of this document were entirely written by Eduardo Gimenez.
+Pierre Castéran wrote the 2004 and 2006 revisions.</div>
+</dd><dt class="dt-thefootnotes"><a id="note4" href="#text4">2</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">Notice that in versions of 
+<em>Coq</em>
+prior to 8.1, the parameter <span style="font-style:italic">A</span> had sort <span style="font-family:monospace">Set</span> instead of <span style="font-family:monospace">Type</span>; 
+the constant <span style="font-family:monospace">list</span> was thus of type <span style="font-family:monospace">Set</span>&#X2192;<span style="font-family:monospace"> Set</span>.</div>
+</dd><dt class="dt-thefootnotes"><a id="note5" href="#text5">3</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">In the interpretation scope
+for Peano arithmetic:
+<span style="font-family:monospace">nat_scope</span>, &#X201C; <span style="font-family:monospace">n &lt;= m</span> &#X201D; is equivalent to 
+&#X201C; <span style="font-family:monospace">le n m</span> &#X201D; .</div>
+</dd><dt class="dt-thefootnotes"><a id="note6" href="#text6">4</a></dt><dd class="dd-thefootnotes"><div class="footnotetext"><em>Coq</em> uses
+the conditional &#X201C; <span style="font-family:monospace">if </span><span style="font-style:italic">b</span><span style="font-family:monospace"> then </span><span style="font-style:italic">a</span><span style="font-family:monospace"> else </span><span style="font-style:italic">b</span> &#X201D; as an abreviation to
+&#X201C; <span style="font-family:monospace">match </span><span style="font-style:italic">b</span><span style="font-family:monospace"> with true </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">a</span><span style="font-family:monospace"> | false </span>&#X21D2;<span style="font-family:monospace"> </span><span style="font-style:italic">b</span><span style="font-family:monospace"> end</span> &#X201D;.</div>
+</dd><dt class="dt-thefootnotes"><a id="note7" href="#text7">5</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">Notice that
+<span style="font-style:italic">a</span>&#X2260; <span style="font-style:italic">b</span> is just an abreviation for &#X201C; &#X223C;a= b &#X201D;</div>
+</dd><dt class="dt-thefootnotes"><a id="note8" href="#text8">6</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">In the box indexed by <span style="font-style:italic">U</span><sub>1</sub>=<span style="font-family:monospace">Type</span>
+and <span style="font-style:italic">U</span><sub>2</sub>=<span style="font-family:monospace">Set</span>, the answer &#X201C;yes&#X201D; takes into account the 
+predicativity of sort <span style="font-family:monospace">Set</span>. If you are working with the
+option &#X201C;impredicative-set&#X201D;, you must put in this box the
+condition &#X201C;if <span style="font-style:italic">R</span> is predicative&#X201D;.</div>
+</dd><dt class="dt-thefootnotes"><a id="note9" href="#text9">7</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">This directive is optional
+in the case of a function of a single argument</div>
+</dd><dt class="dt-thefootnotes"><a id="note10" href="#text10">8</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">In fact, whenever possible, <em>Coq</em> generates the
+principle <span style="font-style:italic">I</span><span style="font-family:monospace">_rect</span>, then derives from it the
+weaker principles <span style="font-style:italic">I</span><span style="font-family:monospace">_ind</span> and <span style="font-style:italic">I</span><span style="font-family:monospace">_rec</span>.
+If some principle has to be defined by hand, the user may try
+to build <span style="font-style:italic">I</span><span style="font-family:monospace">_rect</span> (if possible). Thanks to <em>Coq</em>&#X2019;s conversion
+rule, this principle can be used directly to build proofs and/or
+programs.</div>
+</dd><dt class="dt-thefootnotes"><a id="note11" href="#text11">9</a></dt><dd class="dd-thefootnotes"><div class="footnotetext">As for <span style="font-family:monospace">Vid</span> and <span style="font-family:monospace">Vid_eq</span>, this definition 
+is from Jean Duprat.</div>
+</dd></dl>
+<!--END NOTES-->
+<!--CUT END -->
+<!--HTMLFOOT-->
+<!--ENDHTML-->
+<!--FOOTER-->
+<hr style="height:2"><blockquote class="quote"><em>This document was translated from L<sup>A</sup>T<sub>E</sub>X by
+</em><a href="http://hevea.inria.fr/index.html"><em>H</em><em><span style="font-size:small"><sup>E</sup></span></em><em>V</em><em><span style="font-size:small"><sup>E</sup></span></em><em>A</em></a><em>.</em></blockquote></body>
+</html>

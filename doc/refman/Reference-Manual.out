@@ -1,0 +1,559 @@
+\BOOKMARK [-1][-]{part.1}{I The language}{}% 1
+\BOOKMARK [0][-]{chapter.1}{The Gallina specification language }{part.1}% 2
+\BOOKMARK [1][-]{section.1.1}{Lexical conventions }{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.2}{Terms }{chapter.1}% 4
+\BOOKMARK [2][-]{subsection.1.2.1}{Syntax of terms}{section.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.2.2}{Types}{section.1.2}% 6
+\BOOKMARK [2][-]{subsection.1.2.3}{Qualified identifiers and simple identifiers \040}{section.1.2}% 7
+\BOOKMARK [2][-]{subsection.1.2.4}{Numerals }{section.1.2}% 8
+\BOOKMARK [2][-]{subsection.1.2.5}{Sorts \040 \040 \040}{section.1.2}% 9
+\BOOKMARK [2][-]{subsection.1.2.6}{Binders \040}{section.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.2.7}{Abstractions \040}{section.1.2}% 11
+\BOOKMARK [2][-]{subsection.1.2.8}{Products \040}{section.1.2}% 12
+\BOOKMARK [2][-]{subsection.1.2.9}{Applications \040}{section.1.2}% 13
+\BOOKMARK [2][-]{subsection.1.2.10}{Type cast \040}{section.1.2}% 14
+\BOOKMARK [2][-]{subsection.1.2.11}{Inferable subterms \040}{section.1.2}% 15
+\BOOKMARK [2][-]{subsection.1.2.12}{Local definitions \(let-in\) \040 }{section.1.2}% 16
+\BOOKMARK [2][-]{subsection.1.2.13}{Definition by case analysis \040}{section.1.2}% 17
+\BOOKMARK [2][-]{subsection.1.2.14}{Recursive functions \040}{section.1.2}% 18
+\BOOKMARK [1][-]{section.1.3}{The Vernacular }{chapter.1}% 19
+\BOOKMARK [2][-]{subsection.1.3.1}{Assumptions \040}{section.1.3}% 20
+\BOOKMARK [2][-]{subsection.1.3.2}{Definitions \040}{section.1.3}% 21
+\BOOKMARK [2][-]{subsection.1.3.3}{Inductive definitions \040 command]Inductive@Inductive }{section.1.3}% 22
+\BOOKMARK [2][-]{subsection.1.3.4}{Definition of recursive functions}{section.1.3}% 23
+\BOOKMARK [2][-]{subsection.1.3.5}{Assertions and proofs}{section.1.3}% 24
+\BOOKMARK [0][-]{chapter.2}{Extensions of Gallina}{part.1}% 25
+\BOOKMARK [1][-]{section.2.1}{Record types command]Record@Record command]Inductive@Inductive command]CoInductive@CoInductive }{chapter.2}% 26
+\BOOKMARK [1][-]{section.2.2}{Variants and extensions of match \040}{chapter.2}% 27
+\BOOKMARK [2][-]{subsection.2.2.1}{Multiple and nested pattern-matching \040}{section.2.2}% 28
+\BOOKMARK [2][-]{subsection.2.2.2}{Pattern-matching on boolean values: the if expression \040}{section.2.2}% 29
+\BOOKMARK [2][-]{subsection.2.2.3}{Irrefutable patterns: the destructuring let variants \040}{section.2.2}% 30
+\BOOKMARK [2][-]{subsection.2.2.4}{Controlling pretty-printing of match expressions }{section.2.2}% 31
+\BOOKMARK [1][-]{section.2.3}{Advanced recursive functions}{chapter.2}% 32
+\BOOKMARK [1][-]{section.2.4}{Section mechanism \040}{chapter.2}% 33
+\BOOKMARK [2][-]{subsection.2.4.1}{Section identcommand]Section@Section}{section.2.4}% 34
+\BOOKMARK [2][-]{subsection.2.4.2}{End ident command]End@End}{section.2.4}% 35
+\BOOKMARK [1][-]{section.2.5}{Module system \040}{chapter.2}% 36
+\BOOKMARK [2][-]{subsection.2.5.1}{Module ident command]Module@Module}{section.2.5}% 37
+\BOOKMARK [2][-]{subsection.2.5.2}{End ident command]End@End}{section.2.5}% 38
+\BOOKMARK [2][-]{subsection.2.5.3}{Module ident := module\137expression command]Module@Module}{section.2.5}% 39
+\BOOKMARK [2][-]{subsection.2.5.4}{Module Type ident command]Module Type@Module Type}{section.2.5}% 40
+\BOOKMARK [2][-]{subsection.2.5.5}{End ident command]End@End}{section.2.5}% 41
+\BOOKMARK [2][-]{subsection.2.5.6}{Module Type ident := module\137type}{section.2.5}% 42
+\BOOKMARK [2][-]{subsection.2.5.7}{Declare Module ident : module\137type}{section.2.5}% 43
+\BOOKMARK [2][-]{subsection.2.5.8}{Import qualid command]Import@Import }{section.2.5}% 44
+\BOOKMARK [2][-]{subsection.2.5.9}{Print Module ident command]Print Module@Print Module}{section.2.5}% 45
+\BOOKMARK [2][-]{subsection.2.5.10}{Print Module Type ident command]Print Module Type@Print Module Type}{section.2.5}% 46
+\BOOKMARK [2][-]{subsection.2.5.11}{Locate Module qualid command]Locate Module@Locate Module}{section.2.5}% 47
+\BOOKMARK [1][-]{section.2.6}{Libraries and qualified names}{chapter.2}% 48
+\BOOKMARK [2][-]{subsection.2.6.1}{Names of libraries and files \040 \040}{section.2.6}% 49
+\BOOKMARK [2][-]{subsection.2.6.2}{Qualified names \040 }{section.2.6}% 50
+\BOOKMARK [1][-]{section.2.7}{Implicit arguments \040}{chapter.2}% 51
+\BOOKMARK [2][-]{subsection.2.7.1}{The different kinds of implicit arguments}{section.2.7}% 52
+\BOOKMARK [2][-]{subsection.2.7.2}{Maximal or non maximal insertion of implicit arguments}{section.2.7}% 53
+\BOOKMARK [2][-]{subsection.2.7.3}{Casual use of implicit arguments}{section.2.7}% 54
+\BOOKMARK [2][-]{subsection.2.7.4}{Declaration of implicit arguments for a constant command]Arguments@Arguments}{section.2.7}% 55
+\BOOKMARK [2][-]{subsection.2.7.5}{Automatic declaration of implicit arguments for a constant}{section.2.7}% 56
+\BOOKMARK [2][-]{subsection.2.7.6}{Mode for automatic declaration of implicit arguments \040command]Set Implicit Arguments@Set Implicit Arguments command]Unset Implicit Arguments@Unset Implicit Arguments}{section.2.7}% 57
+\BOOKMARK [2][-]{subsection.2.7.7}{Controlling strict implicit arguments command]Set Strict Implicit@Set Strict Implicit command]Unset Strict Implicit@Unset Strict Implicit }{section.2.7}% 58
+\BOOKMARK [2][-]{subsection.2.7.8}{Controlling contextual implicit arguments command]Set Contextual Implicit@Set Contextual Implicit command]Unset Contextual Implicit@Unset Contextual Implicit }{section.2.7}% 59
+\BOOKMARK [2][-]{subsection.2.7.9}{Controlling reversible-pattern implicit arguments command]Set Reversible Pattern Implicit@Set Reversible Pattern Implicit command]Unset Reversible Pattern Implicit@Unset Reversible Pattern Implicit }{section.2.7}% 60
+\BOOKMARK [2][-]{subsection.2.7.10}{Controlling the insertion of implicit arguments not followed by explicit arguments command]Set Maximal Implicit Insertion@Set Maximal Implicit Insertion command]Unset Maximal Implicit Insertion@Unset Maximal Implicit Insertion }{section.2.7}% 61
+\BOOKMARK [2][-]{subsection.2.7.11}{Explicit applications \040 \040}{section.2.7}% 62
+\BOOKMARK [2][-]{subsection.2.7.12}{Renaming implicit arguments command]Arguments@Arguments }{section.2.7}% 63
+\BOOKMARK [2][-]{subsection.2.7.13}{Deprecated Implicit Arguments command command]Implicit Arguments@Implicit Arguments}{section.2.7}% 64
+\BOOKMARK [2][-]{subsection.2.7.14}{Displaying what the implicit arguments are command]Print Implicit@Print Implicit }{section.2.7}% 65
+\BOOKMARK [2][-]{subsection.2.7.15}{Explicit displaying of implicit arguments for pretty-printing command]Set Printing Implicit@Set Printing Implicit command]Unset Printing Implicit@Unset Printing Implicit command]Set Printing Implicit Defensive@Set Printing Implicit Defensive command]Unset Printing Implicit Defensive@Unset Printing Implicit Defensive}{section.2.7}% 66
+\BOOKMARK [2][-]{subsection.2.7.16}{Interaction with subtyping}{section.2.7}% 67
+\BOOKMARK [2][-]{subsection.2.7.17}{Deactivation of implicit arguments for parsing}{section.2.7}% 68
+\BOOKMARK [2][-]{subsection.2.7.18}{Canonical structures command]Canonical Structure@Canonical Structure}{section.2.7}% 69
+\BOOKMARK [2][-]{subsection.2.7.19}{Implicit types of variables}{section.2.7}% 70
+\BOOKMARK [2][-]{subsection.2.7.20}{Implicit generalization \040command]Generalizable Variables@Generalizable Variables}{section.2.7}% 71
+\BOOKMARK [1][-]{section.2.8}{Coercions \040}{chapter.2}% 72
+\BOOKMARK [1][-]{section.2.9}{Printing constructions in full}{chapter.2}% 73
+\BOOKMARK [1][-]{section.2.10}{Printing universes}{chapter.2}% 74
+\BOOKMARK [1][-]{section.2.11}{Existential variables}{chapter.2}% 75
+\BOOKMARK [2][-]{subsection.2.11.1}{Explicit displaying of existential instances for pretty-printing command]Set Printing Existential Instances@Set Printing Existential Instances command]Unset Printing Existential Instances@Unset Printing Existential Instances}{section.2.11}% 76
+\BOOKMARK [0][-]{chapter.3}{The Coq library}{part.1}% 77
+\BOOKMARK [1][-]{section.3.1}{The basic library}{chapter.3}% 78
+\BOOKMARK [2][-]{subsection.3.1.1}{Notations}{section.3.1}% 79
+\BOOKMARK [2][-]{subsection.3.1.2}{Logic}{section.3.1}% 80
+\BOOKMARK [2][-]{subsection.3.1.3}{Datatypes}{section.3.1}% 81
+\BOOKMARK [2][-]{subsection.3.1.4}{Specification}{section.3.1}% 82
+\BOOKMARK [2][-]{subsection.3.1.5}{Basic Arithmetics}{section.3.1}% 83
+\BOOKMARK [2][-]{subsection.3.1.6}{Well-founded recursion}{section.3.1}% 84
+\BOOKMARK [2][-]{subsection.3.1.7}{Accessing the Type level}{section.3.1}% 85
+\BOOKMARK [2][-]{subsection.3.1.8}{Tactics}{section.3.1}% 86
+\BOOKMARK [1][-]{section.3.2}{The standard library}{chapter.3}% 87
+\BOOKMARK [2][-]{subsection.3.2.1}{Survey}{section.3.2}% 88
+\BOOKMARK [2][-]{subsection.3.2.2}{Notations for integer arithmetics}{section.3.2}% 89
+\BOOKMARK [2][-]{subsection.3.2.3}{Peano's arithmetic \(nat\)}{section.3.2}% 90
+\BOOKMARK [2][-]{subsection.3.2.4}{Real numbers library}{section.3.2}% 91
+\BOOKMARK [2][-]{subsection.3.2.5}{List library}{section.3.2}% 92
+\BOOKMARK [1][-]{section.3.3}{Users' contributions}{chapter.3}% 93
+\BOOKMARK [0][-]{chapter.4}{Calculus of Inductive Constructions}{part.1}% 94
+\BOOKMARK [1][-]{section.4.1}{The terms}{chapter.4}% 95
+\BOOKMARK [2][-]{subsection.4.1.1}{Sorts}{section.4.1}% 96
+\BOOKMARK [2][-]{subsection.4.1.2}{Constants}{section.4.1}% 97
+\BOOKMARK [2][-]{subsection.4.1.3}{Terms}{section.4.1}% 98
+\BOOKMARK [1][-]{section.4.2}{Typed terms}{chapter.4}% 99
+\BOOKMARK [1][-]{section.4.3}{Conversion rules}{chapter.4}% 100
+\BOOKMARK [1][-]{section.4.4}{Derived rules for environments}{chapter.4}% 101
+\BOOKMARK [1][-]{section.4.5}{Inductive Definitions}{chapter.4}% 102
+\BOOKMARK [2][-]{subsection.4.5.1}{Representing an inductive definition}{section.4.5}% 103
+\BOOKMARK [2][-]{subsection.4.5.2}{Types of inductive objects}{section.4.5}% 104
+\BOOKMARK [2][-]{subsection.4.5.3}{Well-formed inductive definitions}{section.4.5}% 105
+\BOOKMARK [2][-]{subsection.4.5.4}{Destructors}{section.4.5}% 106
+\BOOKMARK [2][-]{subsection.4.5.5}{Fixpoint definitions}{section.4.5}% 107
+\BOOKMARK [1][-]{section.4.6}{Co-inductive types}{chapter.4}% 108
+\BOOKMARK [1][-]{section.4.7}{Cic: the Calculus of Inductive Construction with impredicative Set}{chapter.4}% 109
+\BOOKMARK [0][-]{chapter.5}{The Module System}{part.1}% 110
+\BOOKMARK [1][-]{section.5.1}{Modules and module types}{chapter.5}% 111
+\BOOKMARK [1][-]{section.5.2}{Typing Modules}{chapter.5}% 112
+\BOOKMARK [-1][-]{part.2}{II The proof engine}{}% 113
+\BOOKMARK [0][-]{chapter.6}{Vernacular commands}{part.2}% 114
+\BOOKMARK [1][-]{section.6.1}{Displaying}{chapter.6}% 115
+\BOOKMARK [2][-]{subsection.6.1.1}{Print qualid.}{section.6.1}% 116
+\BOOKMARK [2][-]{subsection.6.1.2}{Print All.}{section.6.1}% 117
+\BOOKMARK [1][-]{section.6.2}{Flags, Options and Tables}{chapter.6}% 118
+\BOOKMARK [2][-]{subsection.6.2.1}{Set flag.}{section.6.2}% 119
+\BOOKMARK [2][-]{subsection.6.2.2}{Unset flag.}{section.6.2}% 120
+\BOOKMARK [2][-]{subsection.6.2.3}{Test flag.}{section.6.2}% 121
+\BOOKMARK [2][-]{subsection.6.2.4}{Set option value.}{section.6.2}% 122
+\BOOKMARK [2][-]{subsection.6.2.5}{Unset option.}{section.6.2}% 123
+\BOOKMARK [2][-]{subsection.6.2.6}{Test option.}{section.6.2}% 124
+\BOOKMARK [2][-]{subsection.6.2.7}{Tables}{section.6.2}% 125
+\BOOKMARK [2][-]{subsection.6.2.8}{Print Options.}{section.6.2}% 126
+\BOOKMARK [1][-]{section.6.3}{Requests to the environment}{chapter.6}% 127
+\BOOKMARK [2][-]{subsection.6.3.1}{Check term.}{section.6.3}% 128
+\BOOKMARK [2][-]{subsection.6.3.2}{Eval convtactic in term.}{section.6.3}% 129
+\BOOKMARK [2][-]{subsection.6.3.3}{Compute term.}{section.6.3}% 130
+\BOOKMARK [2][-]{subsection.6.3.4}{Extraction term.}{section.6.3}% 131
+\BOOKMARK [2][-]{subsection.6.3.5}{Print Assumptions qualid.}{section.6.3}% 132
+\BOOKMARK [2][-]{subsection.6.3.6}{Search term.}{section.6.3}% 133
+\BOOKMARK [2][-]{subsection.6.3.7}{SearchAbout qualid.}{section.6.3}% 134
+\BOOKMARK [2][-]{subsection.6.3.8}{SearchPattern term\137pattern.}{section.6.3}% 135
+\BOOKMARK [2][-]{subsection.6.3.9}{SearchRewrite term.}{section.6.3}% 136
+\BOOKMARK [2][-]{subsection.6.3.10}{Locate qualid.}{section.6.3}% 137
+\BOOKMARK [2][-]{subsection.6.3.11}{The Whelp searching tool }{section.6.3}% 138
+\BOOKMARK [1][-]{section.6.4}{Loading files}{chapter.6}% 139
+\BOOKMARK [2][-]{subsection.6.4.1}{Load ident.}{section.6.4}% 140
+\BOOKMARK [1][-]{section.6.5}{Compiled files}{chapter.6}% 141
+\BOOKMARK [2][-]{subsection.6.5.1}{Require qualid.}{section.6.5}% 142
+\BOOKMARK [2][-]{subsection.6.5.2}{Print Libraries.}{section.6.5}% 143
+\BOOKMARK [2][-]{subsection.6.5.3}{Declare ML Module string1 .. stringn.}{section.6.5}% 144
+\BOOKMARK [2][-]{subsection.6.5.4}{Print ML Modules.}{section.6.5}% 145
+\BOOKMARK [1][-]{section.6.6}{Loadpath}{chapter.6}% 146
+\BOOKMARK [2][-]{subsection.6.6.1}{Pwd.}{section.6.6}% 147
+\BOOKMARK [2][-]{subsection.6.6.2}{Cd string.}{section.6.6}% 148
+\BOOKMARK [2][-]{subsection.6.6.3}{Add LoadPath string as dirpath.}{section.6.6}% 149
+\BOOKMARK [2][-]{subsection.6.6.4}{Add Rec LoadPath string as dirpath.}{section.6.6}% 150
+\BOOKMARK [2][-]{subsection.6.6.5}{Remove LoadPath string.}{section.6.6}% 151
+\BOOKMARK [2][-]{subsection.6.6.6}{Print LoadPath.}{section.6.6}% 152
+\BOOKMARK [2][-]{subsection.6.6.7}{Add ML Path string.}{section.6.6}% 153
+\BOOKMARK [2][-]{subsection.6.6.8}{Add Rec ML Path string.}{section.6.6}% 154
+\BOOKMARK [2][-]{subsection.6.6.9}{Print ML Path string.}{section.6.6}% 155
+\BOOKMARK [2][-]{subsection.6.6.10}{Locate File string.}{section.6.6}% 156
+\BOOKMARK [2][-]{subsection.6.6.11}{Locate Library dirpath.}{section.6.6}% 157
+\BOOKMARK [1][-]{section.6.7}{Backtracking}{chapter.6}% 158
+\BOOKMARK [2][-]{subsection.6.7.1}{Reset ident.}{section.6.7}% 159
+\BOOKMARK [2][-]{subsection.6.7.2}{Back.}{section.6.7}% 160
+\BOOKMARK [2][-]{subsection.6.7.3}{BackTo num.}{section.6.7}% 161
+\BOOKMARK [1][-]{section.6.8}{State files}{chapter.6}% 162
+\BOOKMARK [2][-]{subsection.6.8.1}{Write State string.}{section.6.8}% 163
+\BOOKMARK [2][-]{subsection.6.8.2}{Restore State string.}{section.6.8}% 164
+\BOOKMARK [1][-]{section.6.9}{Quitting and debugging}{chapter.6}% 165
+\BOOKMARK [2][-]{subsection.6.9.1}{Quit.}{section.6.9}% 166
+\BOOKMARK [2][-]{subsection.6.9.2}{Drop.}{section.6.9}% 167
+\BOOKMARK [2][-]{subsection.6.9.3}{Time command.}{section.6.9}% 168
+\BOOKMARK [2][-]{subsection.6.9.4}{Timeout int command.}{section.6.9}% 169
+\BOOKMARK [2][-]{subsection.6.9.5}{Set Default Timeout int.}{section.6.9}% 170
+\BOOKMARK [2][-]{subsection.6.9.6}{Unset Default Timeout.}{section.6.9}% 171
+\BOOKMARK [2][-]{subsection.6.9.7}{Test Default Timeout.}{section.6.9}% 172
+\BOOKMARK [1][-]{section.6.10}{Controlling display}{chapter.6}% 173
+\BOOKMARK [2][-]{subsection.6.10.1}{Set Silent.}{section.6.10}% 174
+\BOOKMARK [2][-]{subsection.6.10.2}{Unset Silent.}{section.6.10}% 175
+\BOOKMARK [2][-]{subsection.6.10.3}{Set Printing Width integer.}{section.6.10}% 176
+\BOOKMARK [2][-]{subsection.6.10.4}{Unset Printing Width.}{section.6.10}% 177
+\BOOKMARK [2][-]{subsection.6.10.5}{Test Printing Width.}{section.6.10}% 178
+\BOOKMARK [2][-]{subsection.6.10.6}{Set Printing Depth integer.}{section.6.10}% 179
+\BOOKMARK [2][-]{subsection.6.10.7}{Unset Printing Depth.}{section.6.10}% 180
+\BOOKMARK [2][-]{subsection.6.10.8}{Test Printing Depth.}{section.6.10}% 181
+\BOOKMARK [1][-]{section.6.11}{Controlling the reduction strategies and the conversion algorithm}{chapter.6}% 182
+\BOOKMARK [2][-]{subsection.6.11.1}{Opaque qualid1 \203 qualidn.}{section.6.11}% 183
+\BOOKMARK [2][-]{subsection.6.11.2}{Transparent qualid1 \203 qualidn.}{section.6.11}% 184
+\BOOKMARK [2][-]{subsection.6.11.3}{Strategy level [ qualid1 \203 qualidn ].command]Strategy@Strategycommand]Local Strategy@Local Strategy}{section.6.11}% 185
+\BOOKMARK [2][-]{subsection.6.11.4}{Declare Reduction ident := convtactic.}{section.6.11}% 186
+\BOOKMARK [2][-]{subsection.6.11.5}{Set Virtual Machine \040command]Set Virtual Machine@Set Virtual Machine}{section.6.11}% 187
+\BOOKMARK [2][-]{subsection.6.11.6}{Unset Virtual Machine command]Unset Virtual Machine@Unset Virtual Machine}{section.6.11}% 188
+\BOOKMARK [2][-]{subsection.6.11.7}{Test Virtual Machine command]Test Virtual Machine@Test Virtual Machine}{section.6.11}% 189
+\BOOKMARK [1][-]{section.6.12}{Controlling the locality of commands}{chapter.6}% 190
+\BOOKMARK [2][-]{subsection.6.12.1}{Local, Global command]Local@Local command]Global@Global }{section.6.12}% 191
+\BOOKMARK [0][-]{chapter.7}{Proof handling}{part.2}% 192
+\BOOKMARK [1][-]{section.7.1}{Switching on/off the proof editing mode}{chapter.7}% 193
+\BOOKMARK [2][-]{subsection.7.1.1}{Goal form.}{section.7.1}% 194
+\BOOKMARK [2][-]{subsection.7.1.2}{Qed.}{section.7.1}% 195
+\BOOKMARK [2][-]{subsection.7.1.3}{Admitted.}{section.7.1}% 196
+\BOOKMARK [2][-]{subsection.7.1.4}{Proof term.}{section.7.1}% 197
+\BOOKMARK [2][-]{subsection.7.1.5}{Proof using ident1 \203identn.}{section.7.1}% 198
+\BOOKMARK [2][-]{subsection.7.1.6}{Abort.}{section.7.1}% 199
+\BOOKMARK [2][-]{subsection.7.1.7}{Existential num := term.}{section.7.1}% 200
+\BOOKMARK [2][-]{subsection.7.1.8}{Grab Existential Variables.}{section.7.1}% 201
+\BOOKMARK [1][-]{section.7.2}{Navigation in the proof tree}{chapter.7}% 202
+\BOOKMARK [2][-]{subsection.7.2.1}{Undo.}{section.7.2}% 203
+\BOOKMARK [2][-]{subsection.7.2.2}{Restart.}{section.7.2}% 204
+\BOOKMARK [2][-]{subsection.7.2.3}{Focus.}{section.7.2}% 205
+\BOOKMARK [2][-]{subsection.7.2.4}{Unfocus.}{section.7.2}% 206
+\BOOKMARK [2][-]{subsection.7.2.5}{Unfocused.}{section.7.2}% 207
+\BOOKMARK [2][-]{subsection.7.2.6}{\173 and \175}{section.7.2}% 208
+\BOOKMARK [2][-]{subsection.7.2.7}{Bullets}{section.7.2}% 209
+\BOOKMARK [1][-]{section.7.3}{Requesting information}{chapter.7}% 210
+\BOOKMARK [2][-]{subsection.7.3.1}{Show.}{section.7.3}% 211
+\BOOKMARK [2][-]{subsection.7.3.2}{Guarded.}{section.7.3}% 212
+\BOOKMARK [1][-]{section.7.4}{Controlling the effect of proof editing commands}{chapter.7}% 213
+\BOOKMARK [2][-]{subsection.7.4.1}{Set Hyps Limit num.}{section.7.4}% 214
+\BOOKMARK [2][-]{subsection.7.4.2}{Unset Hyps Limit.}{section.7.4}% 215
+\BOOKMARK [2][-]{subsection.7.4.3}{Set Automatic Introduction.}{section.7.4}% 216
+\BOOKMARK [0][-]{chapter.8}{Tactics \040}{part.2}% 217
+\BOOKMARK [1][-]{section.8.1}{Invocation of tactics \040}{chapter.8}% 218
+\BOOKMARK [2][-]{subsection.8.1.1}{Bindings list \040}{section.8.1}% 219
+\BOOKMARK [2][-]{subsection.8.1.2}{Occurrences sets and occurrences clauses}{section.8.1}% 220
+\BOOKMARK [1][-]{section.8.2}{Applying theorems}{chapter.8}% 221
+\BOOKMARK [2][-]{subsection.8.2.1}{exact term}{section.8.2}% 222
+\BOOKMARK [2][-]{subsection.8.2.2}{assumption}{section.8.2}% 223
+\BOOKMARK [2][-]{subsection.8.2.3}{refine term}{section.8.2}% 224
+\BOOKMARK [2][-]{subsection.8.2.4}{apply term}{section.8.2}% 225
+\BOOKMARK [2][-]{subsection.8.2.5}{apply term in ident}{section.8.2}% 226
+\BOOKMARK [2][-]{subsection.8.2.6}{constructor num}{section.8.2}% 227
+\BOOKMARK [1][-]{section.8.3}{Managing the local context}{chapter.8}% 228
+\BOOKMARK [2][-]{subsection.8.3.1}{intro}{section.8.3}% 229
+\BOOKMARK [2][-]{subsection.8.3.2}{intros intro\137pattern \203 intro\137pattern}{section.8.3}% 230
+\BOOKMARK [2][-]{subsection.8.3.3}{clear ident}{section.8.3}% 231
+\BOOKMARK [2][-]{subsection.8.3.4}{revert ident1 \203 identn}{section.8.3}% 232
+\BOOKMARK [2][-]{subsection.8.3.5}{move ident1 after ident2}{section.8.3}% 233
+\BOOKMARK [2][-]{subsection.8.3.6}{rename ident1 into ident2}{section.8.3}% 234
+\BOOKMARK [2][-]{subsection.8.3.7}{set \( ident := term \)}{section.8.3}% 235
+\BOOKMARK [2][-]{subsection.8.3.8}{decompose [ qualid1 \203 qualidn ] term}{section.8.3}% 236
+\BOOKMARK [1][-]{section.8.4}{Controlling the proof flow}{chapter.8}% 237
+\BOOKMARK [2][-]{subsection.8.4.1}{assert \( ident : form \)}{section.8.4}% 238
+\BOOKMARK [2][-]{subsection.8.4.2}{generalize term}{section.8.4}% 239
+\BOOKMARK [2][-]{subsection.8.4.3}{evar \( ident : term \)}{section.8.4}% 240
+\BOOKMARK [2][-]{subsection.8.4.4}{instantiate \( num := term \)}{section.8.4}% 241
+\BOOKMARK [2][-]{subsection.8.4.5}{admit}{section.8.4}% 242
+\BOOKMARK [2][-]{subsection.8.4.6}{absurd term}{section.8.4}% 243
+\BOOKMARK [2][-]{subsection.8.4.7}{contradiction}{section.8.4}% 244
+\BOOKMARK [2][-]{subsection.8.4.8}{contradict ident}{section.8.4}% 245
+\BOOKMARK [2][-]{subsection.8.4.9}{exfalso}{section.8.4}% 246
+\BOOKMARK [1][-]{section.8.5}{Case analysis and induction}{chapter.8}% 247
+\BOOKMARK [2][-]{subsection.8.5.1}{destruct term}{section.8.5}% 248
+\BOOKMARK [2][-]{subsection.8.5.2}{induction term}{section.8.5}% 249
+\BOOKMARK [2][-]{subsection.8.5.3}{double induction ident1 ident2}{section.8.5}% 250
+\BOOKMARK [2][-]{subsection.8.5.4}{dependent induction ident}{section.8.5}% 251
+\BOOKMARK [2][-]{subsection.8.5.5}{functional induction \(qualid term1 \203 termn\)}{section.8.5}% 252
+\BOOKMARK [2][-]{subsection.8.5.6}{discriminate term}{section.8.5}% 253
+\BOOKMARK [2][-]{subsection.8.5.7}{injection term}{section.8.5}% 254
+\BOOKMARK [2][-]{subsection.8.5.8}{inversion ident}{section.8.5}% 255
+\BOOKMARK [2][-]{subsection.8.5.9}{fix ident num}{section.8.5}% 256
+\BOOKMARK [2][-]{subsection.8.5.10}{cofix ident}{section.8.5}% 257
+\BOOKMARK [1][-]{section.8.6}{Rewriting expressions}{chapter.8}% 258
+\BOOKMARK [2][-]{subsection.8.6.1}{rewrite term tactic]rewrite@rewrite}{section.8.6}% 259
+\BOOKMARK [2][-]{subsection.8.6.2}{cutrewrite -> term1 = term2 \040tactic]cutrewrite@cutrewrite}{section.8.6}% 260
+\BOOKMARK [2][-]{subsection.8.6.3}{replace term1 with term2 \040tactic]replace \203 with@replace \203 with}{section.8.6}% 261
+\BOOKMARK [2][-]{subsection.8.6.4}{reflexivity \040tactic]reflexivity@reflexivity}{section.8.6}% 262
+\BOOKMARK [2][-]{subsection.8.6.5}{symmetry tactic]symmetry@symmetry tactic]symmetry in@symmetry in}{section.8.6}% 263
+\BOOKMARK [2][-]{subsection.8.6.6}{transitivity termtactic]transitivity@transitivity}{section.8.6}% 264
+\BOOKMARK [2][-]{subsection.8.6.7}{subst ident tactic]subst@subst}{section.8.6}% 265
+\BOOKMARK [2][-]{subsection.8.6.8}{stepl term}{section.8.6}% 266
+\BOOKMARK [2][-]{subsection.8.6.9}{change termtactic]change@change }{section.8.6}% 267
+\BOOKMARK [1][-]{section.8.7}{Performing computations \040}{chapter.8}% 268
+\BOOKMARK [2][-]{subsection.8.7.1}{cbv flag1 \203 flagn, lazy flag1 \203 flagn and compute}{section.8.7}% 269
+\BOOKMARK [2][-]{subsection.8.7.2}{red tactic]red@red}{section.8.7}% 270
+\BOOKMARK [2][-]{subsection.8.7.3}{hnf tactic]hnf@hnf}{section.8.7}% 271
+\BOOKMARK [2][-]{subsection.8.7.4}{simpl tactic]simpl@simpl}{section.8.7}% 272
+\BOOKMARK [2][-]{subsection.8.7.5}{unfold qualidtactic]unfold@unfold }{section.8.7}% 273
+\BOOKMARK [2][-]{subsection.8.7.6}{fold termtactic]fold@fold}{section.8.7}% 274
+\BOOKMARK [2][-]{subsection.8.7.7}{pattern term tactic]pattern@pattern }{section.8.7}% 275
+\BOOKMARK [2][-]{subsection.8.7.8}{Conversion tactics applied to hypotheses}{section.8.7}% 276
+\BOOKMARK [1][-]{section.8.8}{Automation}{chapter.8}% 277
+\BOOKMARK [2][-]{subsection.8.8.1}{auto \040tactic]auto@auto}{section.8.8}% 278
+\BOOKMARK [2][-]{subsection.8.8.2}{eauto tactic]eauto@eauto }{section.8.8}% 279
+\BOOKMARK [2][-]{subsection.8.8.3}{autounfold with ident1 \203 identn tactic]autounfold@autounfold }{section.8.8}% 280
+\BOOKMARK [2][-]{subsection.8.8.4}{autorewrite with ident1 \203identn. \040tactic]autorewrite@autorewrite}{section.8.8}% 281
+\BOOKMARK [1][-]{section.8.9}{Controlling automation}{chapter.8}% 282
+\BOOKMARK [2][-]{subsection.8.9.1}{The hints databases for auto and eauto \040 command]Hint@Hint}{section.8.9}% 283
+\BOOKMARK [2][-]{subsection.8.9.2}{Hint databases defined in the Coq standard library}{section.8.9}% 284
+\BOOKMARK [2][-]{subsection.8.9.3}{Print Hint \040command]Print Hint@Print Hint}{section.8.9}% 285
+\BOOKMARK [2][-]{subsection.8.9.4}{Hint Rewrite term1 \203termn : ident command]Hint Rewrite@Hint Rewrite}{section.8.9}% 286
+\BOOKMARK [2][-]{subsection.8.9.5}{Hints and sections }{section.8.9}% 287
+\BOOKMARK [2][-]{subsection.8.9.6}{Setting implicit automation tactics}{section.8.9}% 288
+\BOOKMARK [1][-]{section.8.10}{Decision procedures}{chapter.8}% 289
+\BOOKMARK [2][-]{subsection.8.10.1}{tauto tactic]tauto@tauto }{section.8.10}% 290
+\BOOKMARK [2][-]{subsection.8.10.2}{intuition tactic tactic]intuition@intuition }{section.8.10}% 291
+\BOOKMARK [2][-]{subsection.8.10.3}{rtauto tactic]rtauto@rtauto }{section.8.10}% 292
+\BOOKMARK [2][-]{subsection.8.10.4}{firstorder tactic]firstorder@firstorder }{section.8.10}% 293
+\BOOKMARK [2][-]{subsection.8.10.5}{congruence tactic]congruence@congruence }{section.8.10}% 294
+\BOOKMARK [1][-]{section.8.11}{Things that do not fit other sections}{chapter.8}% 295
+\BOOKMARK [1][-]{section.8.12}{Everything after this point has yet to be sorted}{chapter.8}% 296
+\BOOKMARK [2][-]{subsection.8.12.1}{constr\137eq term1 term2 tactic]constr\137eq@constr\137eq }{section.8.12}% 297
+\BOOKMARK [2][-]{subsection.8.12.2}{unify term1 term2 tactic]unify@unify }{section.8.12}% 298
+\BOOKMARK [2][-]{subsection.8.12.3}{is\137evar termtactic]is\137evar@is\137evar }{section.8.12}% 299
+\BOOKMARK [2][-]{subsection.8.12.4}{has\137evar termtactic]has\137evar@has\137evar }{section.8.12}% 300
+\BOOKMARK [2][-]{subsection.8.12.5}{is\137var termtactic]is\137var@is\137var }{section.8.12}% 301
+\BOOKMARK [1][-]{section.8.13}{Equality}{chapter.8}% 302
+\BOOKMARK [2][-]{subsection.8.13.1}{f\137equal \040tactic]f\137equal@f\137equal}{section.8.13}% 303
+\BOOKMARK [1][-]{section.8.14}{Equality and inductive sets}{chapter.8}% 304
+\BOOKMARK [2][-]{subsection.8.14.1}{decide equality \040tactic]decide equality@decide equality}{section.8.14}% 305
+\BOOKMARK [2][-]{subsection.8.14.2}{compare term1 term2 tactic]compare@compare}{section.8.14}% 306
+\BOOKMARK [2][-]{subsection.8.14.3}{simplify\137eq term tactic]simplify\137eq@simplify\137eq tactic]esimplify\137eq@esimplify\137eq }{section.8.14}% 307
+\BOOKMARK [2][-]{subsection.8.14.4}{dependent rewrite -> ident tactic]dependent rewrite ->@dependent rewrite -> }{section.8.14}% 308
+\BOOKMARK [1][-]{section.8.15}{Inversion }{chapter.8}% 309
+\BOOKMARK [2][-]{subsection.8.15.1}{functional inversion ident}{section.8.15}% 310
+\BOOKMARK [2][-]{subsection.8.15.2}{quote identtactic]quote@quote }{section.8.15}% 311
+\BOOKMARK [1][-]{section.8.16}{Classical tactics}{chapter.8}% 312
+\BOOKMARK [2][-]{subsection.8.16.1}{classical\137left, classical\137right tactic]classical\137left@classical\137left tactic]classical\137right@classical\137right}{section.8.16}% 313
+\BOOKMARK [1][-]{section.8.17}{Automatizing }{chapter.8}% 314
+\BOOKMARK [2][-]{subsection.8.17.1}{omega tactic]omega@omega }{section.8.17}% 315
+\BOOKMARK [2][-]{subsection.8.17.2}{ring and ring\137simplify term1 \203 termn tactic]ring@ring tactic]ring\137simplify@ring\137simplify command]Add Ring@Add Ring}{section.8.17}% 316
+\BOOKMARK [2][-]{subsection.8.17.3}{field, field\137simplify term1\203 termn and field\137simplify\137eq tactic]field@field tactic]field\137simplify@field\137simplify tactic]field\137simplify\137eq@field\137simplify\137eq command]Add Field@Add Field}{section.8.17}% 317
+\BOOKMARK [2][-]{subsection.8.17.4}{fourier tactic]fourier@fourier}{section.8.17}% 318
+\BOOKMARK [1][-]{section.8.18}{Simple tactic macros \040command]Tactic Definition@Tactic Definition }{chapter.8}% 319
+\BOOKMARK [0][-]{chapter.9}{The tactic language}{part.2}% 320
+\BOOKMARK [1][-]{section.9.1}{Syntax}{chapter.9}% 321
+\BOOKMARK [1][-]{section.9.2}{Semantics}{chapter.9}% 322
+\BOOKMARK [1][-]{section.9.3}{Tactic toplevel definitions}{chapter.9}% 323
+\BOOKMARK [2][-]{subsection.9.3.1}{Defining Ltac functions}{section.9.3}% 324
+\BOOKMARK [2][-]{subsection.9.3.2}{Printing Ltac tactics}{section.9.3}% 325
+\BOOKMARK [1][-]{section.9.4}{Debugging Ltac tactics}{chapter.9}% 326
+\BOOKMARK [0][-]{chapter.10}{Detailed examples of tactics}{part.2}% 327
+\BOOKMARK [1][-]{section.10.1}{dependent induction}{chapter.10}% 328
+\BOOKMARK [2][-]{subsection.10.1.1}{A larger example}{section.10.1}% 329
+\BOOKMARK [1][-]{section.10.2}{autorewrite}{chapter.10}% 330
+\BOOKMARK [1][-]{section.10.3}{quote}{chapter.10}% 331
+\BOOKMARK [2][-]{subsection.10.3.1}{Introducing variables map}{section.10.3}% 332
+\BOOKMARK [2][-]{subsection.10.3.2}{Combining variables and constants}{section.10.3}% 333
+\BOOKMARK [1][-]{section.10.4}{Using the tactical language}{chapter.10}% 334
+\BOOKMARK [2][-]{subsection.10.4.1}{About the cardinality of the set of natural numbers}{section.10.4}% 335
+\BOOKMARK [2][-]{subsection.10.4.2}{Permutation on closed lists}{section.10.4}% 336
+\BOOKMARK [2][-]{subsection.10.4.3}{Deciding intuitionistic propositional logic}{section.10.4}% 337
+\BOOKMARK [2][-]{subsection.10.4.4}{Deciding type isomorphisms}{section.10.4}% 338
+\BOOKMARK [0][-]{chapter.11}{The Mathematical Proof Language}{part.2}% 339
+\BOOKMARK [1][-]{section.11.1}{Introduction}{chapter.11}% 340
+\BOOKMARK [2][-]{subsection.11.1.1}{Foreword}{section.11.1}% 341
+\BOOKMARK [2][-]{subsection.11.1.2}{What is a declarative proof ?}{section.11.1}% 342
+\BOOKMARK [2][-]{subsection.11.1.3}{Well-formedness and Completeness}{section.11.1}% 343
+\BOOKMARK [2][-]{subsection.11.1.4}{Note for tactics users}{section.11.1}% 344
+\BOOKMARK [2][-]{subsection.11.1.5}{Compatibility}{section.11.1}% 345
+\BOOKMARK [1][-]{section.11.2}{Syntax}{chapter.11}% 346
+\BOOKMARK [2][-]{subsection.11.2.1}{Temporary names}{section.11.2}% 347
+\BOOKMARK [1][-]{section.11.3}{Language description}{chapter.11}% 348
+\BOOKMARK [2][-]{subsection.11.3.1}{Starting and Ending a mathematical proof}{section.11.3}% 349
+\BOOKMARK [2][-]{subsection.11.3.2}{Switching modes}{section.11.3}% 350
+\BOOKMARK [2][-]{subsection.11.3.3}{Computation steps}{section.11.3}% 351
+\BOOKMARK [2][-]{subsection.11.3.4}{Deduction steps}{section.11.3}% 352
+\BOOKMARK [2][-]{subsection.11.3.5}{Iterated equalities}{section.11.3}% 353
+\BOOKMARK [2][-]{subsection.11.3.6}{Subproofs}{section.11.3}% 354
+\BOOKMARK [2][-]{subsection.11.3.7}{Conclusion steps}{section.11.3}% 355
+\BOOKMARK [2][-]{subsection.11.3.8}{Declaring an Abbreviation}{section.11.3}% 356
+\BOOKMARK [2][-]{subsection.11.3.9}{Introduction steps}{section.11.3}% 357
+\BOOKMARK [2][-]{subsection.11.3.10}{Tuple elimination steps}{section.11.3}% 358
+\BOOKMARK [2][-]{subsection.11.3.11}{Disjunctive reasoning}{section.11.3}% 359
+\BOOKMARK [2][-]{subsection.11.3.12}{Proofs per cases}{section.11.3}% 360
+\BOOKMARK [2][-]{subsection.11.3.13}{Proofs by induction}{section.11.3}% 361
+\BOOKMARK [2][-]{subsection.11.3.14}{Justifications}{section.11.3}% 362
+\BOOKMARK [1][-]{section.11.4}{More details and Formal Semantics}{chapter.11}% 363
+\BOOKMARK [-1][-]{part.3}{III User extensions}{}% 364
+\BOOKMARK [0][-]{chapter.12}{Syntax extensions and interpretation scopes}{part.3}% 365
+\BOOKMARK [1][-]{section.12.1}{Notations}{chapter.12}% 366
+\BOOKMARK [2][-]{subsection.12.1.1}{Basic notations}{section.12.1}% 367
+\BOOKMARK [2][-]{subsection.12.1.2}{Precedences and associativity}{section.12.1}% 368
+\BOOKMARK [2][-]{subsection.12.1.3}{Complex notations}{section.12.1}% 369
+\BOOKMARK [2][-]{subsection.12.1.4}{Simple factorization rules}{section.12.1}% 370
+\BOOKMARK [2][-]{subsection.12.1.5}{Displaying symbolic notations}{section.12.1}% 371
+\BOOKMARK [2][-]{subsection.12.1.6}{The Infix command command]Infix@Infix}{section.12.1}% 372
+\BOOKMARK [2][-]{subsection.12.1.7}{Reserving notations \040command]Reserved Notation@Reserved Notation}{section.12.1}% 373
+\BOOKMARK [2][-]{subsection.12.1.8}{Simultaneous definition of terms and notations command]Fixpoint \203 where \203@Fixpoint \203 where \203 command]CoFixpoint \203 where \203@CoFixpoint \203 where \203 command]Inductive \203 where \203@Inductive \203 where \203}{section.12.1}% 374
+\BOOKMARK [2][-]{subsection.12.1.9}{Displaying informations about notations command]Set Printing Notations@Set Printing Notations command]Unset Printing Notations@Unset Printing Notations}{section.12.1}% 375
+\BOOKMARK [2][-]{subsection.12.1.10}{Locating notations command]Locate@Locate }{section.12.1}% 376
+\BOOKMARK [2][-]{subsection.12.1.11}{Notations and simple binders}{section.12.1}% 377
+\BOOKMARK [2][-]{subsection.12.1.12}{Notations with recursive patterns}{section.12.1}% 378
+\BOOKMARK [2][-]{subsection.12.1.13}{Notations with recursive patterns involving binders}{section.12.1}% 379
+\BOOKMARK [2][-]{subsection.12.1.14}{Summary}{section.12.1}% 380
+\BOOKMARK [1][-]{section.12.2}{Interpretation scopes}{chapter.12}% 381
+\BOOKMARK [2][-]{subsection.12.2.1}{Global interpretation rules for notations}{section.12.2}% 382
+\BOOKMARK [2][-]{subsection.12.2.2}{Local interpretation rules for notations}{section.12.2}% 383
+\BOOKMARK [2][-]{subsection.12.2.3}{The type\137scope interpretation scope}{section.12.2}% 384
+\BOOKMARK [2][-]{subsection.12.2.4}{Interpretation scopes used in the standard library of Coq}{section.12.2}% 385
+\BOOKMARK [2][-]{subsection.12.2.5}{Displaying informations about scopes}{section.12.2}% 386
+\BOOKMARK [1][-]{section.12.3}{Abbreviations}{chapter.12}% 387
+\BOOKMARK [1][-]{section.12.4}{Tactic Notations command]Tactic Notation@Tactic Notation}{chapter.12}% 388
+\BOOKMARK [0][-]{chapter.13}{Proof schemes}{part.3}% 389
+\BOOKMARK [1][-]{section.13.1}{Generation of induction principles with Scheme}{chapter.13}% 390
+\BOOKMARK [2][-]{subsection.13.1.1}{Automatic declaration of schemes}{section.13.1}% 391
+\BOOKMARK [2][-]{subsection.13.1.2}{Combined Scheme}{section.13.1}% 392
+\BOOKMARK [1][-]{section.13.2}{Generation of induction principles with Functional Scheme}{chapter.13}% 393
+\BOOKMARK [1][-]{section.13.3}{Generation of inversion principles with Derive Inversion}{chapter.13}% 394
+\BOOKMARK [-1][-]{part.4}{IV Practical tools}{}% 395
+\BOOKMARK [0][-]{chapter.14}{The Coq commands}{part.4}% 396
+\BOOKMARK [1][-]{section.14.1}{Interactive use \(coqtop\)}{chapter.14}% 397
+\BOOKMARK [1][-]{section.14.2}{Batch compilation \(coqc\)}{chapter.14}% 398
+\BOOKMARK [1][-]{section.14.3}{Customization}{chapter.14}% 399
+\BOOKMARK [2][-]{subsection.14.3.1}{By resource file}{section.14.3}% 400
+\BOOKMARK [1][-]{section.14.4}{By environment variables }{chapter.14}% 401
+\BOOKMARK [2][-]{subsection.14.4.1}{By command line options \040}{section.14.4}% 402
+\BOOKMARK [1][-]{section.14.5}{Compiled libraries checker \(coqchk\)}{chapter.14}% 403
+\BOOKMARK [0][-]{chapter.15}{Utilities}{part.4}% 404
+\BOOKMARK [1][-]{section.15.1}{Building a toplevel extended with user tactics}{chapter.15}% 405
+\BOOKMARK [1][-]{section.15.2}{Modules dependencies}{chapter.15}% 406
+\BOOKMARK [1][-]{section.15.3}{Creating a Makefile for Coq modules}{chapter.15}% 407
+\BOOKMARK [1][-]{section.15.4}{Documenting Coq files with coqdoc}{chapter.15}% 408
+\BOOKMARK [2][-]{subsection.15.4.1}{Principles}{section.15.4}% 409
+\BOOKMARK [2][-]{subsection.15.4.2}{Usage}{section.15.4}% 410
+\BOOKMARK [2][-]{subsection.15.4.3}{The coqdoc LaTeX style file}{section.15.4}% 411
+\BOOKMARK [1][-]{section.15.5}{Exporting Coq theories to XML}{chapter.15}% 412
+\BOOKMARK [2][-]{subsection.15.5.1}{Practical use of the XML exportation tool}{section.15.5}% 413
+\BOOKMARK [2][-]{subsection.15.5.2}{Reflection of the logical structure into the file system}{section.15.5}% 414
+\BOOKMARK [2][-]{subsection.15.5.3}{What is exported?}{section.15.5}% 415
+\BOOKMARK [2][-]{subsection.15.5.4}{Inner types}{section.15.5}% 416
+\BOOKMARK [2][-]{subsection.15.5.5}{Interactive exportation commands}{section.15.5}% 417
+\BOOKMARK [2][-]{subsection.15.5.6}{Applications: rendering, searching and publishing}{section.15.5}% 418
+\BOOKMARK [2][-]{subsection.15.5.7}{Technical informations}{section.15.5}% 419
+\BOOKMARK [1][-]{section.15.6}{Embedded Coq phrases inside LaTeX documents}{chapter.15}% 420
+\BOOKMARK [1][-]{section.15.7}{Coq and GNU Emacs}{chapter.15}% 421
+\BOOKMARK [2][-]{subsection.15.7.1}{The Coq Emacs mode}{section.15.7}% 422
+\BOOKMARK [2][-]{subsection.15.7.2}{Proof General}{section.15.7}% 423
+\BOOKMARK [1][-]{section.15.8}{Module specification}{chapter.15}% 424
+\BOOKMARK [1][-]{section.15.9}{Man pages}{chapter.15}% 425
+\BOOKMARK [0][-]{chapter.16}{Coq Integrated Development Environment}{part.4}% 426
+\BOOKMARK [1][-]{section.16.1}{Managing files and buffers, basic edition}{chapter.16}% 427
+\BOOKMARK [1][-]{section.16.2}{Interactive navigation into Coq scripts}{chapter.16}% 428
+\BOOKMARK [1][-]{section.16.3}{Try tactics automatically}{chapter.16}% 429
+\BOOKMARK [1][-]{section.16.4}{Proof folding}{chapter.16}% 430
+\BOOKMARK [1][-]{section.16.5}{Vernacular commands, templates}{chapter.16}% 431
+\BOOKMARK [1][-]{section.16.6}{Queries}{chapter.16}% 432
+\BOOKMARK [1][-]{section.16.7}{Compilation}{chapter.16}% 433
+\BOOKMARK [1][-]{section.16.8}{Customizations}{chapter.16}% 434
+\BOOKMARK [1][-]{section.16.9}{Using unicode symbols}{chapter.16}% 435
+\BOOKMARK [2][-]{subsection.16.9.1}{Displaying unicode symbols}{section.16.9}% 436
+\BOOKMARK [2][-]{subsection.16.9.2}{Defining an input method for non ASCII symbols}{section.16.9}% 437
+\BOOKMARK [2][-]{subsection.16.9.3}{Character encoding for saved files}{section.16.9}% 438
+\BOOKMARK [-1][-]{part.5}{V Addendum to the Reference Manual}{}% 439
+\BOOKMARK [0][-]{chapter.17}{Extended pattern-matching}{part.5}% 440
+\BOOKMARK [1][-]{section.17.1}{Patterns}{chapter.17}% 441
+\BOOKMARK [1][-]{section.17.2}{About patterns of parametric types}{chapter.17}% 442
+\BOOKMARK [1][-]{section.17.3}{Matching objects of dependent types}{chapter.17}% 443
+\BOOKMARK [2][-]{subsection.17.3.1}{Understanding dependencies in patterns}{section.17.3}% 444
+\BOOKMARK [2][-]{subsection.17.3.2}{When the elimination predicate must be provided}{section.17.3}% 445
+\BOOKMARK [1][-]{section.17.4}{Using pattern matching to write proofs}{chapter.17}% 446
+\BOOKMARK [1][-]{section.17.5}{Pattern-matching on inductive objects involving local definitions}{chapter.17}% 447
+\BOOKMARK [1][-]{section.17.6}{Pattern-matching and coercions}{chapter.17}% 448
+\BOOKMARK [1][-]{section.17.7}{When does the expansion strategy fail ?}{chapter.17}% 449
+\BOOKMARK [0][-]{chapter.18}{Implicit Coercions}{part.5}% 450
+\BOOKMARK [1][-]{section.18.1}{General Presentation}{chapter.18}% 451
+\BOOKMARK [1][-]{section.18.2}{Classes}{chapter.18}% 452
+\BOOKMARK [1][-]{section.18.3}{Coercions}{chapter.18}% 453
+\BOOKMARK [1][-]{section.18.4}{Identity Coercions}{chapter.18}% 454
+\BOOKMARK [1][-]{section.18.5}{Inheritance Graph}{chapter.18}% 455
+\BOOKMARK [1][-]{section.18.6}{Declaration of Coercions}{chapter.18}% 456
+\BOOKMARK [2][-]{subsection.18.6.1}{Coercion qualid : class1 >-> class2.}{section.18.6}% 457
+\BOOKMARK [2][-]{subsection.18.6.2}{Identity Coercion ident:class1 >-> class2.}{section.18.6}% 458
+\BOOKMARK [1][-]{section.18.7}{Displaying Available Coercions}{chapter.18}% 459
+\BOOKMARK [2][-]{subsection.18.7.1}{Print Classes.}{section.18.7}% 460
+\BOOKMARK [2][-]{subsection.18.7.2}{Print Coercions.}{section.18.7}% 461
+\BOOKMARK [2][-]{subsection.18.7.3}{Print Graph.}{section.18.7}% 462
+\BOOKMARK [2][-]{subsection.18.7.4}{Print Coercion Paths class1 class2.}{section.18.7}% 463
+\BOOKMARK [1][-]{section.18.8}{Activating the Printing of Coercions}{chapter.18}% 464
+\BOOKMARK [2][-]{subsection.18.8.1}{Set Printing Coercions.}{section.18.8}% 465
+\BOOKMARK [2][-]{subsection.18.8.2}{Set Printing Coercion qualid.}{section.18.8}% 466
+\BOOKMARK [1][-]{section.18.9}{Classes as Records}{chapter.18}% 467
+\BOOKMARK [1][-]{section.18.10}{Coercions and Sections}{chapter.18}% 468
+\BOOKMARK [1][-]{section.18.11}{Coercions and Modules}{chapter.18}% 469
+\BOOKMARK [1][-]{section.18.12}{Examples}{chapter.18}% 470
+\BOOKMARK [0][-]{chapter.19}{Type Classes}{part.5}% 471
+\BOOKMARK [1][-]{section.19.1}{Class and Instance declarations}{chapter.19}% 472
+\BOOKMARK [1][-]{section.19.2}{Binding classes}{chapter.19}% 473
+\BOOKMARK [1][-]{section.19.3}{Parameterized Instances}{chapter.19}% 474
+\BOOKMARK [1][-]{section.19.4}{Sections and contexts}{chapter.19}% 475
+\BOOKMARK [1][-]{section.19.5}{Building hierarchies}{chapter.19}% 476
+\BOOKMARK [2][-]{subsection.19.5.1}{Superclasses}{section.19.5}% 477
+\BOOKMARK [2][-]{subsection.19.5.2}{Substructures}{section.19.5}% 478
+\BOOKMARK [1][-]{section.19.6}{Summary of the commands }{chapter.19}% 479
+\BOOKMARK [2][-]{subsection.19.6.1}{Class ident binder1 \203 bindern : sort:= \173 field1 ; \203; fieldk \175.}{section.19.6}% 480
+\BOOKMARK [2][-]{subsection.19.6.2}{Instance ident binder1 \203bindern : Class t1 \203tn [| priority] := \173 field1 := b1 ; \203; fieldi := bi \175}{section.19.6}% 481
+\BOOKMARK [2][-]{subsection.19.6.3}{Existing Instance ident}{section.19.6}% 482
+\BOOKMARK [2][-]{subsection.19.6.4}{Context binder1 \203bindern}{section.19.6}% 483
+\BOOKMARK [2][-]{subsection.19.6.5}{Typeclasses Transparent, Opaque ident1 \203identn}{section.19.6}% 484
+\BOOKMARK [2][-]{subsection.19.6.6}{Typeclasses eauto := [debug] [dfs | bfs] [depth]}{section.19.6}% 485
+\BOOKMARK [0][-]{chapter.20}{Omega: a solver of quantifier-free problems in Presburger Arithmetic}{part.5}% 486
+\BOOKMARK [1][-]{section.20.1}{Description of omega}{chapter.20}% 487
+\BOOKMARK [2][-]{subsection.20.1.1}{Arithmetical goals recognized by omega}{section.20.1}% 488
+\BOOKMARK [2][-]{subsection.20.1.2}{Messages from omega}{section.20.1}% 489
+\BOOKMARK [1][-]{section.20.2}{Using omega}{chapter.20}% 490
+\BOOKMARK [1][-]{section.20.3}{Technical data}{chapter.20}% 491
+\BOOKMARK [2][-]{subsection.20.3.1}{Overview of the tactic}{section.20.3}% 492
+\BOOKMARK [2][-]{subsection.20.3.2}{Overview of the OMEGA decision procedure}{section.20.3}% 493
+\BOOKMARK [1][-]{section.20.4}{Bugs}{chapter.20}% 494
+\BOOKMARK [0][-]{chapter.21}{Micromega : tactics for solving arithmetic goals over ordered rings}{part.5}% 495
+\BOOKMARK [1][-]{section.21.1}{Short description of the tactics}{chapter.21}% 496
+\BOOKMARK [1][-]{section.21.2}{Positivstellensatz refutations}{chapter.21}% 497
+\BOOKMARK [1][-]{section.21.3}{lra : a decision procedure for linear real and rational arithmetic}{chapter.21}% 498
+\BOOKMARK [1][-]{section.21.4}{ psatz : a proof procedure for non-linear arithmetic}{chapter.21}% 499
+\BOOKMARK [1][-]{section.21.5}{ lia : a tactic for linear integer arithmetic }{chapter.21}% 500
+\BOOKMARK [1][-]{section.21.6}{ nia : a proof procedure for non-linear integer arithmetic}{chapter.21}% 501
+\BOOKMARK [0][-]{chapter.22}{Extraction of programs in Objective Caml and Haskell}{part.5}% 502
+\BOOKMARK [1][-]{section.22.1}{Generating ML code}{chapter.22}% 503
+\BOOKMARK [1][-]{section.22.2}{Extraction options}{chapter.22}% 504
+\BOOKMARK [2][-]{subsection.22.2.1}{Setting the target language}{section.22.2}% 505
+\BOOKMARK [2][-]{subsection.22.2.2}{Inlining and optimizations}{section.22.2}% 506
+\BOOKMARK [2][-]{subsection.22.2.3}{Extra elimination of useless arguments}{section.22.2}% 507
+\BOOKMARK [2][-]{subsection.22.2.4}{Realizing axioms}{section.22.2}% 508
+\BOOKMARK [2][-]{subsection.22.2.5}{Avoiding conflicts with existing filenames}{section.22.2}% 509
+\BOOKMARK [1][-]{section.22.3}{Differences between Coq and ML type systems}{chapter.22}% 510
+\BOOKMARK [1][-]{section.22.4}{Some examples}{chapter.22}% 511
+\BOOKMARK [2][-]{subsection.22.4.1}{A detailed example: Euclidean division}{section.22.4}% 512
+\BOOKMARK [2][-]{subsection.22.4.2}{Extraction's horror museum}{section.22.4}% 513
+\BOOKMARK [2][-]{subsection.22.4.3}{Users' Contributions}{section.22.4}% 514
+\BOOKMARK [0][-]{chapter.23}{Program}{part.5}% 515
+\BOOKMARK [1][-]{section.23.1}{Elaborating programs}{chapter.23}% 516
+\BOOKMARK [2][-]{subsection.23.1.1}{Syntactic control over equalities}{section.23.1}% 517
+\BOOKMARK [2][-]{subsection.23.1.2}{Program Definition ident := term. command]Program Definition@Program Definition}{section.23.1}% 518
+\BOOKMARK [2][-]{subsection.23.1.3}{Program Fixpoint ident params \173order\175 : type := termcommand]Program Fixpoint@Program Fixpoint }{section.23.1}% 519
+\BOOKMARK [2][-]{subsection.23.1.4}{Program Lemma ident : type. command]Program Lemma@Program Lemma }{section.23.1}% 520
+\BOOKMARK [1][-]{section.23.2}{Solving obligations}{chapter.23}% 521
+\BOOKMARK [1][-]{section.23.3}{Frequently Asked Questions }{chapter.23}% 522
+\BOOKMARK [0][-]{chapter.24}{The ring and field tactic families}{part.5}% 523
+\BOOKMARK [1][-]{section.24.1}{What does this tactic do?}{chapter.24}% 524
+\BOOKMARK [1][-]{section.24.2}{The variables map}{chapter.24}% 525
+\BOOKMARK [1][-]{section.24.3}{Is it automatic?}{chapter.24}% 526
+\BOOKMARK [1][-]{section.24.4}{Concrete usage in Coqtactic]ring@ring tactic]ring\137simplify@ring\137simplify}{chapter.24}% 527
+\BOOKMARK [1][-]{section.24.5}{Adding a ring structure command]Add Ring@Add Ring}{chapter.24}% 528
+\BOOKMARK [1][-]{section.24.6}{How does it work?}{chapter.24}% 529
+\BOOKMARK [1][-]{section.24.7}{Dealing with fields tactic]field@field tactic]field\137simplify@field\137simplify tactic]field\137simplify\137eq@field\137simplify\137eq}{chapter.24}% 530
+\BOOKMARK [1][-]{section.24.8}{Adding a new field structure command]Add Field@Add Field}{chapter.24}% 531
+\BOOKMARK [1][-]{section.24.9}{Legacy implementation}{chapter.24}% 532
+\BOOKMARK [2][-]{subsection.24.9.1}{legacy ring term1 \203 termn tactic]legacy ring@legacy ring command]Add Legacy Ring@Add Legacy Ring command]Add Legacy Semi Ring@Add Legacy Semi Ring}{section.24.9}% 533
+\BOOKMARK [2][-]{subsection.24.9.2}{Add a ring structure}{section.24.9}% 534
+\BOOKMARK [2][-]{subsection.24.9.3}{legacy field tactic]legacy field@legacy field}{section.24.9}% 535
+\BOOKMARK [2][-]{subsection.24.9.4}{Add Legacy Field command]Add Legacy Field@Add Legacy Field}{section.24.9}% 536
+\BOOKMARK [1][-]{section.24.10}{History of ring}{chapter.24}% 537
+\BOOKMARK [1][-]{section.24.11}{Discussion}{chapter.24}% 538
+\BOOKMARK [0][-]{chapter.25}{Nsatz: tactics for proving equalities in integral domains}{part.5}% 539
+\BOOKMARK [1][-]{section.25.1}{Using the basic tactic nsatz}{chapter.25}% 540
+\BOOKMARK [1][-]{section.25.2}{More about nsatz}{chapter.25}% 541
+\BOOKMARK [0][-]{chapter.26}{User defined equalities and relations}{part.5}% 542
+\BOOKMARK [1][-]{section.26.1}{Relations and morphisms}{chapter.26}% 543
+\BOOKMARK [1][-]{section.26.2}{Adding new relations and morphisms}{chapter.26}% 544
+\BOOKMARK [1][-]{section.26.3}{Rewriting and non reflexive relations}{chapter.26}% 545
+\BOOKMARK [1][-]{section.26.4}{Rewriting and non symmetric relations}{chapter.26}% 546
+\BOOKMARK [1][-]{section.26.5}{Rewriting in ambiguous setoid contexts}{chapter.26}% 547
+\BOOKMARK [1][-]{section.26.6}{First class setoids and morphisms}{chapter.26}% 548
+\BOOKMARK [1][-]{section.26.7}{Tactics enabled on user provided relations}{chapter.26}% 549
+\BOOKMARK [1][-]{section.26.8}{Printing relations and morphisms}{chapter.26}% 550
+\BOOKMARK [1][-]{section.26.9}{Deprecated syntax and backward incompatibilities}{chapter.26}% 551
+\BOOKMARK [1][-]{section.26.10}{Rewriting under binders}{chapter.26}% 552
+\BOOKMARK [1][-]{section.26.11}{Sub-relations}{chapter.26}% 553
+\BOOKMARK [1][-]{section.26.12}{Constant unfolding}{chapter.26}% 554
+\BOOKMARK [0][-]{chapter*.207}{Bibliography}{part.5}% 555
+\BOOKMARK [0][-]{chapter*.207}{Global Index}{part.5}% 556
+\BOOKMARK [0][-]{chapter*.207}{Tactics Index}{part.5}% 557
+\BOOKMARK [0][-]{chapter*.207}{Vernacular Commands Index}{part.5}% 558
+\BOOKMARK [0][-]{chapter*.207}{Index of Error Messages}{part.5}% 559

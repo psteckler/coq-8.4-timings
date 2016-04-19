@@ -1,0 +1,151 @@
+(* -*- coding: utf-8 -*- *)
+(************************************************************************)
+(*  v      *   The Coq Proof Assistant  /  The Coq Development Team     *)
+(* <O___,, *   INRIA - CNRS - LIX - LRI - PPS - Copyright 1999-2014     *)
+(*   \VV/  **************************************************************)
+(*    //   *      This file is distributed under the terms of the       *)
+(*         *       GNU Lesser General Public License Version 2.1        *)
+(************************************************************************)
+
+(* CORE morphisms, derived from Morphisms.v *)
+
+(** * Typeclass-based morphism definition and standard, minimal instances
+
+   Author: Matthieu Sozeau
+   Institution: LRI, CNRS UMR 8623 - University Paris Sud
+*)
+
+Require Import Coq.Program.Basics.
+Require Import Coq.Program.Tactics.
+Require Import Coq.Relations.Relation_Definitions.
+Require Export Coq.Classes.RelationClasses.
+
+Generalizable All Variables.
+Local Obligation Tactic := simpl_relation.
+
+(** * Morphisms.
+
+   We now turn to the definition of [Proper] and declare standard instances.
+   These will be used by the [setoid_rewrite] tactic later. *)
+
+(** A morphism for a relation [R] is a proper element of the relation.
+   The relation [R] will be instantiated by [respectful] and [A] by an arrow
+   type for usual morphisms. *)
+
+Class Proper {A} (R : relation A) (m : A) : Prop :=
+  proper_prf : R m m.
+
+(** Respectful morphisms. *)
+
+(** The fully dependent version, not used yet. *)
+
+Definition respectful_hetero
+  (A B : Type)
+  (C : A -> Type) (D : B -> Type)
+  (R : A -> B -> Prop)
+  (R' : forall (x : A) (y : B), C x -> D y -> Prop) :
+    (forall x : A, C x) -> (forall x : B, D x) -> Prop :=
+    fun f g => forall x y, R x y -> R' x y (f x) (g y).
+
+(** The non-dependent version is an instance where we forget dependencies. *)
+
+Definition respectful {A B : Type}
+  (R : relation A) (R' : relation B) : relation (A -> B) :=
+  Eval compute in @respectful_hetero A A (fun _ => B) (fun _ => B) R (fun _ _ => R').
+
+(** Notations reminiscent of the old syntax for declaring morphisms. *)
+
+Delimit Scope signature_scope with signature.
+
+Arguments Proper {A}%type R%signature m.
+Arguments respectful {A B}%type (R R')%signature _ _.
+
+Module ProperNotations.
+
+  Notation " R ++> R' " := (@respectful _ _ (R%signature) (R'%signature))
+    (right associativity, at level 55) : signature_scope.
+
+  Notation " R ==> R' " := (@respectful _ _ (R%signature) (R'%signature))
+    (right associativity, at level 55) : signature_scope.
+
+  Notation " R --> R' " := (@respectful _ _ (inverse (R%signature)) (R'%signature))
+    (right associativity, at level 55) : signature_scope.
+
+End ProperNotations.
+
+Export ProperNotations.
+
+Local Open Scope signature_scope.
+
+(** [solve_proper] try to solve the goal [Proper (?==> ... ==>?) f]
+    by repeated introductions and setoid rewrites. It should work
+    fine when [f] is a combination of already known morphisms and
+    quantifiers. *)
+
+Ltac solve_respectful t :=
+ match goal with
+   | |- respectful _ _ _ _ =>
+     let H := fresh "H" in
+     intros ? ? H; solve_respectful ltac:(setoid_rewrite H; t)
+   | _ => t; reflexivity
+ end.
+
+Ltac solve_proper := unfold Proper; solve_respectful ltac:(idtac).
+
+(** [f_equiv] is a clone of [f_equal] that handles setoid equivalences.
+    For example, if we know that [f] is a morphism for [E1==>E2==>E],
+    then the goal [E (f x y) (f x' y')] will be transformed by [f_equiv]
+    into the subgoals [E1 x x'] and [E2 y y'].
+*)
+
+Ltac f_equiv :=
+ match goal with
+  | |- ?R (?f ?x) (?f' _) =>
+    let T := type of x in
+    let Rx := fresh "R" in
+    evar (Rx : relation T);
+    let H := fresh in
+    assert (H : (Rx==>R)%signature f f');
+    unfold Rx in *; clear Rx; [ f_equiv | apply H; clear H; try reflexivity ]
+  | |- ?R ?f ?f' =>
+    try reflexivity;
+    change (Proper R f); eauto with typeclass_instances; fail
+  | _ => idtac
+ end.
+
+(** [forall_def] reifies the dependent product as a definition. *)
+
+Definition forall_def {A : Type} (B : A -> Type) : Type := forall x : A, B x.
+
+(** Dependent pointwise lifting of a relation on the range. *)
+
+Definition forall_relation {A : Type} {B : A -> Type}
+ (sig : forall a, relation (B a)) : relation (forall x, B x) :=
+ fun f g => forall a, sig a (f a) (g a).
+
+Arguments forall_relation {A B}%type sig%signature _ _.
+
+(** Non-dependent pointwise lifting *)
+
+Definition pointwise_relation (A : Type) {B : Type} (R : relation B) : relation (A -> B) :=
+  Eval compute in forall_relation (B:=fun _ => B) (fun _ => R).
+
+Lemma pointwise_pointwise A B (R : relation B) :
+  relation_equivalence (pointwise_relation A R) (@eq A ==> R).
+Proof. intros. split. simpl_relation. firstorder. Qed.
+
+CoInductive apply_subrelation : Prop := do_subrelation.
+
+Typeclasses Opaque respectful pointwise_relation forall_relation.
+
+Program Instance respectful_per `(PER A R, PER B R') : PER (R ==> R').
+
+  Next Obligation.
+  Proof with auto.
+    assert(R x0 x0).
+    transitivity y0... symmetry...
+    transitivity (y x0)...
+  Qed.
+
+
+

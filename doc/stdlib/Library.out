@@ -1,0 +1,164 @@
+\BOOKMARK [0][-]{chapter.1}{Library Coq.Init.Datatypes}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Datatypes with zero and one element}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{The boolean datatype}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Peano natural numbers}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.4}{Container datatypes}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.5}{The comparison datatype}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.6}{Misc Other Datatypes}{chapter.1}% 7
+\BOOKMARK [0][-]{chapter.2}{Library Coq.Init.Logic\137Type}{}% 8
+\BOOKMARK [0][-]{chapter.3}{Library Coq.Init.Logic}{}% 9
+\BOOKMARK [1][-]{section.3.1}{Propositional connectives}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.2}{First-order quantifiers}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.3}{Equality}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.4}{Being inhabited}{chapter.3}% 13
+\BOOKMARK [0][-]{chapter.4}{Library Coq.Init.Notations}{}% 14
+\BOOKMARK [0][-]{chapter.5}{Library Coq.Init.Peano}{}% 15
+\BOOKMARK [0][-]{chapter.6}{Library Coq.Init.Prelude}{}% 16
+\BOOKMARK [0][-]{chapter.7}{Library Coq.Init.Specif}{}% 17
+\BOOKMARK [0][-]{chapter.8}{Library Coq.Init.Tactics}{}% 18
+\BOOKMARK [1][-]{section.8.1}{Useful tactics}{chapter.8}% 19
+\BOOKMARK [0][-]{chapter.9}{Library Coq.Init.Wf}{}% 20
+\BOOKMARK [1][-]{section.9.1}{This module proves the validity of}{chapter.9}% 21
+\BOOKMARK [0][-]{chapter.10}{Library Coq.Logic.Berardi}{}% 22
+\BOOKMARK [0][-]{chapter.11}{Library Coq.Logic.ChoiceFacts}{}% 23
+\BOOKMARK [1][-]{section.11.1}{Definitions}{chapter.11}% 24
+\BOOKMARK [2][-]{subsection.11.1.1}{Constructive choice and description}{section.11.1}% 25
+\BOOKMARK [2][-]{subsection.11.1.2}{Weakly classical choice and description}{section.11.1}% 26
+\BOOKMARK [1][-]{section.11.2}{AC\137rel + AC! = AC\137fun}{chapter.11}% 27
+\BOOKMARK [1][-]{section.11.3}{Connection between the guarded, non guarded and omniscient choices}{chapter.11}% 28
+\BOOKMARK [2][-]{subsection.11.3.1}{AC\137rel + PI -> GAC\137rel and AC\137rel + IGP -> GAC\137rel and GAC\137rel = OAC\137rel}{section.11.3}% 29
+\BOOKMARK [2][-]{subsection.11.3.2}{AC\137fun + IGP = GAC\137fun = OAC\137fun = AC\137fun + Drinker}{section.11.3}% 30
+\BOOKMARK [2][-]{subsection.11.3.3}{D\137iota -> ID\137iota and D\137epsilon <-> ID\137epsilon + Drinker}{section.11.3}% 31
+\BOOKMARK [1][-]{section.11.4}{Derivability of choice for decidable relations with well-ordered codomain}{chapter.11}% 32
+\BOOKMARK [1][-]{section.11.5}{Choice on dependent and non dependent function types are equivalent}{chapter.11}% 33
+\BOOKMARK [2][-]{subsection.11.5.1}{Choice on dependent and non dependent function types are equivalent}{section.11.5}% 34
+\BOOKMARK [2][-]{subsection.11.5.2}{Reification of dependent and non dependent functional relation are equivalent}{section.11.5}% 35
+\BOOKMARK [1][-]{section.11.6}{Non contradiction of constructive descriptions wrt functional axioms of choice}{chapter.11}% 36
+\BOOKMARK [2][-]{subsection.11.6.1}{Non contradiction of indefinite description}{section.11.6}% 37
+\BOOKMARK [2][-]{subsection.11.6.2}{Non contradiction of definite description}{section.11.6}% 38
+\BOOKMARK [1][-]{section.11.7}{Excluded-middle + definite description => computational excluded-middle}{chapter.11}% 39
+\BOOKMARK [1][-]{section.11.8}{Choice => Dependent choice => Countable choice}{chapter.11}% 40
+\BOOKMARK [0][-]{chapter.12}{Library Coq.Logic.ClassicalChoice}{}% 41
+\BOOKMARK [0][-]{chapter.13}{Library Coq.Logic.ClassicalDescription}{}% 42
+\BOOKMARK [0][-]{chapter.14}{Library Coq.Logic.ClassicalEpsilon}{}% 43
+\BOOKMARK [0][-]{chapter.15}{Library Coq.Logic.ClassicalFacts}{}% 44
+\BOOKMARK [1][-]{section.15.1}{Prop degeneracy = excluded-middle + prop extensionality}{chapter.15}% 45
+\BOOKMARK [1][-]{section.15.2}{Classical logic and proof-irrelevance}{chapter.15}% 46
+\BOOKMARK [2][-]{subsection.15.2.1}{CC |- prop ext + A inhabited -> \(A = A->A\) -> A has fixpoint}{section.15.2}% 47
+\BOOKMARK [2][-]{subsection.15.2.2}{CC |- prop\137ext /92 dep elim on bool -> proof-irrelevance}{section.15.2}% 48
+\BOOKMARK [2][-]{subsection.15.2.3}{CIC |- prop. ext. -> proof-irrelevance}{section.15.2}% 49
+\BOOKMARK [2][-]{subsection.15.2.4}{CC |- excluded-middle + dep elim on bool -> proof-irrelevance}{section.15.2}% 50
+\BOOKMARK [2][-]{subsection.15.2.5}{CIC |- excluded-middle -> proof-irrelevance}{section.15.2}% 51
+\BOOKMARK [1][-]{section.15.3}{Weak classical axioms}{chapter.15}% 52
+\BOOKMARK [2][-]{subsection.15.3.1}{Weak excluded-middle}{section.15.3}% 53
+\BOOKMARK [2][-]{subsection.15.3.2}{G\366del-Dummett axiom}{section.15.3}% 54
+\BOOKMARK [2][-]{subsection.15.3.3}{Independence of general premises and drinker's paradox}{section.15.3}% 55
+\BOOKMARK [0][-]{chapter.16}{Library Coq.Logic.Classical\137Pred\137Set}{}% 56
+\BOOKMARK [0][-]{chapter.17}{Library Coq.Logic.Classical\137Pred\137Type}{}% 57
+\BOOKMARK [0][-]{chapter.18}{Library Coq.Logic.Classical\137Prop}{}% 58
+\BOOKMARK [0][-]{chapter.19}{Library Coq.Logic.Classical\137Type}{}% 59
+\BOOKMARK [0][-]{chapter.20}{Library Coq.Logic.ClassicalUniqueChoice}{}% 60
+\BOOKMARK [0][-]{chapter.21}{Library Coq.Logic.Classical}{}% 61
+\BOOKMARK [0][-]{chapter.22}{Library Coq.Logic.ConstructiveEpsilon}{}% 62
+\BOOKMARK [0][-]{chapter.23}{Library Coq.Logic.Decidable}{}% 63
+\BOOKMARK [0][-]{chapter.24}{Library Coq.Logic.Description}{}% 64
+\BOOKMARK [0][-]{chapter.25}{Library Coq.Logic.Diaconescu}{}% 65
+\BOOKMARK [1][-]{section.25.1}{Pred. Ext. + Rel. Axiom of Choice -> Excluded-Middle}{chapter.25}% 66
+\BOOKMARK [1][-]{section.25.2}{B. Proof-Irrel. + Rel. Axiom of Choice -> Excl.-Middle for Equality}{chapter.25}% 67
+\BOOKMARK [1][-]{section.25.3}{Extensional Hilbert's epsilon description operator -> Excluded-Middle}{chapter.25}% 68
+\BOOKMARK [0][-]{chapter.26}{Library Coq.Logic.Epsilon}{}% 69
+\BOOKMARK [0][-]{chapter.27}{Library Coq.Logic.Eqdep\137dec}{}% 70
+\BOOKMARK [1][-]{section.27.1}{Streicher's K and injectivity of dependent pair hold on decidable types}{chapter.27}% 71
+\BOOKMARK [2][-]{subsection.27.1.1}{Definition of the functor that builds properties of dependent equalities on decidable sets in Type}{section.27.1}% 72
+\BOOKMARK [2][-]{subsection.27.1.2}{Definition of the functor that builds properties of dependent equalities on decidable sets in Set}{section.27.1}% 73
+\BOOKMARK [0][-]{chapter.28}{Library Coq.Logic.EqdepFacts}{}% 74
+\BOOKMARK [1][-]{section.28.1}{Definition of dependent equality and equivalence with equality of dependent pairs}{chapter.28}% 75
+\BOOKMARK [1][-]{section.28.2}{Eq\137rect\137eq <-> Eq\137dep\137eq <-> UIP <-> UIP\137refl <-> K}{chapter.28}% 76
+\BOOKMARK [1][-]{section.28.3}{Definition of the functor that builds properties of dependent equalities assuming axiom eq\137rect\137eq}{chapter.28}% 77
+\BOOKMARK [0][-]{chapter.29}{Library Coq.Logic.Eqdep}{}% 78
+\BOOKMARK [0][-]{chapter.30}{Library Coq.Logic.FunctionalExtensionality}{}% 79
+\BOOKMARK [0][-]{chapter.31}{Library Coq.Logic.ExtensionalityFacts}{}% 80
+\BOOKMARK [1][-]{section.31.1}{Definitions}{chapter.31}% 81
+\BOOKMARK [1][-]{section.31.2}{Functional extensionality <-> Equality of projections from diagonal}{chapter.31}% 82
+\BOOKMARK [1][-]{section.31.3}{Functional extensionality <-> Unicity of bijection inverse}{chapter.31}% 83
+\BOOKMARK [1][-]{section.31.4}{Functional extensionality <-> Bijectivity of bijective composition}{chapter.31}% 84
+\BOOKMARK [0][-]{chapter.32}{Library Coq.Logic.Hurkens}{}% 85
+\BOOKMARK [0][-]{chapter.33}{Library Coq.Logic.IndefiniteDescription}{}% 86
+\BOOKMARK [0][-]{chapter.34}{Library Coq.Logic.JMeq}{}% 87
+\BOOKMARK [0][-]{chapter.35}{Library Coq.Logic.ProofIrrelevanceFacts}{}% 88
+\BOOKMARK [0][-]{chapter.36}{Library Coq.Logic.ProofIrrelevance}{}% 89
+\BOOKMARK [0][-]{chapter.37}{Library Coq.Logic.RelationalChoice}{}% 90
+\BOOKMARK [0][-]{chapter.38}{Library Coq.Logic.SetIsType}{}% 91
+\BOOKMARK [1][-]{section.38.1}{The Set universe seen as a synonym for Type}{chapter.38}% 92
+\BOOKMARK [0][-]{chapter.39}{Library Coq.Arith.Arith\137base}{}% 93
+\BOOKMARK [0][-]{chapter.40}{Library Coq.Arith.Arith}{}% 94
+\BOOKMARK [0][-]{chapter.41}{Library Coq.Arith.Between}{}% 95
+\BOOKMARK [0][-]{chapter.42}{Library Coq.Arith.Bool\137nat}{}% 96
+\BOOKMARK [0][-]{chapter.43}{Library Coq.Arith.Compare\137dec}{}% 97
+\BOOKMARK [0][-]{chapter.44}{Library Coq.Arith.Compare}{}% 98
+\BOOKMARK [0][-]{chapter.45}{Library Coq.Arith.Div2}{}% 99
+\BOOKMARK [0][-]{chapter.46}{Library Coq.Arith.EqNat}{}% 100
+\BOOKMARK [1][-]{section.46.1}{Propositional equality}{chapter.46}% 101
+\BOOKMARK [1][-]{section.46.2}{Boolean equality on natvarpurplenat}{chapter.46}% 102
+\BOOKMARK [0][-]{chapter.47}{Library Coq.Arith.Euclid}{}% 103
+\BOOKMARK [0][-]{chapter.48}{Library Coq.Arith.Even}{}% 104
+\BOOKMARK [1][-]{section.48.1}{Definition of evenvarpurpleeven and oddvarpurpleodd, and basic facts}{chapter.48}% 105
+\BOOKMARK [1][-]{section.48.2}{Facts about evenvarpurpleeven \046 oddvarpurpleodd wrt. plusvarpurpleplus}{chapter.48}% 106
+\BOOKMARK [1][-]{section.48.3}{Facts about evenvarpurpleeven and oddvarpurpleodd wrt. multvarpurplemult}{chapter.48}% 107
+\BOOKMARK [0][-]{chapter.49}{Library Coq.Arith.Factorial}{}% 108
+\BOOKMARK [0][-]{chapter.50}{Library Coq.Arith.Gt}{}% 109
+\BOOKMARK [1][-]{section.50.1}{Order and successor}{chapter.50}% 110
+\BOOKMARK [1][-]{section.50.2}{Irreflexivity}{chapter.50}% 111
+\BOOKMARK [1][-]{section.50.3}{Asymmetry}{chapter.50}% 112
+\BOOKMARK [1][-]{section.50.4}{Relating strict and large orders}{chapter.50}% 113
+\BOOKMARK [1][-]{section.50.5}{Transitivity}{chapter.50}% 114
+\BOOKMARK [1][-]{section.50.6}{Comparison to 0}{chapter.50}% 115
+\BOOKMARK [1][-]{section.50.7}{Simplification and compatibility}{chapter.50}% 116
+\BOOKMARK [0][-]{chapter.51}{Library Coq.Arith.Le}{}% 117
+\BOOKMARK [1][-]{section.51.1}{levarpurplele is a pre-order}{chapter.51}% 118
+\BOOKMARK [1][-]{section.51.2}{Properties of levarpurplele w.r.t. successor, predecessor and 0}{chapter.51}% 119
+\BOOKMARK [1][-]{section.51.3}{levarpurplele is a order on natvarpurplenat}{chapter.51}% 120
+\BOOKMARK [1][-]{section.51.4}{A different elimination principle for the order on natural numbers}{chapter.51}% 121
+\BOOKMARK [0][-]{chapter.52}{Library Coq.Arith.Lt}{}% 122
+\BOOKMARK [1][-]{section.52.1}{Irreflexivity}{chapter.52}% 123
+\BOOKMARK [1][-]{section.52.2}{Relationship between levarpurplele and ltvarpurplelt}{chapter.52}% 124
+\BOOKMARK [1][-]{section.52.3}{Asymmetry}{chapter.52}% 125
+\BOOKMARK [1][-]{section.52.4}{Order and successor}{chapter.52}% 126
+\BOOKMARK [1][-]{section.52.5}{Predecessor}{chapter.52}% 127
+\BOOKMARK [1][-]{section.52.6}{Transitivity properties}{chapter.52}% 128
+\BOOKMARK [1][-]{section.52.7}{Large = strict or equal}{chapter.52}% 129
+\BOOKMARK [1][-]{section.52.8}{Dichotomy}{chapter.52}% 130
+\BOOKMARK [1][-]{section.52.9}{Comparison to 0}{chapter.52}% 131
+\BOOKMARK [0][-]{chapter.53}{Library Coq.Arith.Max}{}% 132
+\BOOKMARK [0][-]{chapter.54}{Library Coq.Arith.Minus}{}% 133
+\BOOKMARK [1][-]{section.54.1}{0 is right neutral}{chapter.54}% 134
+\BOOKMARK [1][-]{section.54.2}{Permutation with successor}{chapter.54}% 135
+\BOOKMARK [1][-]{section.54.3}{Diagonal}{chapter.54}% 136
+\BOOKMARK [1][-]{section.54.4}{Simplification}{chapter.54}% 137
+\BOOKMARK [1][-]{section.54.5}{Relation with plus}{chapter.54}% 138
+\BOOKMARK [1][-]{section.54.6}{Relation with order}{chapter.54}% 139
+\BOOKMARK [0][-]{chapter.55}{Library Coq.Arith.Min}{}% 140
+\BOOKMARK [0][-]{chapter.56}{Library Coq.Arith.Mult}{}% 141
+\BOOKMARK [1][-]{section.56.1}{natvarpurplenat is a semi-ring}{chapter.56}% 142
+\BOOKMARK [2][-]{subsection.56.1.1}{Zero property}{section.56.1}% 143
+\BOOKMARK [2][-]{subsection.56.1.2}{1 is neutral}{section.56.1}% 144
+\BOOKMARK [2][-]{subsection.56.1.3}{Commutativity}{section.56.1}% 145
+\BOOKMARK [2][-]{subsection.56.1.4}{Distributivity}{section.56.1}% 146
+\BOOKMARK [2][-]{subsection.56.1.5}{Associativity}{section.56.1}% 147
+\BOOKMARK [2][-]{subsection.56.1.6}{Inversion lemmas}{section.56.1}% 148
+\BOOKMARK [2][-]{subsection.56.1.7}{Multiplication and successor}{section.56.1}% 149
+\BOOKMARK [1][-]{section.56.2}{Compatibility with orders}{chapter.56}% 150
+\BOOKMARK [1][-]{section.56.3}{n|->2*n and n|->2n+1 have disjoint image}{chapter.56}% 151
+\BOOKMARK [1][-]{section.56.4}{Tail-recursive mult}{chapter.56}% 152
+\BOOKMARK [0][-]{chapter.57}{Library Coq.Arith.Peano\137dec}{}% 153
+\BOOKMARK [0][-]{chapter.58}{Library Coq.Arith.Plus}{}% 154
+\BOOKMARK [1][-]{section.58.1}{Zero is neutral}{chapter.58}% 155
+\BOOKMARK [1][-]{section.58.2}{Commutativity}{chapter.58}% 156
+\BOOKMARK [1][-]{section.58.3}{Associativity}{chapter.58}% 157
+\BOOKMARK [1][-]{section.58.4}{Simplification}{chapter.58}% 158
+\BOOKMARK [1][-]{section.58.5}{Compatibility with order}{chapter.58}% 159
+\BOOKMARK [1][-]{section.58.6}{Inversion lemmas}{chapter.58}% 160
+\BOOKMARK [1][-]{section.58.7}{Derived properties}{chapter.58}% 161
+\BOOKMARK [1][-]{section.58.8}{Tail-recursive plus}{chapter.58}% 162
+\BOOKMARK [1][-]{section.58.9}{Discrimination}{chapter.58}% 163
+\BOOKMARK [0][-]{chapter.59}{Library Coq.Arith.Wf\137nat}{}% 164

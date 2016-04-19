@@ -1,0 +1,376 @@
+\indexentry {Axiom@\texttt {Axiom}|hyperpage}{44}
+\indexentry {Parameter@\texttt {Parameter}|hyperpage}{44}
+\indexentry {Parameters@\texttt {Parameters}|hyperpage}{44}
+\indexentry {Conjecture@\texttt {Conjecture}|hyperpage}{44}
+\indexentry {Variable@\texttt {Variable}|hyperpage}{44}
+\indexentry {Variables@\texttt {Variables}|hyperpage}{44}
+\indexentry {Hypothesis@\texttt {Hypothesis}|hyperpage}{45}
+\indexentry {Hypotheses@\texttt {Hypotheses}|hyperpage}{45}
+\indexentry {Definition@\texttt {Definition}|hyperpage}{45}
+\indexentry {Example@\texttt {Example}|hyperpage}{45}
+\indexentry {Let@\texttt {Let}|hyperpage}{46}
+\indexentry {Inductive@\texttt {Inductive}|hyperpage}{46}
+\indexentry {Inductive@\texttt {Inductive}|hyperpage}{49}
+\indexentry {CoInductive@\texttt {CoInductive}|hyperpage}{51}
+\indexentry {Fixpoint@\texttt {Fixpoint}|hyperpage}{51}
+\indexentry {CoFixpoint@\texttt {CoFixpoint}|hyperpage}{54}
+\indexentry {Theorem@\texttt {Theorem}|hyperpage}{55}
+\indexentry {Lemma@\texttt {Lemma}|hyperpage}{55}
+\indexentry {Remark@\texttt {Remark}|hyperpage}{55}
+\indexentry {Fact@\texttt {Fact}|hyperpage}{55}
+\indexentry {Corollary@\texttt {Corollary}|hyperpage}{55}
+\indexentry {Proposition@\texttt {Proposition}|hyperpage}{55}
+\indexentry {Fixpoint@\texttt {Fixpoint}|hyperpage}{56}
+\indexentry {CoFixpoint@\texttt {CoFixpoint}|hyperpage}{56}
+\indexentry {Proof@\texttt {Proof}|hyperpage}{56}
+\indexentry {Qed@\texttt {Qed}|hyperpage}{56}
+\indexentry {Defined@\texttt {Defined}|hyperpage}{57}
+\indexentry {Admitted@\texttt {Admitted}|hyperpage}{57}
+\indexentry {Record@\texttt {Record}|hyperpage}{59}
+\indexentry {Inductive@\texttt {Inductive}|hyperpage}{59}
+\indexentry {CoInductive@\texttt {CoInductive}|hyperpage}{59}
+\indexentry {Set Printing Matching@\texttt {Set Printing Matching}|hyperpage}{65}
+\indexentry {Unset Printing Matching@\texttt {Unset Printing Matching}|hyperpage}{65}
+\indexentry {Test Printing Matching@\texttt {Test Printing Matching}|hyperpage}{65}
+\indexentry {Set Printing Wildcard@\texttt {Set Printing Wildcard}|hyperpage}{65}
+\indexentry {Unset Printing Wildcard@\texttt {Unset Printing Wildcard}|hyperpage}{65}
+\indexentry {Test Printing Wildcard@\texttt {Test Printing Wildcard}|hyperpage}{65}
+\indexentry {Set Printing Synth@\texttt {Set Printing Synth}|hyperpage}{65}
+\indexentry {Unset Printing Synth@\texttt {Unset Printing Synth}|hyperpage}{65}
+\indexentry {Test Printing Synth@\texttt {Test Printing Synth}|hyperpage}{65}
+\indexentry {Add Printing Let {\ident }@\texttt {Add Printing Let {\ident }}|hyperpage}{66}
+\indexentry {Remove Printing Let {\ident }@\texttt {Remove Printing Let {\ident }}|hyperpage}{66}
+\indexentry {Test Printing Let for {\ident }@\texttt {Test Printing Let for {\ident }}|hyperpage}{66}
+\indexentry {Print Table Printing Let@\texttt {Print Table Printing Let}|hyperpage}{66}
+\indexentry {Add Printing If {\ident }@\texttt {Add Printing If {\ident }}|hyperpage}{66}
+\indexentry {Remove Printing If {\ident }@\texttt {Remove Printing If {\ident }}|hyperpage}{66}
+\indexentry {Test Printing If for {\ident }@\texttt {Test Printing If for {\ident }}|hyperpage}{66}
+\indexentry {Print Table Printing If@\texttt {Print Table Printing If}|hyperpage}{66}
+\indexentry {Function@\texttt {Function}|hyperpage}{67}
+\indexentry {Section@\texttt {Section}|hyperpage}{70}
+\indexentry {End@\texttt {End}|hyperpage}{70}
+\indexentry {Module@\texttt {Module}|hyperpage}{71}
+\indexentry {Include@\texttt {Include}|hyperpage}{72}
+\indexentry {End@\texttt {End}|hyperpage}{72}
+\indexentry {Module@\texttt {Module}|hyperpage}{72}
+\indexentry {Module Type@\texttt {Module Type}|hyperpage}{73}
+\indexentry {Include@\texttt {Include}|hyperpage}{73}
+\indexentry {Inline@\texttt {Inline}|hyperpage}{73}
+\indexentry {End@\texttt {End}|hyperpage}{73}
+\indexentry {Import@\texttt {Import}|hyperpage}{76}
+\indexentry {Export@\texttt {Export}|hyperpage}{77}
+\indexentry {Print Module@\texttt {Print Module}|hyperpage}{77}
+\indexentry {Print Module Type@\texttt {Print Module Type}|hyperpage}{77}
+\indexentry {Locate Module@\texttt {Locate Module}|hyperpage}{77}
+\indexentry {Arguments@\texttt {Arguments}|hyperpage}{81}
+\indexentry {Global Arguments@\texttt {Global Arguments}|hyperpage}{82}
+\indexentry {Local Arguments@\texttt {Local Arguments}|hyperpage}{82}
+\indexentry {Arguments@\texttt {Arguments}|hyperpage}{83}
+\indexentry {Global Arguments@\texttt {Global Arguments}|hyperpage}{83}
+\indexentry {Local Arguments@\texttt {Local Arguments}|hyperpage}{83}
+\indexentry {Arguments@\texttt {Arguments}|hyperpage}{84}
+\indexentry {Set Implicit Arguments@\texttt {Set Implicit Arguments}|hyperpage}{85}
+\indexentry {Unset Implicit Arguments@\texttt {Unset Implicit Arguments}|hyperpage}{85}
+\indexentry {Set Strict Implicit@\texttt {Set Strict Implicit}|hyperpage}{85}
+\indexentry {Unset Strict Implicit@\texttt {Unset Strict Implicit}|hyperpage}{85}
+\indexentry {Set Strongly Strict Implicit@\texttt {Set Strongly Strict Implicit}|hyperpage}{85}
+\indexentry {Unset Strongly Strict Implicit@\texttt {Unset Strongly Strict Implicit}|hyperpage}{85}
+\indexentry {Set Contextual Implicit@\texttt {Set Contextual Implicit}|hyperpage}{85}
+\indexentry {Unset Contextual Implicit@\texttt {Unset Contextual Implicit}|hyperpage}{85}
+\indexentry {Set Reversible Pattern Implicit@\texttt {Set Reversible Pattern Implicit}|hyperpage}{85}
+\indexentry {Unset Reversible Pattern Implicit@\texttt {Unset Reversible Pattern Implicit}|hyperpage}{85}
+\indexentry {Set Maximal Implicit Insertion@\texttt {Set Maximal Implicit Insertion}|hyperpage}{86}
+\indexentry {Unset Maximal Implicit Insertion@\texttt {Unset Maximal Implicit Insertion}|hyperpage}{86}
+\indexentry {Arguments@\texttt {Arguments}|hyperpage}{86}
+\indexentry {Implicit Arguments@\texttt {Implicit Arguments}|hyperpage}{87}
+\indexentry {Print Implicit@\texttt {Print Implicit}|hyperpage}{87}
+\indexentry {Set Printing Implicit@\texttt {Set Printing Implicit}|hyperpage}{87}
+\indexentry {Unset Printing Implicit@\texttt {Unset Printing Implicit}|hyperpage}{87}
+\indexentry {Set Printing Implicit Defensive@\texttt {Set Printing Implicit Defensive}|hyperpage}{87}
+\indexentry {Unset Printing Implicit Defensive@\texttt {Unset Printing Implicit Defensive}|hyperpage}{87}
+\indexentry {Set Parsing Explicit@\texttt {Set Parsing Explicit}|hyperpage}{88}
+\indexentry {Unset Parsing Explicit@\texttt {Unset Parsing Explicit}|hyperpage}{88}
+\indexentry {Canonical Structure@\texttt {Canonical Structure}|hyperpage}{88}
+\indexentry {Print Canonical Projections@\texttt {Print Canonical Projections}|hyperpage}{89}
+\indexentry {Implicit Types@\texttt {Implicit Types}|hyperpage}{89}
+\indexentry {Generalizable Variables@\texttt {Generalizable Variables}|hyperpage}{90}
+\indexentry {Coercion@\texttt {Coercion}|hyperpage}{91}
+\indexentry {Set Printing All@\texttt {Set Printing All}|hyperpage}{92}
+\indexentry {Unset Printing All@\texttt {Unset Printing All}|hyperpage}{92}
+\indexentry {Set Printing Universes@\texttt {Set Printing Universes}|hyperpage}{92}
+\indexentry {Unset Printing Universes@\texttt {Unset Printing Universes}|hyperpage}{92}
+\indexentry {Print Universes@\texttt {Print Universes}|hyperpage}{92}
+\indexentry {Print Sorted Universes@\texttt {Print Sorted Universes}|hyperpage}{92}
+\indexentry {Set Printing Existential Instances@\texttt {Set Printing Existential Instances}|hyperpage}{93}
+\indexentry {Unset Printing Existential Instances@\texttt {Unset Printing Existential Instances}|hyperpage}{93}
+\indexentry {Print@\texttt {Print}|hyperpage}{143}
+\indexentry {Print Term@\texttt {Print Term}|hyperpage}{143}
+\indexentry {About@\texttt {About}|hyperpage}{143}
+\indexentry {Print All@\texttt {Print All}|hyperpage}{143}
+\indexentry {Inspect@\texttt {Inspect}|hyperpage}{143}
+\indexentry {Print Section@\texttt {Print Section}|hyperpage}{143}
+\indexentry {Set@\texttt {Set}|hyperpage}{144}
+\indexentry {Unset@\texttt {Unset}|hyperpage}{144}
+\indexentry {Local Unset@\texttt {Local Unset}|hyperpage}{144}
+\indexentry {Global Unset@\texttt {Global Unset}|hyperpage}{144}
+\indexentry {Test@\texttt {Test}|hyperpage}{144}
+\indexentry {Set@\texttt {Set}|hyperpage}{144}
+\indexentry {Local Set@\texttt {Local Set}|hyperpage}{144}
+\indexentry {Global Set@\texttt {Global Set}|hyperpage}{144}
+\indexentry {Unset@\texttt {Unset}|hyperpage}{145}
+\indexentry {Local Unset@\texttt {Local Unset}|hyperpage}{145}
+\indexentry {Global Unset@\texttt {Global Unset}|hyperpage}{145}
+\indexentry {Test@\texttt {Test}|hyperpage}{145}
+\indexentry {Print Options@\texttt {Print Options}|hyperpage}{145}
+\indexentry {Print Tables@\texttt {Print Tables}|hyperpage}{145}
+\indexentry {Check@\texttt {Check}|hyperpage}{145}
+\indexentry {Eval@\texttt {Eval}|hyperpage}{145}
+\indexentry {Compute@\texttt {Compute}|hyperpage}{145}
+\indexentry {Extraction@\texttt {Extraction}|hyperpage}{146}
+\indexentry {Print Assumptions@\texttt {Print Assumptions}|hyperpage}{146}
+\indexentry {Print Opaque Dependencies@\texttt {Print Opaque Dependencies}|hyperpage}{146}
+\indexentry {Search@\texttt {Search}|hyperpage}{146}
+\indexentry {SearchAbout@\texttt {SearchAbout}|hyperpage}{147}
+\indexentry {SearchPattern@\texttt {SearchPattern}|hyperpage}{148}
+\indexentry {SearchRewrite@\texttt {SearchRewrite}|hyperpage}{149}
+\indexentry {Locate@\texttt {Locate}|hyperpage}{150}
+\indexentry {Test Whelp Server@\texttt {Test Whelp Server}|hyperpage}{150}
+\indexentry {Test Whelp Getter@\texttt {Test Whelp Getter}|hyperpage}{150}
+\indexentry {Set Whelp Server@\texttt {Set Whelp Server}|hyperpage}{150}
+\indexentry {Set Whelp Getter@\texttt {Set Whelp Getter}|hyperpage}{150}
+\indexentry {Whelp Locate@\texttt {Whelp Locate}|hyperpage}{151}
+\indexentry {Whelp Match@\texttt {Whelp Match}|hyperpage}{151}
+\indexentry {Whelp Instance@\texttt {Whelp Instance}|hyperpage}{151}
+\indexentry {Whelp Elim@\texttt {Whelp Elim}|hyperpage}{151}
+\indexentry {Whelp Hint@\texttt {Whelp Hint}|hyperpage}{151}
+\indexentry {Load@\texttt {Load}|hyperpage}{151}
+\indexentry {Load Verbose@\texttt {Load Verbose}|hyperpage}{152}
+\indexentry {Require@\texttt {Require}|hyperpage}{152}
+\indexentry {Require@\texttt {Require}|hyperpage}{152}
+\indexentry {Require Export@\texttt {Require Export}|hyperpage}{152}
+\indexentry {Print Libraries@\texttt {Print Libraries}|hyperpage}{153}
+\indexentry {Declare ML Module@\texttt {Declare ML Module}|hyperpage}{153}
+\indexentry {Print ML Modules@\texttt {Print ML Modules}|hyperpage}{154}
+\indexentry {Pwd@\texttt {Pwd}|hyperpage}{154}
+\indexentry {Cd@\texttt {Cd}|hyperpage}{154}
+\indexentry {Add LoadPath@\texttt {Add LoadPath}|hyperpage}{154}
+\indexentry {Add Rec LoadPath@\texttt {Add Rec LoadPath}|hyperpage}{155}
+\indexentry {Remove LoadPath@\texttt {Remove LoadPath}|hyperpage}{155}
+\indexentry {Print LoadPath@\texttt {Print LoadPath}|hyperpage}{155}
+\indexentry {Add ML Path@\texttt {Add ML Path}|hyperpage}{155}
+\indexentry {Add Rec ML Path@\texttt {Add Rec ML Path}|hyperpage}{155}
+\indexentry {Print ML Path@\texttt {Print ML Path}|hyperpage}{155}
+\indexentry {Locate File@\texttt {Locate File}|hyperpage}{156}
+\indexentry {Locate Library@\texttt {Locate Library}|hyperpage}{156}
+\indexentry {Reset@\texttt {Reset}|hyperpage}{156}
+\indexentry {Reset Initial@\texttt {Reset Initial}|hyperpage}{156}
+\indexentry {Back@\texttt {Back}|hyperpage}{156}
+\indexentry {BackTo@\texttt {BackTo}|hyperpage}{157}
+\indexentry {Backtrack@\texttt {Backtrack}|hyperpage}{157}
+\indexentry {Write State@\texttt {Write State}|hyperpage}{157}
+\indexentry {Restore State@\texttt {Restore State}|hyperpage}{157}
+\indexentry {Quit@\texttt {Quit}|hyperpage}{157}
+\indexentry {Drop@\texttt {Drop}|hyperpage}{158}
+\indexentry {Time@\texttt {Time}|hyperpage}{158}
+\indexentry {Timeout@\texttt {Timeout}|hyperpage}{158}
+\indexentry {Set Default Timeout@\texttt {Set Default Timeout}|hyperpage}{158}
+\indexentry {Unset Default Timeout@\texttt {Unset Default Timeout}|hyperpage}{158}
+\indexentry {Test Default Timeout@\texttt {Test Default Timeout}|hyperpage}{158}
+\indexentry {Set Silent@\texttt {Set Silent}|hyperpage}{158}
+\indexentry {Unset Silent@\texttt {Unset Silent}|hyperpage}{159}
+\indexentry {Set Printing Width@\texttt {Set Printing Width}|hyperpage}{159}
+\indexentry {Unset Printing Width@\texttt {Unset Printing Width}|hyperpage}{159}
+\indexentry {Test Printing Width@\texttt {Test Printing Width}|hyperpage}{159}
+\indexentry {Set Printing Depth@\texttt {Set Printing Depth}|hyperpage}{159}
+\indexentry {Unset Printing Depth@\texttt {Unset Printing Depth}|hyperpage}{159}
+\indexentry {Test Printing Depth@\texttt {Test Printing Depth}|hyperpage}{159}
+\indexentry {Opaque@\texttt {Opaque}|hyperpage}{159}
+\indexentry {Transparent@\texttt {Transparent}|hyperpage}{160}
+\indexentry {Strategy@\texttt {Strategy}|hyperpage}{160}
+\indexentry {Local Strategy@\texttt {Local Strategy}|hyperpage}{160}
+\indexentry {Set Virtual Machine@\texttt {Set Virtual Machine}|hyperpage}{161}
+\indexentry {Unset Virtual Machine@\texttt {Unset Virtual Machine}|hyperpage}{161}
+\indexentry {Test Virtual Machine@\texttt {Test Virtual Machine}|hyperpage}{161}
+\indexentry {Local@\texttt {Local}|hyperpage}{161}
+\indexentry {Global@\texttt {Global}|hyperpage}{161}
+\indexentry {Theorem@\texttt {Theorem}|hyperpage}{163}
+\indexentry {Goal@\texttt {Goal}|hyperpage}{163}
+\indexentry {Qed@\texttt {Qed}|hyperpage}{164}
+\indexentry {Defined@\texttt {Defined}|hyperpage}{164}
+\indexentry {Save@\texttt {Save}|hyperpage}{164}
+\indexentry {Admitted@\texttt {Admitted}|hyperpage}{164}
+\indexentry {Proof@\texttt {Proof}|hyperpage}{164}
+\indexentry {Proof using@\texttt {Proof using}|hyperpage}{165}
+\indexentry {Abort@\texttt {Abort}|hyperpage}{165}
+\indexentry {Existential@\texttt {Existential}|hyperpage}{165}
+\indexentry {Grab Existential Variables@\texttt {Grab Existential Variables}|hyperpage}{165}
+\indexentry {Undo@\texttt {Undo}|hyperpage}{165}
+\indexentry {Restart@\texttt {Restart}|hyperpage}{166}
+\indexentry {Focus@\texttt {Focus}|hyperpage}{166}
+\indexentry {Unfocus@\texttt {Unfocus}|hyperpage}{166}
+\indexentry {Unfocused@\texttt {Unfocused}|hyperpage}{166}
+\indexentry {\{@\texttt {\{}|hyperpage}{166}
+\indexentry {\}@\texttt {\}}|hyperpage}{166}
+\indexentry {+ (command)@\texttt {+ (command)}|hyperpage}{167}
+\indexentry {- (command)@\texttt {- (command)}|hyperpage}{167}
+\indexentry {* (command)@\texttt {* (command)}|hyperpage}{167}
+\indexentry {Show@\texttt {Show}|hyperpage}{167}
+\indexentry {Show Implicits@\texttt {Show Implicits}|hyperpage}{168}
+\indexentry {Show Script@\texttt {Show Script}|hyperpage}{168}
+\indexentry {Show Tree@\texttt {Show Tree}|hyperpage}{168}
+\indexentry {Show Proof@\texttt {Show Proof}|hyperpage}{168}
+\indexentry {Show Conjectures@\texttt {Show Conjectures}|hyperpage}{168}
+\indexentry {Show Intro@\texttt {Show Intro}|hyperpage}{168}
+\indexentry {Show Intros@\texttt {Show Intros}|hyperpage}{168}
+\indexentry {Show Existentials@\texttt {Show Existentials}|hyperpage}{168}
+\indexentry {Guarded@\texttt {Guarded}|hyperpage}{168}
+\indexentry {Set Hyps Limit@\texttt {Set Hyps Limit}|hyperpage}{169}
+\indexentry {Unset Hyps Limit@\texttt {Unset Hyps Limit}|hyperpage}{169}
+\indexentry {Set Automatic Introduction@\texttt {Set Automatic Introduction}|hyperpage}{169}
+\indexentry {Unset Automatic Introduction@\texttt {Unset Automatic Introduction}|hyperpage}{169}
+\indexentry {Declare Left Step@\texttt {Declare Left Step}|hyperpage}{211}
+\indexentry {Declare Right Step@\texttt {Declare Right Step}|hyperpage}{211}
+\indexentry {Arguments@\texttt {Arguments}|hyperpage}{214}
+\indexentry {Hint@\texttt {Hint}|hyperpage}{220}
+\indexentry {CreateHintDb@\texttt {CreateHintDb}|hyperpage}{220}
+\indexentry {Hint Resolve@\texttt {Hint Resolve}|hyperpage}{220}
+\indexentry {Hint Immediate@\texttt {Hint Immediate}|hyperpage}{221}
+\indexentry {Hint Constructors@\texttt {Hint Constructors}|hyperpage}{221}
+\indexentry {Hint Unfold@\texttt {Hint Unfold}|hyperpage}{222}
+\indexentry {Hint Transparent@\texttt {Hint Transparent}|hyperpage}{222}
+\indexentry {Hint Opaque@\texttt {Hint Opaque}|hyperpage}{222}
+\indexentry {Hint Extern@\texttt {Hint Extern}|hyperpage}{222}
+\indexentry {Print Hint@\texttt {Print Hint}|hyperpage}{225}
+\indexentry {Print HintDb@\texttt {Print HintDb}|hyperpage}{225}
+\indexentry {Hint Rewrite@\texttt {Hint Rewrite}|hyperpage}{225}
+\indexentry {Proof with@\texttt {Proof with}|hyperpage}{226}
+\indexentry {Declare Implicit Tactic@\texttt {Declare Implicit Tactic}|hyperpage}{226}
+\indexentry {Set Firstorder Depth@\texttt {Set Firstorder Depth}|hyperpage}{229}
+\indexentry {Add Ring@\texttt {Add Ring}|hyperpage}{234}
+\indexentry {Add Field@\texttt {Add Field}|hyperpage}{234}
+\indexentry {Tactic Definition@\texttt {Tactic Definition}|hyperpage}{235}
+\indexentry {Ltac@\texttt {Ltac}|hyperpage}{248}
+\indexentry {Print Ltac@\texttt {Print Ltac}|hyperpage}{248}
+\indexentry {Set Ltac Debug@\texttt {Set Ltac Debug}|hyperpage}{249}
+\indexentry {Unset Ltac Debug@\texttt {Unset Ltac Debug}|hyperpage}{249}
+\indexentry {Test Ltac Debug@\texttt {Test Ltac Debug}|hyperpage}{249}
+\indexentry {Notation@\texttt {Notation}|hyperpage}{383}
+\indexentry {Print Grammar constr@\texttt {Print Grammar constr}|hyperpage}{385}
+\indexentry {Print Grammar pattern@\texttt {Print Grammar pattern}|hyperpage}{385}
+\indexentry {Infix@\texttt {Infix}|hyperpage}{387}
+\indexentry {Reserved Notation@\texttt {Reserved Notation}|hyperpage}{387}
+\indexentry {Fixpoint {\ldots } where {\ldots }@\texttt {Fixpoint {\ldots } where {\ldots }}|hyperpage}{388}
+\indexentry {CoFixpoint {\ldots } where {\ldots }@\texttt {CoFixpoint {\ldots } where {\ldots }}|hyperpage}{388}
+\indexentry {Inductive {\ldots } where {\ldots }@\texttt {Inductive {\ldots } where {\ldots }}|hyperpage}{388}
+\indexentry {Set Printing Notations@\texttt {Set Printing Notations}|hyperpage}{388}
+\indexentry {Unset Printing Notations@\texttt {Unset Printing Notations}|hyperpage}{388}
+\indexentry {Locate@\texttt {Locate}|hyperpage}{388}
+\indexentry {Open Scope@\texttt {Open Scope}|hyperpage}{392}
+\indexentry {Close Scope@\texttt {Close Scope}|hyperpage}{392}
+\indexentry {Delimit Scope@\texttt {Delimit Scope}|hyperpage}{393}
+\indexentry {Arguments@\texttt {Arguments}|hyperpage}{393}
+\indexentry {Bind Scope@\texttt {Bind Scope}|hyperpage}{394}
+\indexentry {Print Visibility@\texttt {Print Visibility}|hyperpage}{396}
+\indexentry {Print Scope@\texttt {Print Scope}|hyperpage}{397}
+\indexentry {Print Scopes@\texttt {Print Scopes}|hyperpage}{397}
+\indexentry {Notation@\texttt {Notation}|hyperpage}{397}
+\indexentry {Tactic Notation@\texttt {Tactic Notation}|hyperpage}{398}
+\indexentry {Scheme@\texttt {Scheme}|hyperpage}{401}
+\indexentry {Scheme Equality@\texttt {Scheme Equality}|hyperpage}{401}
+\indexentry {Set Boolean Equality Schemes@\texttt {Set Boolean Equality Schemes}|hyperpage}{403}
+\indexentry {Set Decidable Equality Schemes@\texttt {Set Decidable Equality Schemes}|hyperpage}{403}
+\indexentry {Set Elimination Schemes@\texttt {Set Elimination Schemes}|hyperpage}{403}
+\indexentry {Combined Scheme@\texttt {Combined Scheme}|hyperpage}{403}
+\indexentry {Functional Scheme@\texttt {Functional Scheme}|hyperpage}{404}
+\indexentry {Derive Inversion@\texttt {Derive Inversion}|hyperpage}{407}
+\indexentry {Derive Inversion\_clear@\texttt {Derive Inversion\_clear}|hyperpage}{407}
+\indexentry {Derive Dependent Inversion@\texttt {Derive Dependent Inversion}|hyperpage}{407}
+\indexentry {Derive Dependent Inversion\_clear@\texttt {Derive Dependent Inversion\_clear}|hyperpage}{407}
+\indexentry {Print XML@\texttt {Print XML}|hyperpage}{428}
+\indexentry {Show XML Proof@\texttt {Show XML Proof}|hyperpage}{428}
+\indexentry {Coercion@\texttt {Coercion}|hyperpage}{457}
+\indexentry {Local Coercion@\texttt {Local Coercion}|hyperpage}{457}
+\indexentry {Coercion@\texttt {Coercion}|hyperpage}{458}
+\indexentry {Local Coercion@\texttt {Local Coercion}|hyperpage}{458}
+\indexentry {Variable \mbox {\rm (and coercions)}@\texttt {Variable \mbox {\rm (and coercions)}}|hyperpage}{458}
+\indexentry {Axiom \mbox {\rm (and coercions)}@\texttt {Axiom \mbox {\rm (and coercions)}}|hyperpage}{458}
+\indexentry {Parameter \mbox {\rm (and coercions)}@\texttt {Parameter \mbox {\rm (and coercions)}}|hyperpage}{458}
+\indexentry {Hypothesis \mbox {\rm (and coercions)}@\texttt {Hypothesis \mbox {\rm (and coercions)}}|hyperpage}{458}
+\indexentry {Inductive \mbox {\rm (and coercions)}@\texttt {Inductive \mbox {\rm (and coercions)}}|hyperpage}{458}
+\indexentry {CoInductive \mbox {\rm (and coercions)}@\texttt {CoInductive \mbox {\rm (and coercions)}}|hyperpage}{458}
+\indexentry {Identity Coercion@\texttt {Identity Coercion}|hyperpage}{458}
+\indexentry {SubClass@\texttt {SubClass}|hyperpage}{459}
+\indexentry {Print Classes@\texttt {Print Classes}|hyperpage}{459}
+\indexentry {Print Coercions@\texttt {Print Coercions}|hyperpage}{459}
+\indexentry {Print Graph@\texttt {Print Graph}|hyperpage}{459}
+\indexentry {Print Coercion Paths@\texttt {Print Coercion Paths}|hyperpage}{459}
+\indexentry {Set Printing Coercions@\texttt {Set Printing Coercions}|hyperpage}{459}
+\indexentry {Unset Printing Coercions@\texttt {Unset Printing Coercions}|hyperpage}{459}
+\indexentry {Set Printing Coercion@\texttt {Set Printing Coercion}|hyperpage}{459}
+\indexentry {Unset Printing Coercion@\texttt {Unset Printing Coercion}|hyperpage}{459}
+\indexentry {Structure@\texttt {Structure}|hyperpage}{460}
+\indexentry {Set Automatic Coercions Import@\texttt {Set Automatic Coercions Import}|hyperpage}{460}
+\indexentry {Unset Automatic Coercions Import@\texttt {Unset Automatic Coercions Import}|hyperpage}{460}
+\indexentry {Program Instance@\texttt {Program Instance}|hyperpage}{466}
+\indexentry {Class@\texttt {Class}|hyperpage}{470}
+\indexentry {Existing Class@\texttt {Existing Class}|hyperpage}{470}
+\indexentry {Instance@\texttt {Instance}|hyperpage}{470}
+\indexentry {Program Instance@\texttt {Program Instance}|hyperpage}{471}
+\indexentry {Declare Instance@\texttt {Declare Instance}|hyperpage}{471}
+\indexentry {Existing Instance@\texttt {Existing Instance}|hyperpage}{471}
+\indexentry {Existing Instances@\texttt {Existing Instances}|hyperpage}{471}
+\indexentry {Context@\texttt {Context}|hyperpage}{471}
+\indexentry {Typeclasses Transparent@\texttt {Typeclasses Transparent}|hyperpage}{471}
+\indexentry {Typeclasses Opaque@\texttt {Typeclasses Opaque}|hyperpage}{471}
+\indexentry {Typeclasses eauto@\texttt {Typeclasses eauto}|hyperpage}{471}
+\indexentry {Extraction@\texttt {Extraction}|hyperpage}{481}
+\indexentry {Recursive Extraction@\texttt {Recursive Extraction}|hyperpage}{481}
+\indexentry {Separate Extraction@\texttt {Separate Extraction}|hyperpage}{481}
+\indexentry {Extraction Library@\texttt {Extraction Library}|hyperpage}{481}
+\indexentry {Recursive Extraction Library@\texttt {Recursive Extraction Library}|hyperpage}{481}
+\indexentry {Extraction Language@\texttt {Extraction Language}|hyperpage}{482}
+\indexentry {Set Extraction Optimize@\texttt {Set Extraction Optimize}|hyperpage}{483}
+\indexentry {Unset Extraction Optimize@\texttt {Unset Extraction Optimize}|hyperpage}{483}
+\indexentry {Set Extraction KeepSingleton@\texttt {Set Extraction KeepSingleton}|hyperpage}{483}
+\indexentry {Unset Extraction KeepSingleton@\texttt {Unset Extraction KeepSingleton}|hyperpage}{483}
+\indexentry {Set Extraction AutoInline@\texttt {Set Extraction AutoInline}|hyperpage}{483}
+\indexentry {Unset Extraction AutoInline@\texttt {Unset Extraction AutoInline}|hyperpage}{483}
+\indexentry {Extraction Inline@\texttt {Extraction Inline}|hyperpage}{483}
+\indexentry {Extraction NoInline@\texttt {Extraction NoInline}|hyperpage}{483}
+\indexentry {Print Extraction Inline@\texttt {Print Extraction Inline}|hyperpage}{483}
+\indexentry {Reset Extraction Inline@\texttt {Reset Extraction Inline}|hyperpage}{483}
+\indexentry {Extraction Implicit@\texttt {Extraction Implicit}|hyperpage}{484}
+\indexentry {Extract Constant@\texttt {Extract Constant}|hyperpage}{484}
+\indexentry {Extract Inductive@\texttt {Extract Inductive}|hyperpage}{485}
+\indexentry {Extraction Blacklist@\texttt {Extraction Blacklist}|hyperpage}{486}
+\indexentry {Program Definition@\texttt {Program Definition}|hyperpage}{493}
+\indexentry {Program Fixpoint@\texttt {Program Fixpoint}|hyperpage}{493}
+\indexentry {Program Lemma@\texttt {Program Lemma}|hyperpage}{494}
+\indexentry {Obligation Tactic@\texttt {Obligation Tactic}|hyperpage}{495}
+\indexentry {Show Obligation Tactic@\texttt {Show Obligation Tactic}|hyperpage}{495}
+\indexentry {Obligations@\texttt {Obligations}|hyperpage}{495}
+\indexentry {Obligation@\texttt {Obligation}|hyperpage}{495}
+\indexentry {Next Obligation@\texttt {Next Obligation}|hyperpage}{495}
+\indexentry {Solve Obligations@\texttt {Solve Obligations}|hyperpage}{495}
+\indexentry {Admit Obligations@\texttt {Admit Obligations}|hyperpage}{495}
+\indexentry {Preterm@\texttt {Preterm}|hyperpage}{495}
+\indexentry {Set Transparent Obligations@\texttt {Set Transparent Obligations}|hyperpage}{495}
+\indexentry {Add Ring@\texttt {Add Ring}|hyperpage}{500}
+\indexentry {Add Field@\texttt {Add Field}|hyperpage}{506}
+\indexentry {Add Legacy Ring@\texttt {Add Legacy Ring}|hyperpage}{507}
+\indexentry {Add Legacy Semi Ring@\texttt {Add Legacy Semi Ring}|hyperpage}{507}
+\indexentry {Add Legacy Ring@\texttt {Add Legacy Ring}|hyperpage}{508}
+\indexentry {Add Legacy Semi Ring@\texttt {Add Legacy Semi Ring}|hyperpage}{508}
+\indexentry {Add Legacy Abstract Ring@\texttt {Add Legacy Abstract Ring}|hyperpage}{509}
+\indexentry {Add Legacy Abstract Semi Ring@\texttt {Add Legacy Abstract Semi Ring}|hyperpage}{509}
+\indexentry {Add Legacy Field@\texttt {Add Legacy Field}|hyperpage}{509}
+\indexentry {Add Parametric Relation@\texttt {Add Parametric Relation}|hyperpage}{517}
+\indexentry {Add Relation@\texttt {Add Relation}|hyperpage}{517}
+\indexentry {Add Parametric Morphism@\texttt {Add Parametric Morphism}|hyperpage}{518}
+\indexentry {setoid\_reflexivity@\texttt {setoid\_reflexivity}|hyperpage}{522}
+\indexentry {setoid\_symmetry@\texttt {setoid\_symmetry}|hyperpage}{522}
+\indexentry {setoid\_transitivity@\texttt {setoid\_transitivity}|hyperpage}{522}
+\indexentry {setoid\_rewrite@\texttt {setoid\_rewrite}|hyperpage}{522}
+\indexentry {setoid\_replace@\texttt {setoid\_replace}|hyperpage}{522}
+\indexentry {Add Setoid@\texttt {Add Setoid}|hyperpage}{523}
+\indexentry {Add Morphism@\texttt {Add Morphism}|hyperpage}{523}
