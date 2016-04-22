@@ -232,7 +232,7 @@ let evd_convertible env evd x y =
   try ignore(Evarconv.the_conv_x env x y evd); true
   with e when Errors.noncritical e -> false
 
-let type_of env evd c = Retyping.get_type_of env evd c
+(* let type_of env evd c = Retyping.get_type_of env evd c *)
 
 let rec decompose_app_rel env evd t = 
   match kind_of_term t with
@@ -242,7 +242,7 @@ let rec decompose_app_rel env evd t =
 	  mkApp (f, fargs), args
       else 
 	let (f', args) = decompose_app_rel env evd args.(0) in
-	let ty = type_of env evd args.(0) in
+	let ty = Typing.type_of env evd args.(0) in
 	let f'' = mkLambda (Name (id_of_string "x"), ty,
 	  mkLambda (Name (id_of_string "y"), lift 1 ty,
 	    mkApp (lift 2 f, [| mkApp (lift 2 f', [| mkRel 2; mkRel 1 |]) |])))
@@ -252,15 +252,15 @@ let rec decompose_app_rel env evd t =
 (*   let nc, c', cl = push_rel_context_to_named_context env c in *)
 (*   let env' = reset_with_named_context nc env in *)
 
-let decompose_applied_relation env sigma flags orig (c,l) left2right =
+let decompose_applied_relation0 env sigma flags orig (c,l) left2right =
   let c' = c in
-  let ctype = type_of env sigma c' in
+  let ctype = Typing.type_of env sigma c' in
   let find_rel ty =
     let eqclause = Clenv.make_clenv_binding_env_apply env sigma None (c',ty) l in
     let (equiv, args) = decompose_app_rel env eqclause.evd (Clenv.clenv_type eqclause) in
     let c1 = args.(0) and c2 = args.(1) in 
     let ty1, ty2 =
-      type_of env eqclause.evd c1, type_of env eqclause.evd c2
+      Typing.type_of env eqclause.evd c1, Typing.type_of env eqclause.evd c2
     in
       if not (evd_convertible env eqclause.evd ty1 ty2) then None
       else
@@ -276,6 +276,17 @@ let decompose_applied_relation env sigma flags orig (c,l) left2right =
 	match find_rel (it_mkProd_or_LetIn t' ctx) with
 	| Some c -> c
 	| None -> error "The term does not end with an applied homogeneous relation."
+let decompose_applied_relation env sigma flags orig (c,l) left2right =
+    let name = "decompose_applied_relation" in
+    Timer.start_timer name;
+    try
+      let retval = decompose_applied_relation0 env sigma flags orig (c,l) left2right in
+      Timer.stop_timer name;
+      retval
+    with exn ->
+      let _ = Printf.printf "caught exn in %s\n%!" name in    	 
+      let _ = Timer.stop_timer name in
+      raise exn
 
 open Tacinterp
 let decompose_applied_relation_expr env sigma flags (is, (c,l)) left2right =
@@ -379,8 +390,8 @@ let unify_eqn0 env sigma hypinfo t =
 	  let c1 = nf c1 and c2 = nf c2
 	  and car = nf car and rel = nf rel
 	  and prf = nf (Clenv.clenv_value env') in
-	  let ty1 = type_of env'.env env'.evd c1
-	  and ty2 = type_of env'.env env'.evd c2
+	  let ty1 = Typing.type_of env'.env env'.evd c1
+	  and ty2 = Typing.type_of env'.env env'.evd c2
 	  in
 	    if convertible env env'.evd ty1 ty2 then (
 	      if occur_meta_or_existential prf then
@@ -769,7 +780,7 @@ let subterm all flags (s : strategy) : strategy =
 		(fun (acc, evars, progress) arg ->
 		  if progress <> None && not all then (None :: acc, evars, progress)
 		  else
-		    let res = s env avoid arg (type_of env (goalevars evars) arg) None evars in
+		    let res = s env avoid arg (Typing.type_of env (goalevars evars) arg) None evars in
 		      match res with
 		      | Some None -> (None :: acc, evars, if progress = None then Some false else progress)
 		      | Some (Some r) -> (Some r :: acc, r.rew_evars, Some true)
@@ -805,7 +816,7 @@ let subterm all flags (s : strategy) : strategy =
 	  in
 	    if flags.on_morphisms then
 	      let evarsref = ref (snd evars) in
-	      let mty = type_of env (goalevars evars) m in
+	      let mty = Typing.type_of env (goalevars evars) m in
 	      let cstr', m, mty, argsl, args = 
 		let argsl = Array.to_list args in
 		  match lift_cstr env (goalevars evars) evarsref argsl m mty None with
@@ -838,8 +849,8 @@ let subterm all flags (s : strategy) : strategy =
 	      
       | Prod (n, x, b) when noccurn 1 b ->
 	  let b = subst1 mkProp b in
-	  let tx = type_of env (goalevars evars) x 
-	  and tb = type_of env (goalevars evars) b in
+	  let tx = Typing.type_of env (goalevars evars) x 
+	  and tb = Typing.type_of env (goalevars evars) b in
 	  let mor, unfold = arrow_morphism tx tb x b in
 	  let res = aux env avoid mor ty cstr evars in
 	    (match res with
@@ -875,7 +886,7 @@ let subterm all flags (s : strategy) : strategy =
       | Lambda (n, t, b) when flags.under_lambdas ->
 	  let n' = name_app (fun id -> Tactics.fresh_id_in_env avoid id env) n in
 	  let env' = Environ.push_rel (n', None, t) env in
-	  let b' = s env' avoid b (type_of env' (goalevars evars) b) (unlift_cstr env (goalevars evars) cstr) evars in
+	  let b' = s env' avoid b (Typing.type_of env' (goalevars evars) b) (unlift_cstr env (goalevars evars) cstr) evars in
 	    (match b' with
 	    | Some (Some r) ->
 		let prf = match r.rew_prf with
@@ -893,7 +904,7 @@ let subterm all flags (s : strategy) : strategy =
 	    | _ -> b')
 
       | Case (ci, p, c, brs) ->
-	  let cty = type_of env (goalevars evars) c in
+	  let cty = Typing.type_of env (goalevars evars) c in
 	  let cstr' = Some (mkApp (Lazy.force coq_eq, [| cty |])) in
 	  let c' = s env avoid c cty cstr' evars in
 	  let res = 

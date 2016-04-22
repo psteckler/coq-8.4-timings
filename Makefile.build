@@ -94,6 +94,8 @@ BYTEFLAGS=$(MLINCLUDES) $(BAREBYTEFLAGS)
 OPTFLAGS=$(MLINCLUDES) $(BAREOPTFLAGS)
 DEPFLAGS= -slash $(LOCALINCLUDES)
 
+STRIP=true
+
 define bestocaml
 $(if $(OPT),\
 $(OCAMLOPT) $(OPTFLAGS) -o $@ $(1) $(addsuffix .cmxa,$(2)) $^ && $(STRIP) $@,\

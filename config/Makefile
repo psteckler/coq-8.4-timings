@@ -16,7 +16,7 @@ LOCAL=false
 # Bytecode link flags for VM ("-custom" or "-dllib -lcoqrun")
 COQRUNBYTEFLAGS=-dllib -lcoqrun -dllpath '/usr/local/coq-versions/8.4.timings/lib/coq'
 COQTOOLSBYTEFLAGS=
-export CAML_LD_LIBRARY_PATH='/home/steck/coq-sources/coq-8.4pl6.timings'/kernel/byterun:
+export CAML_LD_LIBRARY_PATH='/home/steck/coq-sources/coq-8.4pl6.timings'/kernel/byterun:/home/steck/.opam/4.02.1+fp/lib/stublibs
 
 # Paths for true installation
 # BINDIR=path where coqtop, coqc, coqmktop, coq-tex, coqdep, gallina and
@@ -27,7 +27,7 @@ export CAML_LD_LIBRARY_PATH='/home/steck/coq-sources/coq-8.4pl6.timings'/kernel/
 BINDIR="/usr/local/coq-versions/8.4.timings/bin"
 COQLIBINSTALL="/usr/local/coq-versions/8.4.timings/lib/coq"
 CONFIGDIR="/etc/xdg/coq"
-DATADIR="/usr/local/share/coq"
+DATADIR="/usr/local/coq-versions/8.4.timings/share/coq"
 MANDIR="/usr/local/coq-versions/8.4.timings/share/man"
 DOCDIR="/usr/local/coq-versions/8.4.timings/share/doc/coq"
 EMACSLIB="/usr/local/share/emacs/site-lisp"
@@ -38,25 +38,25 @@ COQSRC="/home/steck/coq-sources/coq-8.4pl6.timings"
 VERSION=8.4pl6
 
 # Ocaml version number
-CAMLVERSION=OCAML401
+CAMLVERSION=OCAML402
 
 # Ocaml libraries
-CAMLLIB="/usr/lib/ocaml"
+CAMLLIB="/home/steck/.opam/4.02.1+fp/lib/ocaml"
 
 # Ocaml .h directory
-CAMLHLIB="/usr/lib/ocaml"
+CAMLHLIB="/home/steck/.opam/4.02.1+fp/lib/ocaml"
 
 # Camlp4 : flavor, binaries, libraries ...
 # NB : CAMLP4BIN can be empty if camlp4 is in the PATH
 # NB : avoid using CAMLP4LIB (conflict under Windows)
-CAMLP4BIN="/usr/bin"
+CAMLP4BIN="/home/steck/.opam/4.02.1+fp/bin"
 CAMLP4=camlp5
 CAMLP4O=camlp5o
 CAMLP4COMPAT=-loc loc
-MYCAMLP4LIB="/usr/lib/ocaml/camlp5"
+MYCAMLP4LIB="/home/steck/.opam/4.02.1+fp/lib/camlp5"
 
 # LablGTK
-COQIDEINCLUDES=-I /usr/lib/ocaml/lablgtk2
+COQIDEINCLUDES=
 
 # Objective-Caml compile command
 OCAML="ocaml"
@@ -77,8 +77,8 @@ CAMLMKTOP="ocamlmktop"
 CAMLFLAGS=-rectypes 
 
 # Compilation debug flags
-CAMLDEBUG=
-CAMLDEBUGOPT=
+CAMLDEBUG=-g
+CAMLDEBUGOPT=-g
 
 # User compilation flag
 USERFLAGS=
@@ -87,7 +87,7 @@ USERFLAGS=
 CFLAGS=-Wall -Wno-unused
 
 # Compilation profile flag
-CAMLTIMEPROF=
+CAMLTIMEPROF=-p
 
 # The best compiler: native (=opt) or bytecode (=byte) if no native compiler
 BEST=opt
@@ -117,19 +117,19 @@ COQDOCDIR="/usr/local/share/texmf/tex/latex/misc"
 #the command STRIP
 # Unix systems and profiling: true
 # Unix systems and no profiling: strip
-STRIP=strip
+STRIP=true
 
 # CoqIde (no/byte/opt)
-HASCOQIDE=opt
+HASCOQIDE=no
 IDEOPTFLAGS=
 IDEOPTDEPS=
 IDEOPTINT=X11
 
 # Defining REVISION
-CHECKEDOUT=0
+CHECKEDOUT=git
 
 # Option to control compilation and installation of the documentation
-WITHDOC=all
+WITHDOC=no
 
 # make or sed are bogus and believe lines not terminating by a return
 # are inexistent
