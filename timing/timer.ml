@@ -3,26 +3,30 @@
 type stack = Stack of float list * int
 
 exception Bad_stack of string
+exception Bad_argument of string
 exception Bad_prefix of string
+exception Events_stack_mismatch
 exception No_timing_events
 exception Equal_paths
 exception Unequal_paths
 
-type time_event_rec = { proc: string
-		      ; depth: int
-		      ; time: float
-		      }
-and time_event = Time_event of time_event_rec
+type start_event = { s_proc: string
+		   ; s_depth: int
+		   }
+and time_event = { t_proc: string
+		 ; t_depth: int
+		 ; t_time: float
+		 }
+and all_events = Start_event of start_event | Time_event of time_event
 
 (* globals *)
-let time_events : time_event list ref = ref []
+let the_events : all_events list ref = ref []
 let times_table : (string,stack) Hashtbl.t = Hashtbl.create 100
 let call_tbl = Hashtbl.create 100
 let max_indent = 12
 (* end globals *)
 
-let flush_time_events () =
-  time_events := []
+let flush_events () = the_events := []
 
 (* depth of all calls to instrumented procedures *)
 let total_depth = ref 0
@@ -33,13 +37,16 @@ let dump_times_table n =
   Printf.printf "*** End times table: ***\n%!"
 
 (* maintain stack of times for each instrumented procedure *)
+(* return this procedure's recursion depth *)
 let push_time s tm = 
   try 
     let Stack (curr,ct) = Hashtbl.find times_table s in
     let ct_incr = ct + 1 in
-    Hashtbl.replace times_table s (Stack (tm :: curr,ct_incr))
+    let _ = Hashtbl.replace times_table s (Stack (tm :: curr,ct_incr)) in
+    ct_incr
   with Not_found -> 
-    Hashtbl.add times_table s (Stack ([tm],0))
+    let _ = Hashtbl.add times_table s (Stack ([tm],0)) in
+    0
 	
 let pop_time s =
   try
@@ -60,9 +67,17 @@ let pop_time s =
     let _ = dump_times_table 3 in
     raise (Bad_stack s)
 
-(* cons event onto list *)
-let add_event t = 
-  time_events := t :: !time_events
+(* cons start event onto list *)
+let add_start_event ev =
+  match ev with
+  | Start_event _ -> the_events := ev :: !the_events
+  | _ -> raise (Bad_argument "add_start_event")
+
+(* cons time event onto list *)
+let add_time_event ev =
+  match ev with
+  | Time_event _ -> the_events := ev :: !the_events
+  | _ -> raise (Bad_argument "add_time_event")
 
 (* length-n prefix of a list *)
 let get_prefix lst n =
@@ -79,49 +94,30 @@ let get_prefix lst n =
   in
   tail_loop lst n []
 
-(* length-n suffix of a list *)
-let get_suffix lst n =
-  let lst_rev = get_prefix (List.rev lst) n in
-  List.rev lst_rev
-
-let add_call_to_tbl path (Time_event t) =
+let add_call_to_tbl path t_ev =
   try
     let tm = Hashtbl.find call_tbl path in
-    Hashtbl.replace call_tbl path (tm +. t.time)
-  with Not_found ->
-    Hashtbl.add call_tbl path t.time
+    Hashtbl.replace call_tbl path (tm +. t_ev.t_time)
+  with Not_found -> 
+    Hashtbl.add call_tbl path t_ev.t_time
 
 let populate_call_tbl () =
   let rec populate_loop events path curr_depth =
     match events with
     | [] -> ()
-    | ((Time_event t) as te::rest) ->
-      let (new_path,new_depth) =
-	(* invariant: curr_depth is length of path - 1 *)
-	(* t.depth should be no greater than curr_depth + 1 *)
-	if t.depth <= curr_depth then (
-	  let suffix = get_suffix path t.depth in
-	  (t.proc :: suffix,t.depth)
-	)
-	else if t.depth = curr_depth + 1 then (
-	  (t.proc :: path,t.depth)
-	)
-	else ( (* should not happen, but pretend it's OK *)
-	  let _ = 
-	    Printf.printf "Unexpected increase in depth\n";
-	    Printf.printf "Proc: %s  Current depth: %d  Event depth: %d\n" t.proc curr_depth t.depth;
-	    Printf.printf "Path: ";
-	    List.iter (Printf.printf "%s | ") path;
-	    Printf.printf "\n%!"
-	  in
-	  (t.proc :: path,curr_depth + 1)
-	)
-      in
-      let _ = add_call_to_tbl new_path te in
-      populate_loop rest new_path new_depth
+    | ((Start_event s_ev)::rest) ->
+      (* call *)
+      populate_loop rest (s_ev.s_proc :: path) (curr_depth + 1)
+    | ((Time_event t_ev)::rest) ->
+      (* return *)
+      if path = [] || t_ev.t_proc != List.hd path then (
+	raise Events_stack_mismatch
+      );
+      let _ = add_call_to_tbl path t_ev in
+      populate_loop rest (List.tl path) (curr_depth - 1)
   in
   let _ = Hashtbl.clear call_tbl in
-  populate_loop !time_events [] (-1)
+  populate_loop (List.rev !the_events) [] 0
 
 let rec is_path_prefix path_shorter path_longer =
   match (path_shorter,path_longer) with
@@ -130,7 +126,7 @@ let rec is_path_prefix path_shorter path_longer =
   | _ -> false
 
 (* compare equal-length paths *)
-let compare_equal_paths lst1 lst2 =
+let compare_eqlen_paths lst1 lst2 =
   if lst1 = lst2 then ( (* should never happen *)
     raise Equal_paths
   )
@@ -155,7 +151,7 @@ let build_call_tree () =
 	  -1
 	)
 	else (
-	  compare_equal_paths rev1 (get_prefix rev2 len1)
+	  compare_eqlen_paths rev1 (get_prefix rev2 len1)
 	)
       )
       else if len2 < len1 then (
@@ -163,11 +159,11 @@ let build_call_tree () =
 	  1 
 	)
 	else (
-	  compare_equal_paths (get_prefix rev1 len2) rev2
+	  compare_eqlen_paths (get_prefix rev1 len2) rev2
 	)
       )
       else (  
-	compare_equal_paths rev1 rev2
+	compare_eqlen_paths rev1 rev2
       )
     with Equal_paths -> ( 
       Printf.printf "Original paths were: ";
@@ -180,7 +176,7 @@ let build_call_tree () =
   in
   List.sort cmp !unsorted
 
-let indent n ?(ch = ' ') =
+let indent ?(ch = ' ') n =
   let bound = min n max_indent in
   for i = 0 to bound - 1 do
     Printf.printf "%c" ch
@@ -190,28 +186,32 @@ let indent n ?(ch = ' ') =
 let interesting_procedures = [ "cl_rewrite_clause_tac" ]
 
 let print_call_tree () =
-  match !time_events with
-  | [] -> raise No_timing_events
+  match !the_events with
   | ((Time_event t)::rest) -> 
-    if List.mem t.proc interesting_procedures then (
+    if List.mem t.t_proc interesting_procedures then (
       let _ = populate_call_tbl () in
       let call_tree = build_call_tree () in
       let prn_elt (path,tm) =
-	let _ = indent ((List.length path) - 1) ~ch:'+' in
+	let _ = indent ~ch:'+' ((List.length path) - 1) in
 	Printf.printf "%s: %0.4f\n%!" (List.hd path) tm 
       in
       List.iter prn_elt call_tree
     )
+  | _ -> raise (Bad_argument "print_call_tree")
  
 let start_timer s =
   let tm = Unix.gettimeofday () in
-  let _ = push_time s tm in
+  let ct = push_time s tm in
   if !total_depth = 0 then (
-    flush_time_events ()
+    flush_events ()
+  );
+  (* only want to track initial call if recursive *)
+  if !total_depth = 0 || ct = 0 then (
+    add_start_event (Start_event { s_proc = s; s_depth = !total_depth })
   );
   (* 
-     indent !total_depth;
-     Printf.printf "Start: %s @ total depth %d\n%!" s !total_depth;
+  indent !total_depth;
+  Printf.printf "Start: %s @ total depth %d\n%!" s !total_depth;
   *)
   incr total_depth
 
@@ -221,12 +221,12 @@ let stop_timer s =
     let (tm0,ct) = pop_time s in
     let tm_msec = (tm1 -. tm0) *. 1000.0 in 
     decr total_depth;
-    (* 
+    (*
        indent !total_depth;
        Printf.printf "Time:  %s @ depth %d, total depth %d = %0.3f msec\n%!" s ct !total_depth tm_msec;
     *)
     if !total_depth = 0 || ct = 0 then (
-      add_event (Time_event { proc = s; depth = !total_depth; time = tm_msec })
+      add_time_event (Time_event { t_proc = s; t_depth = !total_depth; t_time = tm_msec })
     );
     if !total_depth = 0 then (
       print_call_tree ()
@@ -235,5 +235,5 @@ let stop_timer s =
   | Bad_stack s -> Printf.printf "Missing call on stack: %s\n%!" s
   | exn -> (
     Printf.printf "stop_timer, got exception: %s\n%!" (Printexc.to_string exn); 
-    (* raise exn *)
+    raise exn
   )

@@ -27,7 +27,7 @@ export CAML_LD_LIBRARY_PATH='/home/steck/coq-sources/coq-8.4pl6.timings'/kernel/
 BINDIR="/usr/local/coq-versions/8.4.timings/bin"
 COQLIBINSTALL="/usr/local/coq-versions/8.4.timings/lib/coq"
 CONFIGDIR="/etc/xdg/coq"
-DATADIR="/usr/local/coq-versions/8.4.timings/share/coq"
+DATADIR="/usr/local/share/coq"
 MANDIR="/usr/local/coq-versions/8.4.timings/share/man"
 DOCDIR="/usr/local/coq-versions/8.4.timings/share/doc/coq"
 EMACSLIB="/usr/local/share/emacs/site-lisp"
@@ -77,8 +77,8 @@ CAMLMKTOP="ocamlmktop"
 CAMLFLAGS=-rectypes 
 
 # Compilation debug flags
-CAMLDEBUG=-g
-CAMLDEBUGOPT=-g
+CAMLDEBUG=
+CAMLDEBUGOPT=
 
 # User compilation flag
 USERFLAGS=
@@ -87,7 +87,7 @@ USERFLAGS=
 CFLAGS=-Wall -Wno-unused
 
 # Compilation profile flag
-CAMLTIMEPROF=-p
+CAMLTIMEPROF=
 
 # The best compiler: native (=opt) or bytecode (=byte) if no native compiler
 BEST=opt
@@ -117,7 +117,7 @@ COQDOCDIR="/usr/local/share/texmf/tex/latex/misc"
 #the command STRIP
 # Unix systems and profiling: true
 # Unix systems and no profiling: strip
-STRIP=true
+STRIP=strip
 
 # CoqIde (no/byte/opt)
 HASCOQIDE=no
@@ -129,7 +129,7 @@ IDEOPTINT=X11
 CHECKEDOUT=git
 
 # Option to control compilation and installation of the documentation
-WITHDOC=no
+WITHDOC=all
 
 # make or sed are bogus and believe lines not terminating by a return
 # are inexistent

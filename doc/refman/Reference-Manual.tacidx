@@ -1,208 +1,208 @@
-\indexentry {discrR@\texttt {discrR}|hyperpage}{122}
-\indexentry {split\_Rabs@\texttt {split\_Rabs}|hyperpage}{127}
-\indexentry {split\_Rmult@\texttt {split\_Rmult}|hyperpage}{130}
-\indexentry {exact@\texttt {exact}|hyperpage}{199}
-\indexentry {eexact@\texttt {eexact}|hyperpage}{199}
-\indexentry {assumption@\texttt {assumption}|hyperpage}{199}
-\indexentry {eassumption@\texttt {eassumption}|hyperpage}{199}
-\indexentry {refine@\texttt {refine}|hyperpage}{199}
-\indexentry {apply@\texttt {apply}|hyperpage}{202}
-\indexentry {apply \dots \ with@\texttt {apply \dots \ with}|hyperpage}{203}
-\indexentry {eapply@\texttt {eapply}|hyperpage}{203}
-\indexentry {simple apply@\texttt {simple apply}|hyperpage}{203}
-\indexentry {lapply@\texttt {lapply}|hyperpage}{204}
-\indexentry {apply \dots \ in@\texttt {apply \dots \ in}|hyperpage}{206}
-\indexentry {eapply \dots \ in@\texttt {eapply \dots \ in}|hyperpage}{207}
-\indexentry {simple apply \dots \ in@\texttt {simple apply \dots \ in}|hyperpage}{207}
-\indexentry {simple eapply \dots \ in@\texttt {simple eapply \dots \ in}|hyperpage}{207}
-\indexentry {constructor@\texttt {constructor}|hyperpage}{208}
-\indexentry {split@\texttt {split}|hyperpage}{208}
-\indexentry {exists@\texttt {exists}|hyperpage}{208}
-\indexentry {left@\texttt {left}|hyperpage}{208}
-\indexentry {right@\texttt {right}|hyperpage}{208}
-\indexentry {econstructor@\texttt {econstructor}|hyperpage}{209}
-\indexentry {eexists@\texttt {eexists}|hyperpage}{209}
-\indexentry {esplit@\texttt {esplit}|hyperpage}{209}
-\indexentry {eleft@\texttt {eleft}|hyperpage}{209}
-\indexentry {eright@\texttt {eright}|hyperpage}{209}
-\indexentry {intro@\texttt {intro}|hyperpage}{209}
-\indexentry {intros@\texttt {intros}|hyperpage}{209}
-\indexentry {intros until@\texttt {intros until}|hyperpage}{210}
-\indexentry {intros until@\texttt {intros until}|hyperpage}{210}
-\indexentry {intro after@\texttt {intro after}|hyperpage}{210}
-\indexentry {intro before@\texttt {intro before}|hyperpage}{210}
-\indexentry {intro at top@\texttt {intro at top}|hyperpage}{210}
-\indexentry {intro at bottom@\texttt {intro at bottom}|hyperpage}{210}
-\indexentry {intros \intropattern @\texttt {intros \intropattern }|hyperpage}{210}
-\indexentry {clear@\texttt {clear}|hyperpage}{217}
-\indexentry {clearbody@\texttt {clearbody}|hyperpage}{217}
-\indexentry {clear dependent@\texttt {clear dependent}|hyperpage}{217}
-\indexentry {revert@\texttt {revert}|hyperpage}{218}
-\indexentry {revert dependent@\texttt {revert dependent}|hyperpage}{218}
-\indexentry {move@\texttt {move}|hyperpage}{218}
-\indexentry {rename@\texttt {rename}|hyperpage}{218}
-\indexentry {set@\texttt {set}|hyperpage}{219}
-\indexentry {remember@\texttt {remember}|hyperpage}{219}
-\indexentry {pose@\texttt {pose}|hyperpage}{220}
-\indexentry {decompose@\texttt {decompose}|hyperpage}{220}
-\indexentry {decompose sum@\texttt {decompose sum}|hyperpage}{222}
-\indexentry {decompose record@\texttt {decompose record}|hyperpage}{222}
-\indexentry {assert@\texttt {assert}|hyperpage}{222}
-\indexentry {cut@\texttt {cut}|hyperpage}{223}
-\indexentry {assert by@\texttt {assert by}|hyperpage}{223}
-\indexentry {assert as@\texttt {assert as}|hyperpage}{223}
-\indexentry {pose proof@\texttt {pose proof}|hyperpage}{223}
-\indexentry {pose proof@\texttt {pose proof}|hyperpage}{223}
-\indexentry {specialize@\texttt {specialize}|hyperpage}{223}
-\indexentry {generalize@\texttt {generalize}|hyperpage}{224}
-\indexentry {generalize dependent@\texttt {generalize dependent}|hyperpage}{225}
-\indexentry {evar@\texttt {evar}|hyperpage}{225}
-\indexentry {instantiate@\texttt {instantiate}|hyperpage}{225}
-\indexentry {admit@\texttt {admit}|hyperpage}{226}
-\indexentry {absurd@\texttt {absurd}|hyperpage}{226}
-\indexentry {contradiction@\texttt {contradiction}|hyperpage}{226}
-\indexentry {contradict@\texttt {contradict}|hyperpage}{226}
-\indexentry {exfalso@\texttt {exfalso}|hyperpage}{226}
-\indexentry {destruct@\texttt {destruct}|hyperpage}{227}
-\indexentry {edestruct@\texttt {edestruct}|hyperpage}{227}
-\indexentry {case@\texttt {case}|hyperpage}{228}
-\indexentry {ecase@\texttt {ecase}|hyperpage}{228}
-\indexentry {simple destruct@\texttt {simple destruct}|hyperpage}{228}
-\indexentry {case\_eq@\texttt {case\_eq}|hyperpage}{228}
-\indexentry {induction@\texttt {induction}|hyperpage}{229}
-\indexentry {einduction@\texttt {einduction}|hyperpage}{231}
-\indexentry {eelim@\texttt {eelim}|hyperpage}{232}
-\indexentry {elim \dots \ using@\texttt {elim \dots \ using}|hyperpage}{232}
-\indexentry {elimtype@\texttt {elimtype}|hyperpage}{232}
-\indexentry {simple induction@\texttt {simple induction}|hyperpage}{232}
-\indexentry {double induction@\texttt {double induction}|hyperpage}{233}
-\indexentry {dependent induction@\texttt {dependent induction}|hyperpage}{233}
-\indexentry {dependent induction \dots \ generalizing@\texttt {dependent induction \dots \ generalizing}|hyperpage}{247}
-\indexentry {dependent destruction@\texttt {dependent destruction}|hyperpage}{247}
-\indexentry {functional induction@\texttt {functional induction}|hyperpage}{247}
-\indexentry {discriminate@\texttt {discriminate}|hyperpage}{273}
-\indexentry {ediscriminate@\texttt {ediscriminate}|hyperpage}{273}
-\indexentry {injection@\texttt {injection}|hyperpage}{273}
-\indexentry {einjection@\texttt {einjection}|hyperpage}{276}
-\indexentry {injection \dots \ as@\texttt {injection \dots \ as}|hyperpage}{276}
-\indexentry {inversion@\texttt {inversion}|hyperpage}{276}
-\indexentry {inversion\_clear@\texttt {inversion\_clear}|hyperpage}{276}
-\indexentry {inversion \dots \ as@\texttt {inversion \dots \ as}|hyperpage}{276}
-\indexentry {inversion\_clear \dots \ as@\texttt {inversion\_clear \dots \ as}|hyperpage}{283}
-\indexentry {inversion \dots \ in@\texttt {inversion \dots \ in}|hyperpage}{283}
-\indexentry {inversion \dots \ as \dots \ in@\texttt {inversion \dots \ as \dots \ in}|hyperpage}{283}
-\indexentry {inversion\_clear \dots \ in@\texttt {inversion\_clear \dots \ in}|hyperpage}{283}
-\indexentry {inversion\_clear \dots \ as \dots \ in@\texttt {inversion\_clear \dots \ as \dots \ in}|hyperpage}{283}
-\indexentry {dependent inversion@\texttt {dependent inversion}|hyperpage}{283}
-\indexentry {dependent inversion \dots \ as @\texttt {dependent inversion \dots \ as }|hyperpage}{283}
-\indexentry {dependent inversion\_clear@\texttt {dependent inversion\_clear}|hyperpage}{283}
-\indexentry {dependent inversion\_clear \dots \ as@\texttt {dependent inversion\_clear \dots \ as}|hyperpage}{283}
-\indexentry {dependent inversion \dots \ with@\texttt {dependent inversion \dots \ with}|hyperpage}{283}
-\indexentry {dependent inversion \dots \ as \dots \ with@\texttt {dependent inversion \dots \ as \dots \ with}|hyperpage}{284}
-\indexentry {dependent inversion\_clear \dots \ with@\texttt {dependent inversion\_clear \dots \ with}|hyperpage}{284}
-\indexentry {dependent inversion\_clear \dots \ as \dots \ with@\texttt {dependent inversion\_clear \dots \ as \dots \ with}|hyperpage}{284}
-\indexentry {simple inversion@\texttt {simple inversion}|hyperpage}{284}
-\indexentry {simple inversion \dots \ as@\texttt {simple inversion \dots \ as}|hyperpage}{284}
-\indexentry {inversion \dots \ using@\texttt {inversion \dots \ using}|hyperpage}{284}
-\indexentry {inversion \dots \ using \dots \ in@\texttt {inversion \dots \ using \dots \ in}|hyperpage}{284}
-\indexentry {fix@\texttt {fix}|hyperpage}{301}
-\indexentry {cofix@\texttt {cofix}|hyperpage}{302}
-\indexentry {rewrite@\texttt {rewrite}|hyperpage}{302}
-\indexentry {rewrite ->@\texttt {rewrite ->}|hyperpage}{302}
-\indexentry {rewrite <-@\texttt {rewrite <-}|hyperpage}{302}
-\indexentry {rewrite \dots \ in@\texttt {rewrite \dots \ in}|hyperpage}{302}
-\indexentry {rewrite \dots \ at@\texttt {rewrite \dots \ at}|hyperpage}{303}
-\indexentry {rewrite \dots \ by@\texttt {rewrite \dots \ by}|hyperpage}{303}
-\indexentry {erewrite@\texttt {erewrite}|hyperpage}{303}
-\indexentry {cutrewrite@\texttt {cutrewrite}|hyperpage}{303}
-\indexentry {replace \dots \ with@\texttt {replace \dots \ with}|hyperpage}{303}
-\indexentry {reflexivity@\texttt {reflexivity}|hyperpage}{304}
-\indexentry {symmetry@\texttt {symmetry}|hyperpage}{304}
-\indexentry {symmetry in@\texttt {symmetry in}|hyperpage}{304}
-\indexentry {transitivity@\texttt {transitivity}|hyperpage}{304}
-\indexentry {subst@\texttt {subst}|hyperpage}{305}
-\indexentry {stepl@\texttt {stepl}|hyperpage}{305}
-\indexentry {stepr@\texttt {stepr}|hyperpage}{305}
-\indexentry {change@\texttt {change}|hyperpage}{305}
-\indexentry {change \dots \ in@\texttt {change \dots \ in}|hyperpage}{305}
-\indexentry {cbv@\texttt {cbv}|hyperpage}{307}
-\indexentry {lazy@\texttt {lazy}|hyperpage}{307}
-\indexentry {compute@\texttt {compute}|hyperpage}{307}
-\indexentry {vm\_compute@\texttt {vm\_compute}|hyperpage}{307}
-\indexentry {compute@\texttt {compute}|hyperpage}{307}
-\indexentry {vm\_compute@\texttt {vm\_compute}|hyperpage}{307}
-\indexentry {red@\texttt {red}|hyperpage}{308}
-\indexentry {hnf@\texttt {hnf}|hyperpage}{308}
-\indexentry {simpl@\texttt {simpl}|hyperpage}{308}
-\indexentry {simpl \dots \ in@\texttt {simpl \dots \ in}|hyperpage}{309}
-\indexentry {unfold@\texttt {unfold}|hyperpage}{309}
-\indexentry {unfold \dots \ in@\texttt {unfold \dots \ in}|hyperpage}{310}
-\indexentry {fold@\texttt {fold}|hyperpage}{310}
-\indexentry {pattern@\texttt {pattern}|hyperpage}{310}
-\indexentry {auto@\texttt {auto}|hyperpage}{311}
-\indexentry {trivial@\texttt {trivial}|hyperpage}{312}
-\indexentry {eauto@\texttt {eauto}|hyperpage}{312}
-\indexentry {autounfold@\texttt {autounfold}|hyperpage}{313}
-\indexentry {autorewrite@\texttt {autorewrite}|hyperpage}{313}
-\indexentry {tauto@\texttt {tauto}|hyperpage}{404}
-\indexentry {intuition@\texttt {intuition}|hyperpage}{408}
-\indexentry {rtauto@\texttt {rtauto}|hyperpage}{409}
-\indexentry {firstorder@\texttt {firstorder}|hyperpage}{409}
-\indexentry {firstorder {\tac }@\texttt {firstorder {\tac }}|hyperpage}{409}
-\indexentry {firstorder with@\texttt {firstorder with}|hyperpage}{409}
-\indexentry {firstorder using@\texttt {firstorder using}|hyperpage}{409}
-\indexentry {congruence@\texttt {congruence}|hyperpage}{409}
-\indexentry {constr\_eq@\texttt {constr\_eq}|hyperpage}{420}
-\indexentry {unify@\texttt {unify}|hyperpage}{420}
-\indexentry {is\_evar@\texttt {is\_evar}|hyperpage}{420}
-\indexentry {has\_evar@\texttt {has\_evar}|hyperpage}{421}
-\indexentry {is\_var@\texttt {is\_var}|hyperpage}{421}
-\indexentry {f\_equal@\texttt {f\_equal}|hyperpage}{421}
-\indexentry {decide equality@\texttt {decide equality}|hyperpage}{421}
-\indexentry {compare@\texttt {compare}|hyperpage}{421}
-\indexentry {simplify\_eq@\texttt {simplify\_eq}|hyperpage}{421}
-\indexentry {esimplify\_eq@\texttt {esimplify\_eq}|hyperpage}{421}
-\indexentry {dependent rewrite ->@\texttt {dependent rewrite ->}|hyperpage}{422}
-\indexentry {dependent rewrite <-@\texttt {dependent rewrite <-}|hyperpage}{422}
-\indexentry {functional inversion@\texttt {functional inversion}|hyperpage}{422}
-\indexentry {quote@\texttt {quote}|hyperpage}{423}
-\indexentry {classical\_left@\texttt {classical\_left}|hyperpage}{423}
-\indexentry {classical\_right@\texttt {classical\_right}|hyperpage}{423}
-\indexentry {omega@\texttt {omega}|hyperpage}{423}
-\indexentry {ring@\texttt {ring}|hyperpage}{424}
-\indexentry {ring\_simplify@\texttt {ring\_simplify}|hyperpage}{424}
-\indexentry {field@\texttt {field}|hyperpage}{424}
-\indexentry {field\_simplify@\texttt {field\_simplify}|hyperpage}{424}
-\indexentry {field\_simplify\_eq@\texttt {field\_simplify\_eq}|hyperpage}{424}
-\indexentry {fourier@\texttt {fourier}|hyperpage}{437}
-\indexentry {;@\texttt {;}|hyperpage}{458}
-\indexentry {;[\ldots $\mid $\ldots $\mid $\ldots ]@\texttt {;[\ldots $\mid $\ldots $\mid $\ldots ]}|hyperpage}{458}
-\indexentry {do@\texttt {do}|hyperpage}{460}
-\indexentry {repeat@\texttt {repeat}|hyperpage}{460}
-\indexentry {try@\texttt {try}|hyperpage}{461}
-\indexentry {progress@\texttt {progress}|hyperpage}{461}
-\indexentry {$\mid \mid $@\texttt {$\mid \mid $}|hyperpage}{461}
-\indexentry {first@\texttt {first}|hyperpage}{461}
-\indexentry {solve@\texttt {solve}|hyperpage}{461}
-\indexentry {idtac@\texttt {idtac}|hyperpage}{462}
-\indexentry {fail@\texttt {fail}|hyperpage}{462}
-\indexentry {timeout@\texttt {timeout}|hyperpage}{462}
-\indexentry {abstract@\texttt {abstract}|hyperpage}{468}
-\indexentry {quote@\texttt {quote}|hyperpage}{4323}
-\indexentry {functional induction@\texttt {functional induction}|hyperpage}{4445}
-\indexentry {inversion \dots \ using@\texttt {inversion \dots \ using}|hyperpage}{4450}
-\indexentry {omega@\texttt {omega}|hyperpage}{4541}
-\indexentry {psatz@\texttt {psatz}|hyperpage}{4559}
-\indexentry {lra@\texttt {lra}|hyperpage}{4559}
-\indexentry {lia@\texttt {lia}|hyperpage}{4561}
-\indexentry {nia@\texttt {nia}|hyperpage}{4562}
-\indexentry {ring@\texttt {ring}|hyperpage}{4665}
-\indexentry {ring@\texttt {ring}|hyperpage}{4666}
-\indexentry {ring\_simplify@\texttt {ring\_simplify}|hyperpage}{4666}
-\indexentry {field@\texttt {field}|hyperpage}{4693}
-\indexentry {field\_simplify@\texttt {field\_simplify}|hyperpage}{4693}
-\indexentry {field\_simplify\_eq@\texttt {field\_simplify\_eq}|hyperpage}{4693}
-\indexentry {legacy ring@\texttt {legacy ring}|hyperpage}{4710}
-\indexentry {legacy field@\texttt {legacy field}|hyperpage}{4712}
-\indexentry {nsatz@\texttt {nsatz}|hyperpage}{4717}
-\indexentry {setoid\_replace@\texttt {setoid\_replace}|hyperpage}{4719}
+\indexentry {discrR@\texttt {discrR}|hyperpage}{107}
+\indexentry {split\_Rabs@\texttt {split\_Rabs}|hyperpage}{108}
+\indexentry {split\_Rmult@\texttt {split\_Rmult}|hyperpage}{108}
+\indexentry {exact@\texttt {exact}|hyperpage}{173}
+\indexentry {eexact@\texttt {eexact}|hyperpage}{173}
+\indexentry {assumption@\texttt {assumption}|hyperpage}{173}
+\indexentry {eassumption@\texttt {eassumption}|hyperpage}{173}
+\indexentry {refine@\texttt {refine}|hyperpage}{173}
+\indexentry {apply@\texttt {apply}|hyperpage}{174}
+\indexentry {apply \dots \ with@\texttt {apply \dots \ with}|hyperpage}{175}
+\indexentry {eapply@\texttt {eapply}|hyperpage}{175}
+\indexentry {simple apply@\texttt {simple apply}|hyperpage}{175}
+\indexentry {lapply@\texttt {lapply}|hyperpage}{175}
+\indexentry {apply \dots \ in@\texttt {apply \dots \ in}|hyperpage}{177}
+\indexentry {eapply \dots \ in@\texttt {eapply \dots \ in}|hyperpage}{178}
+\indexentry {simple apply \dots \ in@\texttt {simple apply \dots \ in}|hyperpage}{178}
+\indexentry {simple eapply \dots \ in@\texttt {simple eapply \dots \ in}|hyperpage}{178}
+\indexentry {constructor@\texttt {constructor}|hyperpage}{179}
+\indexentry {split@\texttt {split}|hyperpage}{179}
+\indexentry {exists@\texttt {exists}|hyperpage}{179}
+\indexentry {left@\texttt {left}|hyperpage}{179}
+\indexentry {right@\texttt {right}|hyperpage}{179}
+\indexentry {econstructor@\texttt {econstructor}|hyperpage}{180}
+\indexentry {eexists@\texttt {eexists}|hyperpage}{180}
+\indexentry {esplit@\texttt {esplit}|hyperpage}{180}
+\indexentry {eleft@\texttt {eleft}|hyperpage}{180}
+\indexentry {eright@\texttt {eright}|hyperpage}{180}
+\indexentry {intro@\texttt {intro}|hyperpage}{180}
+\indexentry {intros@\texttt {intros}|hyperpage}{180}
+\indexentry {intros until@\texttt {intros until}|hyperpage}{181}
+\indexentry {intros until@\texttt {intros until}|hyperpage}{181}
+\indexentry {intro after@\texttt {intro after}|hyperpage}{181}
+\indexentry {intro before@\texttt {intro before}|hyperpage}{181}
+\indexentry {intro at top@\texttt {intro at top}|hyperpage}{181}
+\indexentry {intro at bottom@\texttt {intro at bottom}|hyperpage}{181}
+\indexentry {intros \intropattern @\texttt {intros \intropattern }|hyperpage}{181}
+\indexentry {clear@\texttt {clear}|hyperpage}{184}
+\indexentry {clearbody@\texttt {clearbody}|hyperpage}{185}
+\indexentry {clear dependent@\texttt {clear dependent}|hyperpage}{185}
+\indexentry {revert@\texttt {revert}|hyperpage}{185}
+\indexentry {revert dependent@\texttt {revert dependent}|hyperpage}{185}
+\indexentry {move@\texttt {move}|hyperpage}{185}
+\indexentry {rename@\texttt {rename}|hyperpage}{186}
+\indexentry {set@\texttt {set}|hyperpage}{186}
+\indexentry {remember@\texttt {remember}|hyperpage}{187}
+\indexentry {pose@\texttt {pose}|hyperpage}{187}
+\indexentry {decompose@\texttt {decompose}|hyperpage}{187}
+\indexentry {decompose sum@\texttt {decompose sum}|hyperpage}{188}
+\indexentry {decompose record@\texttt {decompose record}|hyperpage}{188}
+\indexentry {assert@\texttt {assert}|hyperpage}{188}
+\indexentry {cut@\texttt {cut}|hyperpage}{188}
+\indexentry {assert by@\texttt {assert by}|hyperpage}{188}
+\indexentry {assert as@\texttt {assert as}|hyperpage}{188}
+\indexentry {pose proof@\texttt {pose proof}|hyperpage}{189}
+\indexentry {pose proof@\texttt {pose proof}|hyperpage}{189}
+\indexentry {specialize@\texttt {specialize}|hyperpage}{189}
+\indexentry {generalize@\texttt {generalize}|hyperpage}{189}
+\indexentry {generalize dependent@\texttt {generalize dependent}|hyperpage}{190}
+\indexentry {evar@\texttt {evar}|hyperpage}{190}
+\indexentry {instantiate@\texttt {instantiate}|hyperpage}{190}
+\indexentry {admit@\texttt {admit}|hyperpage}{191}
+\indexentry {absurd@\texttt {absurd}|hyperpage}{191}
+\indexentry {contradiction@\texttt {contradiction}|hyperpage}{191}
+\indexentry {contradict@\texttt {contradict}|hyperpage}{191}
+\indexentry {exfalso@\texttt {exfalso}|hyperpage}{191}
+\indexentry {destruct@\texttt {destruct}|hyperpage}{192}
+\indexentry {edestruct@\texttt {edestruct}|hyperpage}{192}
+\indexentry {case@\texttt {case}|hyperpage}{193}
+\indexentry {ecase@\texttt {ecase}|hyperpage}{193}
+\indexentry {simple destruct@\texttt {simple destruct}|hyperpage}{193}
+\indexentry {case\_eq@\texttt {case\_eq}|hyperpage}{193}
+\indexentry {induction@\texttt {induction}|hyperpage}{194}
+\indexentry {einduction@\texttt {einduction}|hyperpage}{195}
+\indexentry {eelim@\texttt {eelim}|hyperpage}{196}
+\indexentry {elim \dots \ using@\texttt {elim \dots \ using}|hyperpage}{196}
+\indexentry {elimtype@\texttt {elimtype}|hyperpage}{196}
+\indexentry {simple induction@\texttt {simple induction}|hyperpage}{196}
+\indexentry {double induction@\texttt {double induction}|hyperpage}{197}
+\indexentry {dependent induction@\texttt {dependent induction}|hyperpage}{197}
+\indexentry {dependent induction \dots \ generalizing@\texttt {dependent induction \dots \ generalizing}|hyperpage}{198}
+\indexentry {dependent destruction@\texttt {dependent destruction}|hyperpage}{198}
+\indexentry {functional induction@\texttt {functional induction}|hyperpage}{198}
+\indexentry {discriminate@\texttt {discriminate}|hyperpage}{200}
+\indexentry {ediscriminate@\texttt {ediscriminate}|hyperpage}{200}
+\indexentry {injection@\texttt {injection}|hyperpage}{201}
+\indexentry {einjection@\texttt {einjection}|hyperpage}{202}
+\indexentry {injection \dots \ as@\texttt {injection \dots \ as}|hyperpage}{202}
+\indexentry {inversion@\texttt {inversion}|hyperpage}{202}
+\indexentry {inversion\_clear@\texttt {inversion\_clear}|hyperpage}{203}
+\indexentry {inversion \dots \ as@\texttt {inversion \dots \ as}|hyperpage}{203}
+\indexentry {inversion\_clear \dots \ as@\texttt {inversion\_clear \dots \ as}|hyperpage}{204}
+\indexentry {inversion \dots \ in@\texttt {inversion \dots \ in}|hyperpage}{204}
+\indexentry {inversion \dots \ as \dots \ in@\texttt {inversion \dots \ as \dots \ in}|hyperpage}{204}
+\indexentry {inversion\_clear \dots \ in@\texttt {inversion\_clear \dots \ in}|hyperpage}{204}
+\indexentry {inversion\_clear \dots \ as \dots \ in@\texttt {inversion\_clear \dots \ as \dots \ in}|hyperpage}{204}
+\indexentry {dependent inversion@\texttt {dependent inversion}|hyperpage}{204}
+\indexentry {dependent inversion \dots \ as @\texttt {dependent inversion \dots \ as }|hyperpage}{204}
+\indexentry {dependent inversion\_clear@\texttt {dependent inversion\_clear}|hyperpage}{204}
+\indexentry {dependent inversion\_clear \dots \ as@\texttt {dependent inversion\_clear \dots \ as}|hyperpage}{204}
+\indexentry {dependent inversion \dots \ with@\texttt {dependent inversion \dots \ with}|hyperpage}{204}
+\indexentry {dependent inversion \dots \ as \dots \ with@\texttt {dependent inversion \dots \ as \dots \ with}|hyperpage}{204}
+\indexentry {dependent inversion\_clear \dots \ with@\texttt {dependent inversion\_clear \dots \ with}|hyperpage}{204}
+\indexentry {dependent inversion\_clear \dots \ as \dots \ with@\texttt {dependent inversion\_clear \dots \ as \dots \ with}|hyperpage}{205}
+\indexentry {simple inversion@\texttt {simple inversion}|hyperpage}{205}
+\indexentry {simple inversion \dots \ as@\texttt {simple inversion \dots \ as}|hyperpage}{205}
+\indexentry {inversion \dots \ using@\texttt {inversion \dots \ using}|hyperpage}{205}
+\indexentry {inversion \dots \ using \dots \ in@\texttt {inversion \dots \ using \dots \ in}|hyperpage}{205}
+\indexentry {fix@\texttt {fix}|hyperpage}{207}
+\indexentry {cofix@\texttt {cofix}|hyperpage}{207}
+\indexentry {rewrite@\texttt {rewrite}|hyperpage}{208}
+\indexentry {rewrite ->@\texttt {rewrite ->}|hyperpage}{208}
+\indexentry {rewrite <-@\texttt {rewrite <-}|hyperpage}{208}
+\indexentry {rewrite \dots \ in@\texttt {rewrite \dots \ in}|hyperpage}{208}
+\indexentry {rewrite \dots \ at@\texttt {rewrite \dots \ at}|hyperpage}{208}
+\indexentry {rewrite \dots \ by@\texttt {rewrite \dots \ by}|hyperpage}{208}
+\indexentry {erewrite@\texttt {erewrite}|hyperpage}{209}
+\indexentry {cutrewrite@\texttt {cutrewrite}|hyperpage}{209}
+\indexentry {replace \dots \ with@\texttt {replace \dots \ with}|hyperpage}{209}
+\indexentry {reflexivity@\texttt {reflexivity}|hyperpage}{210}
+\indexentry {symmetry@\texttt {symmetry}|hyperpage}{210}
+\indexentry {symmetry in@\texttt {symmetry in}|hyperpage}{210}
+\indexentry {transitivity@\texttt {transitivity}|hyperpage}{210}
+\indexentry {subst@\texttt {subst}|hyperpage}{210}
+\indexentry {stepl@\texttt {stepl}|hyperpage}{210}
+\indexentry {stepr@\texttt {stepr}|hyperpage}{211}
+\indexentry {change@\texttt {change}|hyperpage}{211}
+\indexentry {change \dots \ in@\texttt {change \dots \ in}|hyperpage}{211}
+\indexentry {cbv@\texttt {cbv}|hyperpage}{212}
+\indexentry {lazy@\texttt {lazy}|hyperpage}{212}
+\indexentry {compute@\texttt {compute}|hyperpage}{212}
+\indexentry {vm\_compute@\texttt {vm\_compute}|hyperpage}{212}
+\indexentry {compute@\texttt {compute}|hyperpage}{213}
+\indexentry {vm\_compute@\texttt {vm\_compute}|hyperpage}{213}
+\indexentry {red@\texttt {red}|hyperpage}{213}
+\indexentry {hnf@\texttt {hnf}|hyperpage}{213}
+\indexentry {simpl@\texttt {simpl}|hyperpage}{214}
+\indexentry {simpl \dots \ in@\texttt {simpl \dots \ in}|hyperpage}{215}
+\indexentry {unfold@\texttt {unfold}|hyperpage}{215}
+\indexentry {unfold \dots \ in@\texttt {unfold \dots \ in}|hyperpage}{215}
+\indexentry {fold@\texttt {fold}|hyperpage}{216}
+\indexentry {pattern@\texttt {pattern}|hyperpage}{216}
+\indexentry {auto@\texttt {auto}|hyperpage}{217}
+\indexentry {trivial@\texttt {trivial}|hyperpage}{217}
+\indexentry {eauto@\texttt {eauto}|hyperpage}{218}
+\indexentry {autounfold@\texttt {autounfold}|hyperpage}{218}
+\indexentry {autorewrite@\texttt {autorewrite}|hyperpage}{218}
+\indexentry {tauto@\texttt {tauto}|hyperpage}{225}
+\indexentry {intuition@\texttt {intuition}|hyperpage}{226}
+\indexentry {rtauto@\texttt {rtauto}|hyperpage}{227}
+\indexentry {firstorder@\texttt {firstorder}|hyperpage}{227}
+\indexentry {firstorder {\tac }@\texttt {firstorder {\tac }}|hyperpage}{227}
+\indexentry {firstorder with@\texttt {firstorder with}|hyperpage}{227}
+\indexentry {firstorder using@\texttt {firstorder using}|hyperpage}{227}
+\indexentry {congruence@\texttt {congruence}|hyperpage}{228}
+\indexentry {constr\_eq@\texttt {constr\_eq}|hyperpage}{229}
+\indexentry {unify@\texttt {unify}|hyperpage}{229}
+\indexentry {is\_evar@\texttt {is\_evar}|hyperpage}{230}
+\indexentry {has\_evar@\texttt {has\_evar}|hyperpage}{230}
+\indexentry {is\_var@\texttt {is\_var}|hyperpage}{230}
+\indexentry {f\_equal@\texttt {f\_equal}|hyperpage}{230}
+\indexentry {decide equality@\texttt {decide equality}|hyperpage}{230}
+\indexentry {compare@\texttt {compare}|hyperpage}{230}
+\indexentry {simplify\_eq@\texttt {simplify\_eq}|hyperpage}{231}
+\indexentry {esimplify\_eq@\texttt {esimplify\_eq}|hyperpage}{231}
+\indexentry {dependent rewrite ->@\texttt {dependent rewrite ->}|hyperpage}{231}
+\indexentry {dependent rewrite <-@\texttt {dependent rewrite <-}|hyperpage}{231}
+\indexentry {functional inversion@\texttt {functional inversion}|hyperpage}{231}
+\indexentry {quote@\texttt {quote}|hyperpage}{232}
+\indexentry {classical\_left@\texttt {classical\_left}|hyperpage}{232}
+\indexentry {classical\_right@\texttt {classical\_right}|hyperpage}{232}
+\indexentry {omega@\texttt {omega}|hyperpage}{233}
+\indexentry {ring@\texttt {ring}|hyperpage}{233}
+\indexentry {ring\_simplify@\texttt {ring\_simplify}|hyperpage}{233}
+\indexentry {field@\texttt {field}|hyperpage}{233}
+\indexentry {field\_simplify@\texttt {field\_simplify}|hyperpage}{233}
+\indexentry {field\_simplify\_eq@\texttt {field\_simplify\_eq}|hyperpage}{233}
+\indexentry {fourier@\texttt {fourier}|hyperpage}{234}
+\indexentry {;@\texttt {;}|hyperpage}{236}
+\indexentry {;[\ldots $\mid $\ldots $\mid $\ldots ]@\texttt {;[\ldots $\mid $\ldots $\mid $\ldots ]}|hyperpage}{236}
+\indexentry {do@\texttt {do}|hyperpage}{238}
+\indexentry {repeat@\texttt {repeat}|hyperpage}{238}
+\indexentry {try@\texttt {try}|hyperpage}{239}
+\indexentry {progress@\texttt {progress}|hyperpage}{239}
+\indexentry {$\mid \mid $@\texttt {$\mid \mid $}|hyperpage}{239}
+\indexentry {first@\texttt {first}|hyperpage}{239}
+\indexentry {solve@\texttt {solve}|hyperpage}{239}
+\indexentry {idtac@\texttt {idtac}|hyperpage}{240}
+\indexentry {fail@\texttt {fail}|hyperpage}{240}
+\indexentry {timeout@\texttt {timeout}|hyperpage}{240}
+\indexentry {abstract@\texttt {abstract}|hyperpage}{245}
+\indexentry {quote@\texttt {quote}|hyperpage}{256}
+\indexentry {functional induction@\texttt {functional induction}|hyperpage}{313}
+\indexentry {inversion \dots \ using@\texttt {inversion \dots \ using}|hyperpage}{315}
+\indexentry {omega@\texttt {omega}|hyperpage}{381}
+\indexentry {psatz@\texttt {psatz}|hyperpage}{385}
+\indexentry {lra@\texttt {lra}|hyperpage}{385}
+\indexentry {lia@\texttt {lia}|hyperpage}{387}
+\indexentry {nia@\texttt {nia}|hyperpage}{388}
+\indexentry {ring@\texttt {ring}|hyperpage}{405}
+\indexentry {ring@\texttt {ring}|hyperpage}{406}
+\indexentry {ring\_simplify@\texttt {ring\_simplify}|hyperpage}{406}
+\indexentry {field@\texttt {field}|hyperpage}{412}
+\indexentry {field\_simplify@\texttt {field\_simplify}|hyperpage}{412}
+\indexentry {field\_simplify\_eq@\texttt {field\_simplify\_eq}|hyperpage}{412}
+\indexentry {legacy ring@\texttt {legacy ring}|hyperpage}{415}
+\indexentry {legacy field@\texttt {legacy field}|hyperpage}{417}
+\indexentry {nsatz@\texttt {nsatz}|hyperpage}{421}
+\indexentry {setoid\_replace@\texttt {setoid\_replace}|hyperpage}{423}

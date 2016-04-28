@@ -1292,7 +1292,7 @@ let rec w_unify0 env evd cv_pb ?(flags=default_unify_flags) ty1 ty2 =
       (* General case: try first order *)
       | _ -> w_typed_unify env evd cv_pb flags ty1 ty2
 and w_unify env evd cv_pb ?(flags=default_unify_flags) ty1 ty2 =
-  let name = "w_unify_to_subterm" in
+  let name = "w_unify" in
   let _ = Timer.start_timer name in
   try 
     let result = w_unify0 env evd cv_pb ~flags ty1 ty2 in
