@@ -6,164 +6,164 @@
 \indexentry {Non strictly positive occurrence of {\ident } in {\type }|hyperpage}{48}
 \indexentry {The conclusion of {\type } is not valid; it must be built from {\ident }|hyperpage}{48}
 \indexentry {The {\num }th argument of {\ident } must be {\ident '} in {\type }|hyperpage}{48}
-\indexentry {The term {\form } has type {\ldots } which should be Set, Prop or Type|hyperpage}{55}
-\indexentry {already exists|hyperpage}{55}
-\indexentry {{\ident } already exists|hyperpage}{56}
-\indexentry {Records declared with the keyword Record or Structure cannot be recursive.|hyperpage}{61}
-\indexentry {Cannot handle mutually (co)inductive records.|hyperpage}{61}
-\indexentry {The recursive argument must be specified|hyperpage}{68}
-\indexentry {No argument name \ident |hyperpage}{68}
-\indexentry {Cannot use mutual definition with well-founded recursion or measure|hyperpage}{68}
-\indexentry {Cannot define graph for \ident \dots |hyperpage}{68}
-\indexentry {Cannot define principle(s) for \ident \dots |hyperpage}{68}
-\indexentry {Cannot build functional inversion principle|hyperpage}{68}
-\indexentry {This is not the last opened section|hyperpage}{70}
-\indexentry {No such label {\ident }|hyperpage}{72}
-\indexentry {Signature components for label {\ident } do not match|hyperpage}{72}
-\indexentry {This is not the last opened module|hyperpage}{72}
-\indexentry {This is not the last opened module type|hyperpage}{73}
-\indexentry {is not a module|hyperpage}{77}
-\indexentry {Cannot infer a term for this placeholder|hyperpage}{81}
-\indexentry {Universe inconsistency|hyperpage}{112}
-\indexentry {not a defined object|hyperpage}{143}
-\indexentry {Module/section \module {} not found|hyperpage}{146}
-\indexentry {The reference \qualid \ was not found in the current environment|hyperpage}{147}
-\indexentry {Can't find file {\ident } on loadpath|hyperpage}{152}
-\indexentry {Cannot load {\qualid }: no physical path bound to {\dirpath }|hyperpage}{153}
-\indexentry {Cannot find library foo in loadpath|hyperpage}{153}
-\indexentry {Compiled library {\ident }.vo makes inconsistent assumptions over library {\qualid }|hyperpage}{153}
-\indexentry {Bad magic number|hyperpage}{153}
-\indexentry {The file {\ident }.vo contains library {\dirpath } and not library {\dirpath '}|hyperpage}{153}
-\indexentry {File not found on loadpath : \str |hyperpage}{154}
-\indexentry {Loading of ML object file forbidden in a native Coq|hyperpage}{154}
-\indexentry {no such entry|hyperpage}{156}
-\indexentry {Invalid backtrack|hyperpage}{156}
-\indexentry {Invalid backtrack|hyperpage}{157}
-\indexentry {The reference \qualid \ was not found in the current environment|hyperpage}{160}
-\indexentry {The reference \qualid \ was not found in the current environment|hyperpage}{160}
-\indexentry {No focused proof|hyperpage}{163}
-\indexentry {Attempt to save an incomplete proof|hyperpage}{164}
-\indexentry {No focused proof (No proof-editing in progress)|hyperpage}{165}
-\indexentry {No focused proof (No proof-editing in progress)|hyperpage}{166}
-\indexentry {No focused proof to restart|hyperpage}{166}
-\indexentry {Error: This proof is focused, but cannot be unfocused this way|hyperpage}{166}
-\indexentry {Error: No such unproven subgoal|hyperpage}{167}
-\indexentry {Error: This proof is focused, but cannot be unfocused this way|hyperpage}{167}
-\indexentry {No such goal|hyperpage}{168}
-\indexentry {No focused proof|hyperpage}{168}
-\indexentry {No such binder|hyperpage}{172}
-\indexentry {Not the right number of missing arguments|hyperpage}{172}
-\indexentry {Not an exact proof|hyperpage}{173}
-\indexentry {No such assumption|hyperpage}{173}
-\indexentry {invalid argument|hyperpage}{174}
-\indexentry {Cannot infer a term for this placeholder|hyperpage}{174}
-\indexentry {Impossible to unify \dots \ with \dots |hyperpage}{174}
-\indexentry {Unable to find an instance for the variables {\ident } \dots \ {\ident }|hyperpage}{174}
-\indexentry {Not the right number of missing arguments|hyperpage}{175}
-\indexentry {Statement without assumptions|hyperpage}{177}
-\indexentry {Unable to apply|hyperpage}{178}
-\indexentry {Not an inductive product|hyperpage}{179}
-\indexentry {Not enough constructors|hyperpage}{179}
-\indexentry {Not an inductive goal with 1 constructor|hyperpage}{179}
-\indexentry {Not an inductive goal with 1 constructor|hyperpage}{179}
-\indexentry {Not an inductive goal with 2 constructors|hyperpage}{179}
-\indexentry {No product even after head-reduction|hyperpage}{180}
-\indexentry {is already used|hyperpage}{180}
-\indexentry {name {\ident } is already used|hyperpage}{180}
-\indexentry {No such hypothesis in current goal|hyperpage}{181}
-\indexentry {No such hypothesis in current goal|hyperpage}{181}
-\indexentry {No such hypothesis|hyperpage}{181}
-\indexentry {No such hypothesis|hyperpage}{184}
-\indexentry {is used in the conclusion|hyperpage}{185}
-\indexentry {is used in the hypothesis|hyperpage}{185}
-\indexentry {is not a local definition|hyperpage}{185}
-\indexentry {No such hypothesis|hyperpage}{185}
-\indexentry {is used in the hypothesis|hyperpage}{185}
-\indexentry {No such hypothesis|hyperpage}{186}
-\indexentry {Cannot move {\ident $_1$} after {\ident $_2$}: it occurs in {\ident $_2$}|hyperpage}{186}
-\indexentry {Cannot move {\ident $_1$} after {\ident $_2$}: it depends on {\ident $_2$}|hyperpage}{186}
-\indexentry {No such hypothesis|hyperpage}{186}
-\indexentry {is already used|hyperpage}{186}
-\indexentry {The variable {\ident } is already defined|hyperpage}{186}
-\indexentry {Not a proposition or a type|hyperpage}{188}
-\indexentry {Variable {\ident } is already declared|hyperpage}{188}
-\indexentry {Proof is not complete|hyperpage}{188}
-\indexentry {is used in hypothesis|hyperpage}{189}
-\indexentry {is used in conclusion|hyperpage}{189}
-\indexentry {No such assumption|hyperpage}{191}
-\indexentry {Not an inductive product|hyperpage}{195}
-\indexentry {Unable to find an instance for the variables {\ident } \ldots {\ident }|hyperpage}{195}
-\indexentry {Cannot find induction information on \qualid |hyperpage}{200}
-\indexentry {Not the right number of induction arguments|hyperpage}{200}
-\indexentry {No primitive equality found|hyperpage}{201}
-\indexentry {Not a discriminable equality|hyperpage}{201}
-\indexentry {No discriminable equalities|hyperpage}{201}
-\indexentry {Not a projectable equality but a discriminable one|hyperpage}{202}
-\indexentry {Nothing to do, it is an equality between convertible terms|hyperpage}{202}
-\indexentry {Not a primitive equality|hyperpage}{202}
-\indexentry {goal does not satisfy the expected preconditions|hyperpage}{203}
-\indexentry {The term provided does not end with an equation|hyperpage}{208}
-\indexentry {Tactic generated a subgoal identical to the original goal|hyperpage}{208}
-\indexentry {terms do not have convertible types|hyperpage}{210}
-\indexentry {The conclusion is not a substitutive equation|hyperpage}{210}
-\indexentry {Impossible to unify \dots \ with \dots .|hyperpage}{210}
-\indexentry {Not convertible|hyperpage}{211}
-\indexentry {Not reducible|hyperpage}{214}
-\indexentry {does not denote an evaluable constant|hyperpage}{215}
+\indexentry {The term {\form } has type {\ldots } which should be Set, Prop or Type|hyperpage}{57}
+\indexentry {already exists|hyperpage}{57}
+\indexentry {{\ident } already exists|hyperpage}{59}
+\indexentry {Records declared with the keyword Record or Structure cannot be recursive.|hyperpage}{64}
+\indexentry {Cannot handle mutually (co)inductive records.|hyperpage}{64}
+\indexentry {The recursive argument must be specified|hyperpage}{75}
+\indexentry {No argument name \ident |hyperpage}{75}
+\indexentry {Cannot use mutual definition with well-founded recursion or measure|hyperpage}{75}
+\indexentry {Cannot define graph for \ident \dots |hyperpage}{75}
+\indexentry {Cannot define principle(s) for \ident \dots |hyperpage}{75}
+\indexentry {Cannot build functional inversion principle|hyperpage}{76}
+\indexentry {This is not the last opened section|hyperpage}{78}
+\indexentry {No such label {\ident }|hyperpage}{79}
+\indexentry {Signature components for label {\ident } do not match|hyperpage}{79}
+\indexentry {This is not the last opened module|hyperpage}{79}
+\indexentry {This is not the last opened module type|hyperpage}{80}
+\indexentry {is not a module|hyperpage}{85}
+\indexentry {Cannot infer a term for this placeholder|hyperpage}{89}
+\indexentry {Universe inconsistency|hyperpage}{134}
+\indexentry {not a defined object|hyperpage}{169}
+\indexentry {Module/section \module {} not found|hyperpage}{172}
+\indexentry {The reference \qualid \ was not found in the current environment|hyperpage}{173}
+\indexentry {Can't find file {\ident } on loadpath|hyperpage}{178}
+\indexentry {Cannot load {\qualid }: no physical path bound to {\dirpath }|hyperpage}{179}
+\indexentry {Cannot find library foo in loadpath|hyperpage}{179}
+\indexentry {Compiled library {\ident }.vo makes inconsistent assumptions over library {\qualid }|hyperpage}{179}
+\indexentry {Bad magic number|hyperpage}{179}
+\indexentry {The file {\ident }.vo contains library {\dirpath } and not library {\dirpath '}|hyperpage}{180}
+\indexentry {File not found on loadpath : \str |hyperpage}{180}
+\indexentry {Loading of ML object file forbidden in a native Coq|hyperpage}{180}
+\indexentry {no such entry|hyperpage}{183}
+\indexentry {Invalid backtrack|hyperpage}{183}
+\indexentry {Invalid backtrack|hyperpage}{183}
+\indexentry {The reference \qualid \ was not found in the current environment|hyperpage}{186}
+\indexentry {The reference \qualid \ was not found in the current environment|hyperpage}{187}
+\indexentry {No focused proof|hyperpage}{189}
+\indexentry {Attempt to save an incomplete proof|hyperpage}{190}
+\indexentry {No focused proof (No proof-editing in progress)|hyperpage}{191}
+\indexentry {No focused proof (No proof-editing in progress)|hyperpage}{192}
+\indexentry {No focused proof to restart|hyperpage}{192}
+\indexentry {Error: This proof is focused, but cannot be unfocused this way|hyperpage}{192}
+\indexentry {Error: No such unproven subgoal|hyperpage}{193}
+\indexentry {Error: This proof is focused, but cannot be unfocused this way|hyperpage}{193}
+\indexentry {No such goal|hyperpage}{194}
+\indexentry {No focused proof|hyperpage}{194}
+\indexentry {No such binder|hyperpage}{198}
+\indexentry {Not the right number of missing arguments|hyperpage}{198}
+\indexentry {Not an exact proof|hyperpage}{199}
+\indexentry {No such assumption|hyperpage}{199}
+\indexentry {invalid argument|hyperpage}{202}
+\indexentry {Cannot infer a term for this placeholder|hyperpage}{202}
+\indexentry {Impossible to unify \dots \ with \dots |hyperpage}{202}
+\indexentry {Unable to find an instance for the variables {\ident } \dots \ {\ident }|hyperpage}{203}
+\indexentry {Not the right number of missing arguments|hyperpage}{203}
+\indexentry {Statement without assumptions|hyperpage}{207}
+\indexentry {Unable to apply|hyperpage}{207}
+\indexentry {Not an inductive product|hyperpage}{208}
+\indexentry {Not enough constructors|hyperpage}{208}
+\indexentry {Not an inductive goal with 1 constructor|hyperpage}{208}
+\indexentry {Not an inductive goal with 1 constructor|hyperpage}{208}
+\indexentry {Not an inductive goal with 2 constructors|hyperpage}{208}
+\indexentry {No product even after head-reduction|hyperpage}{209}
+\indexentry {is already used|hyperpage}{209}
+\indexentry {name {\ident } is already used|hyperpage}{209}
+\indexentry {No such hypothesis in current goal|hyperpage}{210}
+\indexentry {No such hypothesis in current goal|hyperpage}{210}
+\indexentry {No such hypothesis|hyperpage}{210}
 \indexentry {No such hypothesis|hyperpage}{217}
-\indexentry {Bound head variable|hyperpage}{221}
-\indexentry {cannot be used as a hint|hyperpage}{221}
-\indexentry {Bound head variable|hyperpage}{221}
-\indexentry {cannot be used as a hint|hyperpage}{221}
-\indexentry {is not an inductive type|hyperpage}{221}
-\indexentry {not declared|hyperpage}{222}
-\indexentry {I don't know how to handle dependent equality|hyperpage}{230}
-\indexentry {I couldn't solve goal|hyperpage}{230}
-\indexentry {Goal is solvable by congruence but some arguments are missing. Try "congruence with \dots ", replacing metavariables by arbitrary terms.|hyperpage}{230}
-\indexentry {Not equal|hyperpage}{230}
-\indexentry {Not unifiable|hyperpage}{230}
-\indexentry {Not an evar|hyperpage}{231}
-\indexentry {No evars|hyperpage}{231}
-\indexentry {Not a variable or hypothesis|hyperpage}{231}
-\indexentry {Hypothesis {\ident } must contain at least one Function|hyperpage}{233}
-\indexentry {Cannot find inversion information for hypothesis \ident |hyperpage}{233}
-\indexentry {quote: not a simple fixpoint|hyperpage}{233}
-\indexentry {Failed to progress|hyperpage}{241}
-\indexentry {No applicable tactic|hyperpage}{241}
-\indexentry {Cannot solve the goal|hyperpage}{241}
-\indexentry {Tactic Failure {\it message} (level $n$)|hyperpage}{242}
-\indexentry {No matching clauses for match|hyperpage}{244}
-\indexentry {Argument of match does not evaluate to a term|hyperpage}{244}
-\indexentry {No matching clauses for match goal|hyperpage}{245}
-\indexentry {not a context variable|hyperpage}{246}
-\indexentry {Proof is not complete|hyperpage}{247}
-\indexentry {quote: not a simple fixpoint|hyperpage}{349}
-\indexentry {Non exhaustive pattern-matching|hyperpage}{454}
-\indexentry {not declared|hyperpage}{457}
-\indexentry {is already a coercion|hyperpage}{457}
-\indexentry {Funclass cannot be a source class|hyperpage}{457}
-\indexentry {Sortclass cannot be a source class|hyperpage}{457}
-\indexentry {is not a function|hyperpage}{457}
-\indexentry {Cannot find the source class of {\qualid }|hyperpage}{457}
-\indexentry {Cannot recognize {\class $_1$} as a source class of {\qualid }|hyperpage}{457}
-\indexentry {does not respect the uniform inheritance condition|hyperpage}{457}
-\indexentry {Found target class {\class } instead of {\class $_2$}|hyperpage}{457}
-\indexentry {must be a transparent constant|hyperpage}{458}
-\indexentry {omega can't solve this system|hyperpage}{474}
-\indexentry {omega: Not a quantifier-free goal|hyperpage}{474}
-\indexentry {omega: Unrecognized predicate or connective: {\sl ident}|hyperpage}{474}
-\indexentry {omega: Unrecognized atomic proposition: {\sl prop}|hyperpage}{474}
-\indexentry {omega: Can't solve a goal with proposition variables|hyperpage}{474}
-\indexentry {omega: Unrecognized proposition|hyperpage}{474}
-\indexentry {omega: Can't solve a goal with non-linear products|hyperpage}{474}
-\indexentry {omega: Can't solve a goal with equality on {\sl type}|hyperpage}{474}
-\indexentry {{\ident } already exists|hyperpage}{493}
-\indexentry {In environment {\dots } the term: {\term $_2$} does not have type {\term $_1$}|hyperpage}{493}
-\indexentry {not a valid ring equation|hyperpage}{499}
-\indexentry {arguments of ring\_simplify do not have all the same type|hyperpage}{499}
-\indexentry {cannot find a declared ring structure over {\tt term}|hyperpage}{500}
-\indexentry {cannot find a declared ring structure for equality {\tt term}|hyperpage}{500}
-\indexentry {bad ring structure|hyperpage}{503}
-\indexentry {bad lemma for decidability of equality|hyperpage}{503}
-\indexentry {ring {\it operation} should be declared as a morphism|hyperpage}{503}
-\indexentry {Not a valid (semi)ring theory|hyperpage}{509}
+\indexentry {is used in the conclusion|hyperpage}{217}
+\indexentry {is used in the hypothesis|hyperpage}{217}
+\indexentry {is not a local definition|hyperpage}{217}
+\indexentry {No such hypothesis|hyperpage}{218}
+\indexentry {is used in the hypothesis|hyperpage}{218}
+\indexentry {No such hypothesis|hyperpage}{218}
+\indexentry {Cannot move {\ident $_1$} after {\ident $_2$}: it occurs in {\ident $_2$}|hyperpage}{218}
+\indexentry {Cannot move {\ident $_1$} after {\ident $_2$}: it depends on {\ident $_2$}|hyperpage}{218}
+\indexentry {No such hypothesis|hyperpage}{219}
+\indexentry {is already used|hyperpage}{219}
+\indexentry {The variable {\ident } is already defined|hyperpage}{219}
+\indexentry {Not a proposition or a type|hyperpage}{222}
+\indexentry {Variable {\ident } is already declared|hyperpage}{223}
+\indexentry {Proof is not complete|hyperpage}{223}
+\indexentry {is used in hypothesis|hyperpage}{224}
+\indexentry {is used in conclusion|hyperpage}{224}
+\indexentry {No such assumption|hyperpage}{226}
+\indexentry {Not an inductive product|hyperpage}{230}
+\indexentry {Unable to find an instance for the variables {\ident } \ldots {\ident }|hyperpage}{230}
+\indexentry {Cannot find induction information on \qualid |hyperpage}{272}
+\indexentry {Not the right number of induction arguments|hyperpage}{272}
+\indexentry {No primitive equality found|hyperpage}{273}
+\indexentry {Not a discriminable equality|hyperpage}{273}
+\indexentry {No discriminable equalities|hyperpage}{273}
+\indexentry {Not a projectable equality but a discriminable one|hyperpage}{275}
+\indexentry {Nothing to do, it is an equality between convertible terms|hyperpage}{275}
+\indexentry {Not a primitive equality|hyperpage}{275}
+\indexentry {goal does not satisfy the expected preconditions|hyperpage}{276}
+\indexentry {The term provided does not end with an equation|hyperpage}{302}
+\indexentry {Tactic generated a subgoal identical to the original goal|hyperpage}{302}
+\indexentry {terms do not have convertible types|hyperpage}{304}
+\indexentry {The conclusion is not a substitutive equation|hyperpage}{304}
+\indexentry {Impossible to unify \dots \ with \dots .|hyperpage}{304}
+\indexentry {Not convertible|hyperpage}{305}
+\indexentry {Not reducible|hyperpage}{308}
+\indexentry {does not denote an evaluable constant|hyperpage}{309}
+\indexentry {No such hypothesis|hyperpage}{311}
+\indexentry {Bound head variable|hyperpage}{315}
+\indexentry {cannot be used as a hint|hyperpage}{315}
+\indexentry {Bound head variable|hyperpage}{316}
+\indexentry {cannot be used as a hint|hyperpage}{316}
+\indexentry {is not an inductive type|hyperpage}{316}
+\indexentry {not declared|hyperpage}{316}
+\indexentry {I don't know how to handle dependent equality|hyperpage}{420}
+\indexentry {I couldn't solve goal|hyperpage}{420}
+\indexentry {Goal is solvable by congruence but some arguments are missing. Try "congruence with \dots ", replacing metavariables by arbitrary terms.|hyperpage}{420}
+\indexentry {Not equal|hyperpage}{420}
+\indexentry {Not unifiable|hyperpage}{420}
+\indexentry {Not an evar|hyperpage}{420}
+\indexentry {No evars|hyperpage}{421}
+\indexentry {Not a variable or hypothesis|hyperpage}{421}
+\indexentry {Hypothesis {\ident } must contain at least one Function|hyperpage}{422}
+\indexentry {Cannot find inversion information for hypothesis \ident |hyperpage}{422}
+\indexentry {quote: not a simple fixpoint|hyperpage}{423}
+\indexentry {Failed to progress|hyperpage}{461}
+\indexentry {No applicable tactic|hyperpage}{461}
+\indexentry {Cannot solve the goal|hyperpage}{461}
+\indexentry {Tactic Failure {\it message} (level $n$)|hyperpage}{462}
+\indexentry {No matching clauses for match|hyperpage}{464}
+\indexentry {Argument of match does not evaluate to a term|hyperpage}{464}
+\indexentry {No matching clauses for match goal|hyperpage}{467}
+\indexentry {not a context variable|hyperpage}{468}
+\indexentry {Proof is not complete|hyperpage}{468}
+\indexentry {quote: not a simple fixpoint|hyperpage}{4326}
+\indexentry {Non exhaustive pattern-matching|hyperpage}{4512}
+\indexentry {not declared|hyperpage}{4515}
+\indexentry {is already a coercion|hyperpage}{4515}
+\indexentry {Funclass cannot be a source class|hyperpage}{4515}
+\indexentry {Sortclass cannot be a source class|hyperpage}{4515}
+\indexentry {is not a function|hyperpage}{4515}
+\indexentry {Cannot find the source class of {\qualid }|hyperpage}{4515}
+\indexentry {Cannot recognize {\class $_1$} as a source class of {\qualid }|hyperpage}{4515}
+\indexentry {does not respect the uniform inheritance condition|hyperpage}{4515}
+\indexentry {Found target class {\class } instead of {\class $_2$}|hyperpage}{4515}
+\indexentry {must be a transparent constant|hyperpage}{4516}
+\indexentry {omega can't solve this system|hyperpage}{4542}
+\indexentry {omega: Not a quantifier-free goal|hyperpage}{4542}
+\indexentry {omega: Unrecognized predicate or connective: {\sl ident}|hyperpage}{4542}
+\indexentry {omega: Unrecognized atomic proposition: {\sl prop}|hyperpage}{4542}
+\indexentry {omega: Can't solve a goal with proposition variables|hyperpage}{4542}
+\indexentry {omega: Unrecognized proposition|hyperpage}{4542}
+\indexentry {omega: Can't solve a goal with non-linear products|hyperpage}{4542}
+\indexentry {omega: Can't solve a goal with equality on {\sl type}|hyperpage}{4542}
+\indexentry {{\ident } already exists|hyperpage}{4578}
+\indexentry {In environment {\dots } the term: {\term $_2$} does not have type {\term $_1$}|hyperpage}{4579}
+\indexentry {not a valid ring equation|hyperpage}{4689}
+\indexentry {arguments of ring\_simplify do not have all the same type|hyperpage}{4689}
+\indexentry {cannot find a declared ring structure over {\tt term}|hyperpage}{4689}
+\indexentry {cannot find a declared ring structure for equality {\tt term}|hyperpage}{4689}
+\indexentry {bad ring structure|hyperpage}{4692}
+\indexentry {bad lemma for decidability of equality|hyperpage}{4692}
+\indexentry {ring {\it operation} should be declared as a morphism|hyperpage}{4692}
+\indexentry {Not a valid (semi)ring theory|hyperpage}{4712}

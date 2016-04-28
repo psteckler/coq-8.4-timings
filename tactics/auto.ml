@@ -1105,7 +1105,7 @@ let forward_interp_tactic =
 
 let set_extern_interp f = forward_interp_tactic := f
 
-let conclPattern concl pat tac gl =
+TIMED_LET conclPattern concl pat tac gl =
   let constr_bindings =
     match pat with
     | None -> []

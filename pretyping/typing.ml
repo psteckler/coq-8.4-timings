@@ -265,7 +265,7 @@ let check env evd c t =
 
 (* Type of a constr *)
 
-let type_of env evd c =
+TIMED_LET type_of env evd c =
   let j = execute env (ref evd) c in
   (* We are outside the kernel: we take fresh universes *)
   (* to avoid tactics and co to refresh universes themselves *)

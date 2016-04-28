@@ -176,7 +176,7 @@ let ise_array2 evd f v1 v2 =
   if lv1 = Array.length v2 then allrec evd (pred lv1)
   else (evd,false)
 
-let rec evar_conv_x ts env evd pbty term1 term2 =
+TIMED_LET evar_conv_x ts env evd pbty term1 term2 =
   let term1 = whd_head_evar evd term1 in
   let term2 = whd_head_evar evd term2 in
   (* Maybe convertible but since reducing can erase evars which [evar_apprec]

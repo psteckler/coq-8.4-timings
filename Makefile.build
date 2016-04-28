@@ -61,7 +61,7 @@ VERBOSE=1
 NO_RECOMPILE_ML4=
 NO_RECOMPILE_LIB=
 NO_RECALC_DEPS=
-READABLE_ML4=	# non-empty means .ml of .ml4 will be ascii instead of binary
+READABLE_ML4=1	# non-empty means .ml of .ml4 will be ascii instead of binary
 VALIDATE=
 COQ_XML=	# is "-xml" when building XML library
 VM=		# is "-no-vm" to not use the vm"
@@ -102,9 +102,10 @@ $(OCAMLOPT) $(OPTFLAGS) -o $@ $(1) $(addsuffix .cmxa,$(2)) $^ && $(STRIP) $@,\
 $(OCAMLC) $(BYTEFLAGS) $(COQTOOLSBYTEFLAGS) -o $@ $(1) $(addsuffix .cma,$(2)) $^)
 endef
 
+# add pa_timed.cmo for TIMED_LET
 CAMLP4DEPS=`LC_ALL=C sed -n -e 's@^(\*.*camlp4deps: "\(.*\)".*@\1@p' $<`
 ifeq ($(CAMLP4),camlp5)
-CAMLP4USE=pa_extend.cmo q_MLast.cmo pa_macro.cmo -D$(CAMLVERSION)
+CAMLP4USE=pa_extend.cmo q_MLast.cmo pa_macro.cmo pa_timed.cmo -D$(CAMLVERSION)
 else
 CAMLP4USE=-D$(CAMLVERSION)
 endif

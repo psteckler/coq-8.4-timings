@@ -67,7 +67,7 @@ let evars_to_goals p evm =
 open Auto
 
 let e_give_exact flags c gl = 
-  let t1 = (pf_type_of gl c) in
+  let t1 = (pf_get_type_of gl c) in
     tclTHEN (Clenvtac.unify ~flags t1) (exact_no_check c) gl
 
 open Unification
@@ -108,42 +108,22 @@ TACTIC EXTEND progress_evars
 END
 
 
-let rec unify_e_resolve0 flags (c,clenv) gls =
+TIMED_LET unify_e_resolve flags (c,clenv) gls =
   let clenv' = connect_clenv gls clenv in
   let clenv' = clenv_unique_resolver ~flags clenv' gls in
-    Clenvtac.clenv_refine true ~with_classes:false clenv' gls
-and unify_e_resolve flags (c,clenv) gls =
-      let name = "unify_e_resolve" in
-      let _ = Timer.start_timer name in
-      try 
-	let result = unify_e_resolve0 flags (c,clenv) gls in
-	let _ = Timer.stop_timer name in
-	result
-      with exn ->
-	let _ = Printf.printf "caught exn in %s\n%!" name in    	 
-	let _ = Timer.stop_timer name in
-	raise exn
+  (* We trust unification to return a well-typed substution *)
+    Clenvtac.clenv_refine ~unsafe:true true ~with_classes:false clenv' gls
 
-let rec unify_resolve0 flags (c,clenv) gls =
+TIMED_LET unify_resolve flags (c,clenv) gls =
   let clenv' = connect_clenv gls clenv in
   let clenv' = clenv_unique_resolver ~flags clenv' gls in
-    Clenvtac.clenv_refine false ~with_classes:false clenv' gls
-and unify_resolve flags (c,clenv) gls =
-  let name = "unify_resolve" in
-  let _ = Timer.start_timer name in
-  try 
-    let result = unify_resolve0 flags (c,clenv) gls in
-    let _ = Timer.stop_timer name in
-    result
-  with exn ->
-    let _ = Printf.printf "caught exn in %s\n%!" name in    	 
-    let _ = Timer.stop_timer name in
-    raise exn
+  (* We trust unification to return a well-typed substution *)
+  Clenvtac.clenv_refine ~unsafe:true false ~with_classes:false clenv' gls
 
 let clenv_of_prods nprods (c, clenv) gls =
   if nprods = 0 then Some clenv
   else 
-    let ty = pf_type_of gls c in
+    let ty = pf_get_type_of gls c in
     let diff = nb_prod ty - nprods in
       if diff >= 0 then
 	Some (mk_clenv_from_n gls (Some diff) (c,ty))
@@ -718,19 +698,8 @@ let resolve_typeclass_evars debug m env evd filter split fail =
   in
     resolve_all_evars debug m env (initial_select_evars filter) evd split fail
 
-let rec solve_inst0 debug depth env evd filter split fail =
+TIMED_LET solve_inst debug depth env evd filter split fail =
   resolve_typeclass_evars debug depth env evd filter split fail
-and solve_inst debug depth env evd filter split fail =
-    let name = "solve_inst" in
-    let _ = Timer.start_timer name in
-    try 
-        let result = solve_inst0 debug depth env evd filter split fail in
-	let _ = Timer.stop_timer name in
-	result
-    with exn -> 
-      let _ = Printf.printf "caught exn in %s\n%!" name in    	 
-      let _ = Timer.stop_timer name in
-      raise exn
  
 let _ =
   Typeclasses.solve_instanciations_problem :=
@@ -865,7 +834,7 @@ END
 TACTIC EXTEND autoapply
   [ "autoapply" constr(c) "using" preident(i) ] -> [ fun gl ->
     let flags = flags_of_state (Auto.Hint_db.transparent_state (Auto.searchtable_map i)) in
-    let cty = pf_type_of gl c in
+    let cty = pf_get_type_of gl c in
     let ce = mk_clenv_from gl (c,cty) in
       unify_e_resolve flags (c,ce) gl ]
 END

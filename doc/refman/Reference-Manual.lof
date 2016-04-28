@@ -3,49 +3,49 @@
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Syntax of terms (continued)}}{39}{figure.1.2}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Syntax of sentences}}{43}{figure.1.3}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Syntax for the definition of {\tt Record}}}{59}{figure.2.1}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Syntax of \texttt {Record} projections}}{62}{figure.2.2}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Syntax of modules}}{71}{figure.2.3}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Syntax for explicitly giving implicit arguments}}{86}{figure.2.4}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Syntax for the definition of {\tt Record}}}{61}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Syntax of \texttt {Record} projections}}{67}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Syntax of modules}}{78}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Syntax for explicitly giving implicit arguments}}{98}{figure.2.4}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Notations in the initial state}}{96}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Syntax of formulas}}{96}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Syntax of data-types and specifications}}{99}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Definition of the scope for integer arithmetics ({\tt Z\_scope})}}{106}{figure.3.4}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Definition of the scope for natural numbers ({\tt nat\_scope})}}{106}{figure.3.5}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Definition of the scope for real arithmetics ({\tt R\_scope})}}{107}{figure.3.6}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Definition of the scope for lists ({\tt list\_scope})}}{110}{figure.3.7}
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Notations in the initial state}}{110}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Syntax of formulas}}{110}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Syntax of data-types and specifications}}{113}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Definition of the scope for integer arithmetics ({\tt Z\_scope})}}{120}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Definition of the scope for natural numbers ({\tt nat\_scope})}}{121}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Definition of the scope for real arithmetics ({\tt R\_scope})}}{121}{figure.3.6}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Definition of the scope for lists ({\tt list\_scope})}}{131}{figure.3.7}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces Syntax of the tactic language}}{239}{figure.9.1}
-\contentsline {figure}{\numberline {9.2}{\ignorespaces Syntax of the tactic language (continued)}}{240}{figure.9.2}
-\contentsline {figure}{\numberline {9.3}{\ignorespaces Tactic toplevel definitions}}{240}{figure.9.3}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {10.1}{\ignorespaces Definition of the permutation predicate}}{352}{figure.10.1}
-\contentsline {figure}{\numberline {10.2}{\ignorespaces Permutation tactic}}{353}{figure.10.2}
-\contentsline {figure}{\numberline {10.3}{\ignorespaces Deciding intuitionistic propositions (1)}}{354}{figure.10.3}
-\contentsline {figure}{\numberline {10.4}{\ignorespaces Deciding intuitionistic propositions (2)}}{355}{figure.10.4}
-\contentsline {figure}{\numberline {10.5}{\ignorespaces Type isomorphism axioms}}{356}{figure.10.5}
-\contentsline {figure}{\numberline {10.6}{\ignorespaces Type isomorphism tactic (1)}}{357}{figure.10.6}
-\contentsline {figure}{\numberline {10.7}{\ignorespaces Type isomorphism tactic (2)}}{358}{figure.10.7}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {11.1}{\ignorespaces Syntax of mathematical proof commands}}{361}{figure.11.1}
-\contentsline {figure}{\numberline {11.2}{\ignorespaces Correspondence between basic forward steps and conclusion steps}}{367}{figure.11.2}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {12.1}{\ignorespaces Syntax of the variants of {\tt Notation}}}{389}{figure.12.1}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Syntax of the tactic language}}{459}{figure.9.1}
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Syntax of the tactic language (continued)}}{460}{figure.9.2}
+\contentsline {figure}{\numberline {9.3}{\ignorespaces Tactic toplevel definitions}}{460}{figure.9.3}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces Definition of the permutation predicate}}{4333}{figure.10.1}
+\contentsline {figure}{\numberline {10.2}{\ignorespaces Permutation tactic}}{4334}{figure.10.2}
+\contentsline {figure}{\numberline {10.3}{\ignorespaces Deciding intuitionistic propositions (1)}}{4334}{figure.10.3}
+\contentsline {figure}{\numberline {10.4}{\ignorespaces Deciding intuitionistic propositions (2)}}{4335}{figure.10.4}
+\contentsline {figure}{\numberline {10.5}{\ignorespaces Type isomorphism axioms}}{4336}{figure.10.5}
+\contentsline {figure}{\numberline {10.6}{\ignorespaces Type isomorphism tactic (1)}}{4337}{figure.10.6}
+\contentsline {figure}{\numberline {10.7}{\ignorespaces Type isomorphism tactic (2)}}{4338}{figure.10.7}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {11.1}{\ignorespaces Syntax of mathematical proof commands}}{4341}{figure.11.1}
+\contentsline {figure}{\numberline {11.2}{\ignorespaces Correspondence between basic forward steps and conclusion steps}}{4360}{figure.11.2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {12.1}{\ignorespaces Syntax of the variants of {\tt Notation}}}{4408}{figure.12.1}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {16.1}{\ignorespaces \textsc {CoqIDE}{} main screen}}{434}{figure.16.1}
-\contentsline {figure}{\numberline {16.2}{\ignorespaces \textsc {CoqIDE}{}: the query window}}{436}{figure.16.2}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {18.1}{\ignorespaces Syntax of classes}}{456}{figure.18.1}
+\contentsline {figure}{\numberline {16.1}{\ignorespaces \textsc {CoqIDE}{} main screen}}{4478}{figure.16.1}
+\contentsline {figure}{\numberline {16.2}{\ignorespaces \textsc {CoqIDE}{}: the query window}}{4480}{figure.16.2}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {18.1}{\ignorespaces Syntax of classes}}{4514}{figure.18.1}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -6,6 +6,7 @@
 (*         *       GNU Lesser General Public License Version 2.1        *)
 (************************************************************************)
 
+(*pp 'camlp5o ../timer/pa_timed.cmx' pp*)
 (*i camlp4deps: "parsing/grammar.cma" i*)
 
 open Pp
@@ -228,11 +229,11 @@ type hypinfo = {
 let goalevars evars = fst evars
 let cstrevars evars = snd evars
 
+let get_type_of env evars c = Retyping.get_type_of env (goalevars evars) c
+
 let evd_convertible env evd x y =
   try ignore(Evarconv.the_conv_x env x y evd); true
   with e when Errors.noncritical e -> false
-
-(* let type_of env evd c = Retyping.get_type_of env evd c *)
 
 let rec decompose_app_rel env evd t = 
   match kind_of_term t with
@@ -242,7 +243,7 @@ let rec decompose_app_rel env evd t =
 	  mkApp (f, fargs), args
       else 
 	let (f', args) = decompose_app_rel env evd args.(0) in
-	let ty = Typing.type_of env evd args.(0) in
+	let ty = Retyping.get_type_of env evd args.(0) in
 	let f'' = mkLambda (Name (id_of_string "x"), ty,
 	  mkLambda (Name (id_of_string "y"), lift 1 ty,
 	    mkApp (lift 2 f, [| mkApp (lift 2 f', [| mkRel 2; mkRel 1 |]) |])))
@@ -252,15 +253,14 @@ let rec decompose_app_rel env evd t =
 (*   let nc, c', cl = push_rel_context_to_named_context env c in *)
 (*   let env' = reset_with_named_context nc env in *)
 
-let decompose_applied_relation0 env sigma flags orig (c,l) left2right =
-  let c' = c in
-  let ctype = Typing.type_of env sigma c' in
+TIMED_LET decompose_applied_relation env sigma flags orig (c,l) left2right =
+  let ctype = Retyping.get_type_of env sigma c in
   let find_rel ty =
-    let eqclause = Clenv.make_clenv_binding_env_apply env sigma None (c',ty) l in
+    let eqclause = Clenv.make_clenv_binding_env_apply env sigma None (c,ty) l in
     let (equiv, args) = decompose_app_rel env eqclause.evd (Clenv.clenv_type eqclause) in
     let c1 = args.(0) and c2 = args.(1) in 
     let ty1, ty2 =
-      Typing.type_of env eqclause.evd c1, Typing.type_of env eqclause.evd c2
+      Retyping.get_type_of env eqclause.evd c1, Retyping.get_type_of env eqclause.evd c2
     in
       if not (evd_convertible env eqclause.evd ty1 ty2) then None
       else
@@ -276,17 +276,6 @@ let decompose_applied_relation0 env sigma flags orig (c,l) left2right =
 	match find_rel (it_mkProd_or_LetIn t' ctx) with
 	| Some c -> c
 	| None -> error "The term does not end with an applied homogeneous relation."
-let decompose_applied_relation env sigma flags orig (c,l) left2right =
-    let name = "decompose_applied_relation" in
-    Timer.start_timer name;
-    try
-      let retval = decompose_applied_relation0 env sigma flags orig (c,l) left2right in
-      Timer.stop_timer name;
-      retval
-    with exn ->
-      let _ = Printf.printf "caught exn in %s\n%!" name in    	 
-      let _ = Timer.stop_timer name in
-      raise exn
 
 open Tacinterp
 let decompose_applied_relation_expr env sigma flags (is, (c,l)) left2right =
@@ -369,7 +358,7 @@ let refresh_hypinfo env sigma hypinfo =
 	| _ -> hypinfo
   else hypinfo
 
-let unify_eqn0 env sigma hypinfo t =
+TIMED_LET unify_eqn env sigma hypinfo t =
   if isEvar t then None
   else try
     let {cl=cl; prf=prf; car=car; rel=rel; l2r=l2r; c1=c1; c2=c2; c=c; abs=abs} = !hypinfo in
@@ -384,14 +373,14 @@ let unify_eqn0 env sigma hypinfo t =
 	  in
 	  let env' = Clenvtac.clenv_pose_dependent_evars true env' in
 (* 	  let env' = Clenv.clenv_pose_metas_as_evars env' (Evd.undefined_metas env'.evd) in *)
-	  let evd' = Typeclasses.resolve_typeclasses ~fail:true ~do_time:true env'.env env'.evd in
+	  let evd' = Typeclasses.resolve_typeclasses ~fail:true env'.env env'.evd in
 	  let env' = { env' with evd = evd' } in
 	  let nf c = Evarutil.nf_evar evd' (Clenv.clenv_nf_meta env' c) in
 	  let c1 = nf c1 and c2 = nf c2
 	  and car = nf car and rel = nf rel
 	  and prf = nf (Clenv.clenv_value env') in
-	  let ty1 = Typing.type_of env'.env env'.evd c1
-	  and ty2 = Typing.type_of env'.env env'.evd c2
+	  let ty1 = Retyping.get_type_of env'.env env'.evd c1
+	  and ty2 = Retyping.get_type_of env'.env env'.evd c2
 	  in
 	    if convertible env env'.evd ty1 ty2 then (
 	      if occur_meta_or_existential prf then
@@ -409,18 +398,6 @@ let unify_eqn0 env sigma hypinfo t =
 	  (prf, (car, inverse car rel, c2, c1))
     in Some (env'.evd, res)
   with e when Class_tactics.catchable e -> None
-
-let unify_eqn env sigma hypinfo t =
-    let name = "unify_eqn" in
-    Timer.start_timer name;
-    try
-      let retval = unify_eqn0 env sigma hypinfo t in
-      Timer.stop_timer name;
-      retval
-    with exn ->
-      let _ = Printf.printf "caught exn in %s\n%!" name in    	 
-      let _ = Timer.stop_timer name in
-      raise exn
 
 (* let unify_eqn env sigma hypinfo t = *)
 (*   if isEvar t then None *)
@@ -617,7 +594,7 @@ let resolve_morphism env avoid oldt m ?(fnewt=fun x -> x) args args' cstr evars 
     let morphargs, morphobjs = array_chop first args in
     let morphargs', morphobjs' = array_chop first args' in
     let appm = mkApp(m, morphargs) in
-    let appmtype = Typing.type_of env (goalevars evars) appm in
+    let appmtype = get_type_of env evars appm in
     let cstrs = List.map (Option.map (fun r -> r.rew_car, get_opt_rew_rel r.rew_prf)) (Array.to_list morphobjs') in
       (* Desired signature *)
     let evars, appmtype', signature, sigargs = 
@@ -780,7 +757,7 @@ let subterm all flags (s : strategy) : strategy =
 		(fun (acc, evars, progress) arg ->
 		  if progress <> None && not all then (None :: acc, evars, progress)
 		  else
-		    let res = s env avoid arg (Typing.type_of env (goalevars evars) arg) None evars in
+		    let res = s env avoid arg (get_type_of env evars arg) None evars in
 		      match res with
 		      | Some None -> (None :: acc, evars, if progress = None then Some false else progress)
 		      | Some (Some r) -> (Some r :: acc, r.rew_evars, Some true)
@@ -816,7 +793,7 @@ let subterm all flags (s : strategy) : strategy =
 	  in
 	    if flags.on_morphisms then
 	      let evarsref = ref (snd evars) in
-	      let mty = Typing.type_of env (goalevars evars) m in
+	      let mty = get_type_of env evars m in
 	      let cstr', m, mty, argsl, args = 
 		let argsl = Array.to_list args in
 		  match lift_cstr env (goalevars evars) evarsref argsl m mty None with
@@ -849,8 +826,7 @@ let subterm all flags (s : strategy) : strategy =
 	      
       | Prod (n, x, b) when noccurn 1 b ->
 	  let b = subst1 mkProp b in
-	  let tx = Typing.type_of env (goalevars evars) x 
-	  and tb = Typing.type_of env (goalevars evars) b in
+	  let tx = get_type_of env evars x and tb = get_type_of env evars b in
 	  let mor, unfold = arrow_morphism tx tb x b in
 	  let res = aux env avoid mor ty cstr evars in
 	    (match res with
@@ -886,7 +862,7 @@ let subterm all flags (s : strategy) : strategy =
       | Lambda (n, t, b) when flags.under_lambdas ->
 	  let n' = name_app (fun id -> Tactics.fresh_id_in_env avoid id env) n in
 	  let env' = Environ.push_rel (n', None, t) env in
-	  let b' = s env' avoid b (Typing.type_of env' (goalevars evars) b) (unlift_cstr env (goalevars evars) cstr) evars in
+	  let b' = s env' avoid b (get_type_of env' evars b) (unlift_cstr env (goalevars evars) cstr) evars in
 	    (match b' with
 	    | Some (Some r) ->
 		let prf = match r.rew_prf with
@@ -904,7 +880,7 @@ let subterm all flags (s : strategy) : strategy =
 	    | _ -> b')
 
       | Case (ci, p, c, brs) ->
-	  let cty = Typing.type_of env (goalevars evars) c in
+	  let cty = get_type_of env evars c in
 	  let cstr' = Some (mkApp (Lazy.force coq_eq, [| cty |])) in
 	  let c' = s env avoid c cty cstr' evars in
 	  let res = 
@@ -1129,28 +1105,15 @@ let rewrite_with flags c left2right loccs : strategy =
     let avoid = get_hypinfo_ids !hypinfo @ avoid in
       rewrite_strat default_flags loccs hypinfo env avoid t ty cstr (gevars, cstrevars evars)
 
-let rec apply_strategy0 (s : strategy) env avoid concl cstr evars =
+TIMED_LET apply_strategy (s : strategy) env avoid concl cstr evars =
   let res =
-    s env avoid
-      concl (Retyping.get_type_of env (goalevars evars) concl)
-      (Option.map snd cstr) evars
+    s env avoid concl (get_type_of env evars concl) (Option.map snd cstr) evars
   in
     match res with
     | None -> None
     | Some None -> Some None
     | Some (Some res) ->
 	Some (Some (res.rew_prf, res.rew_evars, res.rew_car, res.rew_from, res.rew_to))
-and apply_strategy (s : strategy) env avoid concl cstr evars =
-  let name = "apply_strategy" in
-  let _ = Timer.start_timer name in
-  try
-    let result = apply_strategy0 s env avoid concl cstr evars in 
-    let _ = Timer.stop_timer name in
-    result
-  with exn ->
-    let _ = Printf.printf "caught exn in %s\n%!" name in    	 
-    let _ = Timer.stop_timer name in
-    raise exn
 
 let merge_evars (goal,cstr) = Evd.merge goal cstr
 let solve_constraints env evars =
@@ -1221,10 +1184,11 @@ let cl_rewrite_clause_aux ?(abs=None) strat env avoid sigma concl is_hyp : resul
     | Some None -> Some None
     | None -> None
 		   
-let rewrite_refine (evd,c) = 
-  Tacmach.refine c
+let rewrite_refine c =
+  (* We assume the proof term is well-typed *)
+  Tacmach.refine_no_check c
 
-let rec cl_rewrite_clause_tac0 ?abs strat meta clause gl =
+TIMED_LET cl_rewrite_clause_tac ?abs strat meta clause gl =
   let evartac evd = Refiner.tclEVARS evd in
   let treat res =
     match res with
@@ -1235,14 +1199,14 @@ let rec cl_rewrite_clause_tac0 ?abs strat meta clause gl =
 	let tac = 
 	  match clause, p with
 	  | Some id, Some p ->
-	      cut_replacing id newt (Tacmach.refine p)
+	    cut_replacing id newt (rewrite_refine p)
 	  | Some id, None -> 
 	      change_in_hyp None newt (id, InHypTypeOnly)
 	  | None, Some p ->
 	      let name = next_name_away_with_default "H" Anonymous (pf_ids_of_hyps gl) in
 		tclTHENLAST
 		  (Tacmach.internal_cut_no_check false name newt)
-		  (tclTHEN (Tactics.revert [name]) (Tacmach.refine p))
+		  (tclTHEN (Tactics.revert [name]) (rewrite_refine p))
 	  | None, None -> change_in_concl None newt
 	in tclTHEN (evartac undef) tac
   in
@@ -1264,17 +1228,6 @@ let rec cl_rewrite_clause_tac0 ?abs strat meta clause gl =
 	  (lazy (str"Unable to satisfy the rewriting constraints."
 		 ++ fnl () ++ Himsg.explain_typeclass_error env e))
   in tac gl
-and cl_rewrite_clause_tac ?abs strat meta clause gl =
-  let name = "cl_rewrite_clause_tac" in
-  let _ = Timer.start_timer name in
-  try
-    let result = cl_rewrite_clause_tac0 ?abs strat meta clause gl in
-    let _ = Timer.stop_timer name in
-    result
-  with exn ->
-    let _ = Printf.printf "caught exn in %s\n%!" name in    	 
-    let _ = Timer.stop_timer name in
-    raise exn
 
 open Goal
 open Environ
@@ -2030,7 +1983,7 @@ let setoid_proof gl ty fn fallback =
     try
       let rel, args = decompose_app_rel env (project gl) (pf_concl gl) in
       let evm = project gl in
-      let car = pi3 (List.hd (fst (Reduction.dest_prod env (Typing.type_of env evm rel)))) in
+      let car = pi3 (List.hd (fst (Reduction.dest_prod env (Retyping.get_type_of env evm rel)))) in
 	fn env evm car rel gl
     with e when Errors.noncritical e ->
       try fallback gl
