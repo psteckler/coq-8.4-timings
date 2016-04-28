@@ -511,5 +511,5 @@ and resolve_typeclasses ?(filter=no_goals) ?(split=true) ?(fail=true) env evd =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn

@@ -285,7 +285,7 @@ and decompose_applied_relation env sigma flags orig (c,l) left2right =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 open Tacinterp
@@ -418,7 +418,7 @@ and unify_eqn env sigma hypinfo t =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 (* let unify_eqn env sigma hypinfo t = *)
@@ -1145,7 +1145,7 @@ and apply_strategy (s : strategy) env avoid concl cstr evars =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 
@@ -1266,12 +1266,12 @@ and cl_rewrite_clause_tac ?abs strat meta clause gl =
   let name = "cl_rewrite_clause_tac" in
   let _ = Timer.start_timer name in
   try 
-    let result = cl_rewrite_clause_tac0 abs strat meta clause gl in
+    let result = cl_rewrite_clause_tac0 ?abs strat meta clause gl in
     let _ = Timer.stop_timer name in 
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 open Goal

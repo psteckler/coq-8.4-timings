@@ -90,7 +90,7 @@ type evar_filter = hole_kind -> bool
 val no_goals : evar_filter
 val all_evars : evar_filter
 
-val resolve_typeclasses : ?filter:evar_filter -> ?split:bool -> ?fail:bool -> ?do_time:bool ->
+val resolve_typeclasses : ?filter:evar_filter -> ?split:bool -> ?fail:bool -> 
   env -> evar_map -> evar_map
 val resolve_one_typeclass : env -> evar_map -> types -> open_constr
 

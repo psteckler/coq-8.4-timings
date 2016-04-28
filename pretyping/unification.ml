@@ -1093,7 +1093,7 @@ and w_unify_to_subterm env evd ?(flags=default_unify_flags) (op,cl) =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 (* tries to find all instances of term [cl] in term [op].
@@ -1163,12 +1163,12 @@ and w_unify_to_subterm_all env evd ?(flags=default_unify_flags) (op,cl) =
   let name = "w_unify_to_subterm_all" in
   let _ = Timer.start_timer name in
   try 
-    let result = w_unify_to_subterm_all0 
-    let _ = Timer.stop_timer name in env evd ~flags (op,cl) in
+    let result = w_unify_to_subterm_all0 env evd ~flags (op,cl) in
+    let _ = Timer.stop_timer name in 
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
   
 let rec w_unify_to_subterm_list0 env evd flags hdmeta oplist t =
@@ -1208,7 +1208,7 @@ and w_unify_to_subterm_list env evd flags hdmeta oplist t =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 let secondOrderAbstraction env evd flags typ (p, oplist) =
@@ -1295,10 +1295,10 @@ and w_unify env evd cv_pb ?(flags=default_unify_flags) ty1 ty2 =
   let name = "w_unify_to_subterm" in
   let _ = Timer.start_timer name in
   try 
-    let result = w_unify0 env evd cv_pb ~flags ty1 ty2 =
+    let result = w_unify0 env evd cv_pb ~flags ty1 ty2 in
     let _ = Timer.stop_timer name in 
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn

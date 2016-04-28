@@ -1122,7 +1122,7 @@ and conclPattern concl pat tac gl =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 (***********************************************************)

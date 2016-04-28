@@ -279,7 +279,7 @@ and type_of env evd c =
     result 
   with
     exn -> 
-      let _ = stop_timer name in 
+      let _ = Timer.stop_timer name in 
       raise exn
 
 (* Sort of a type *)
