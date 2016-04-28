@@ -253,7 +253,7 @@ let rec decompose_app_rel env evd t =
 (*   let nc, c', cl = push_rel_context_to_named_context env c in *)
 (*   let env' = reset_with_named_context nc env in *)
 
-TIMED_LET decompose_applied_relation env sigma flags orig (c,l) left2right =
+let rec decompose_applied_relation0 env sigma flags orig (c,l) left2right =
   let ctype = Retyping.get_type_of env sigma c in
   let find_rel ty =
     let eqclause = Clenv.make_clenv_binding_env_apply env sigma None (c,ty) l in
@@ -276,6 +276,17 @@ TIMED_LET decompose_applied_relation env sigma flags orig (c,l) left2right =
 	match find_rel (it_mkProd_or_LetIn t' ctx) with
 	| Some c -> c
 	| None -> error "The term does not end with an applied homogeneous relation."
+and decompose_applied_relation env sigma flags orig (c,l) left2right =
+  let name = "decompose_applied_relation" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = decompose_applied_relation0 env sigma flags orig (c,l) left2right in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
 
 open Tacinterp
 let decompose_applied_relation_expr env sigma flags (is, (c,l)) left2right =
@@ -358,7 +369,7 @@ let refresh_hypinfo env sigma hypinfo =
 	| _ -> hypinfo
   else hypinfo
 
-TIMED_LET unify_eqn env sigma hypinfo t =
+let rec unify_eqn0 env sigma hypinfo t =
   if isEvar t then None
   else try
     let {cl=cl; prf=prf; car=car; rel=rel; l2r=l2r; c1=c1; c2=c2; c=c; abs=abs} = !hypinfo in
@@ -398,6 +409,17 @@ TIMED_LET unify_eqn env sigma hypinfo t =
 	  (prf, (car, inverse car rel, c2, c1))
     in Some (env'.evd, res)
   with e when Class_tactics.catchable e -> None
+and unify_eqn env sigma hypinfo t =
+  let name = "unify_eqn" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = unify_eqn0 env sigma hypinfo t in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
 
 (* let unify_eqn env sigma hypinfo t = *)
 (*   if isEvar t then None *)
@@ -1105,7 +1127,7 @@ let rewrite_with flags c left2right loccs : strategy =
     let avoid = get_hypinfo_ids !hypinfo @ avoid in
       rewrite_strat default_flags loccs hypinfo env avoid t ty cstr (gevars, cstrevars evars)
 
-TIMED_LET apply_strategy (s : strategy) env avoid concl cstr evars =
+let rec apply_strategy0 (s : strategy) env avoid concl cstr evars =
   let res =
     s env avoid concl (get_type_of env evars concl) (Option.map snd cstr) evars
   in
@@ -1114,6 +1136,18 @@ TIMED_LET apply_strategy (s : strategy) env avoid concl cstr evars =
     | Some None -> Some None
     | Some (Some res) ->
 	Some (Some (res.rew_prf, res.rew_evars, res.rew_car, res.rew_from, res.rew_to))
+and apply_strategy (s : strategy) env avoid concl cstr evars =
+  let name = "apply_strategy" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = apply_strategy0 s env avoid concl cstr evars in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
+
 
 let merge_evars (goal,cstr) = Evd.merge goal cstr
 let solve_constraints env evars =
@@ -1188,7 +1222,7 @@ let rewrite_refine c =
   (* We assume the proof term is well-typed *)
   Tacmach.refine_no_check c
 
-TIMED_LET cl_rewrite_clause_tac ?abs strat meta clause gl =
+let rec cl_rewrite_clause_tac0 ?abs strat meta clause gl =
   let evartac evd = Refiner.tclEVARS evd in
   let treat res =
     match res with
@@ -1228,6 +1262,17 @@ TIMED_LET cl_rewrite_clause_tac ?abs strat meta clause gl =
 	  (lazy (str"Unable to satisfy the rewriting constraints."
 		 ++ fnl () ++ Himsg.explain_typeclass_error env e))
   in tac gl
+and cl_rewrite_clause_tac ?abs strat meta clause gl =
+  let name = "cl_rewrite_clause_tac" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = cl_rewrite_clause_tac0 abs strat meta clause gl in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
 
 open Goal
 open Environ

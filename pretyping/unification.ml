@@ -1028,7 +1028,7 @@ let iter_fail f a =
 (* Tries to find an instance of term [cl] in term [op].
    Unifies [cl] to every subterm of [op] until it finds a match.
    Fails if no match is found *)
-TIMED_LET w_unify_to_subterm env evd ?(flags=default_unify_flags) (op,cl) =
+let rec w_unify_to_subterm0 env evd ?(flags=default_unify_flags) (op,cl) =
   let rec matchrec cl =
     let cl = strip_outer_cast cl in
     (try
@@ -1084,11 +1084,22 @@ TIMED_LET w_unify_to_subterm env evd ?(flags=default_unify_flags) (op,cl) =
   try matchrec cl
   with ex when precatchable_exception ex ->
     raise (PretypeError (env,evd,NoOccurrenceFound (op, None)))
+and w_unify_to_subterm env evd ?(flags=default_unify_flags) (op,cl) =
+  let name = "w_unify_to_subterm" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = w_unify_to_subterm0 env evd ~flags (op,cl) in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
 
 (* tries to find all instances of term [cl] in term [op].
    Unifies [cl] to every subterm of [op] and return all the matches.
    Fails if no match is found *)
-TIMED_LET w_unify_to_subterm_all env evd ?(flags=default_unify_flags) (op,cl) =
+let rec w_unify_to_subterm_all0 env evd ?(flags=default_unify_flags) (op,cl) =
   let return a b =
     let (evd,c as a) = a () in
       if List.exists (fun (evd',c') -> eq_constr c c') b then b else a :: b
@@ -1148,8 +1159,19 @@ TIMED_LET w_unify_to_subterm_all env evd ?(flags=default_unify_flags) (op,cl) =
     raise (PretypeError (env,evd,NoOccurrenceFound (op, None)))
   else
     res
+and w_unify_to_subterm_all env evd ?(flags=default_unify_flags) (op,cl) =
+  let name = "w_unify_to_subterm_all" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = w_unify_to_subterm_all0 
+    let _ = Timer.stop_timer name in env evd ~flags (op,cl) in
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
   
-TIMED_LET w_unify_to_subterm_list env evd flags hdmeta oplist t =
+let rec w_unify_to_subterm_list0 env evd flags hdmeta oplist t =
   List.fold_right
     (fun op (evd,l) ->
       let op = whd_meta evd op in
@@ -1177,6 +1199,17 @@ TIMED_LET w_unify_to_subterm_list env evd flags hdmeta oplist t =
 	raise (PretypeError (env,evd,NoOccurrenceFound (op, None))))
     oplist
     (evd,[])
+and w_unify_to_subterm_list env evd flags hdmeta oplist t =
+  let name = "w_unify_to_subterm_list" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = w_unify_to_subterm_list0 env evd flags hdmeta oplist t in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
 
 let secondOrderAbstraction env evd flags typ (p, oplist) =
   (* Remove delta when looking for a subterm *)
@@ -1226,7 +1259,7 @@ let w_unify2 env evd flags dep cv_pb ty1 ty2 =
    Before, second-order was used if the type of Meta(1) and [x:A]t was
    convertible and first-order otherwise. But if failed if e.g. the type of
    Meta(1) had meta-variables in it. *)
-TIMED_LET env evd cv_pb ?(flags=default_unify_flags) ty1 ty2 =
+let rec w_unify0 env evd cv_pb ?(flags=default_unify_flags) ty1 ty2 =
   let hd1,l1 = whd_stack evd ty1 in
   let hd2,l2 = whd_stack evd ty2 in
     match kind_of_term hd1, l1<>[], kind_of_term hd2, l2<>[] with
@@ -1258,3 +1291,14 @@ TIMED_LET env evd cv_pb ?(flags=default_unify_flags) ty1 ty2 =
 
       (* General case: try first order *)
       | _ -> w_typed_unify env evd cv_pb flags ty1 ty2
+and w_unify env evd cv_pb ?(flags=default_unify_flags) ty1 ty2 =
+  let name = "w_unify_to_subterm" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = w_unify0 env evd cv_pb ~flags ty1 ty2 =
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn

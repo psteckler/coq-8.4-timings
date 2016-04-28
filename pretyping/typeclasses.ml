@@ -499,6 +499,17 @@ type evar_filter = hole_kind -> bool
 let no_goals = function GoalEvar -> false | _ -> true
 let all_evars _ = true
 
-TIMED_LET resolve_typeclasses ?(filter=no_goals) ?(split=true) ?(fail=true) env evd =
+let rec resolve_typeclasses0 ?(filter=no_goals) ?(split=true) ?(fail=true) env evd =
   if not (has_typeclasses evd) then evd
   else !solve_instanciations_problem env evd filter split fail
+and resolve_typeclasses ?(filter=no_goals) ?(split=true) ?(fail=true) env evd =
+  let name = "resolve_typeclasses" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = resolve_typeclasses0 ~filter ~split ~fail env evd in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn

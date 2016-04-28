@@ -107,18 +107,37 @@ TACTIC EXTEND progress_evars
   [ "progress_evars" tactic(t) ] -> [ progress_evars (Tacinterp.eval_tactic t) ]
 END
 
-
-TIMED_LET unify_e_resolve flags (c,clenv) gls =
+let rec unify_e_resolve0 flags (c,clenv) gls =
   let clenv' = connect_clenv gls clenv in
   let clenv' = clenv_unique_resolver ~flags clenv' gls in
   (* We trust unification to return a well-typed substution *)
     Clenvtac.clenv_refine ~unsafe:true true ~with_classes:false clenv' gls
+and unify_e_resolve flags (c,clenv) gls =
+  let name = "unify_e_resolve" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = unify_e_resolve0 flags (c,clenv) gls in 
+    let _ = Timer.stop_timer name in 
+    result 
+  with exn -> 
+    let _ = Timer.stop_timer name in 
+    raise exn
 
-TIMED_LET unify_resolve flags (c,clenv) gls =
+let rec unify_resolve0 flags (c,clenv) gls =
   let clenv' = connect_clenv gls clenv in
   let clenv' = clenv_unique_resolver ~flags clenv' gls in
   (* We trust unification to return a well-typed substution *)
   Clenvtac.clenv_refine ~unsafe:true false ~with_classes:false clenv' gls
+and unify_resolve flags (c,clenv) gls =
+  let name = "unify_resolve" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = unify_resolve0 flags (c,clenv) gls in 
+    let _ = Timer.stop_timer name in 
+    result 
+  with exn -> 
+    let _ = Timer.stop_timer name in 
+    raise exn
 
 let clenv_of_prods nprods (c, clenv) gls =
   if nprods = 0 then Some clenv
@@ -698,9 +717,19 @@ let resolve_typeclass_evars debug m env evd filter split fail =
   in
     resolve_all_evars debug m env (initial_select_evars filter) evd split fail
 
-TIMED_LET solve_inst debug depth env evd filter split fail =
+let rec solve_inst0 debug depth env evd filter split fail =
   resolve_typeclass_evars debug depth env evd filter split fail
- 
+and solve_inst debug depth env evd filter split fail = 
+  let name = "solve_inst" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = solve_inst0 debug depth env evd filter split fail in
+    let _ = Timer.stop_timer name in 
+    result 
+  with exn -> 
+    let _ = Timer.stop_timer name in 
+    raise exn
+
 let _ =
   Typeclasses.solve_instanciations_problem :=
     solve_inst false !typeclasses_depth

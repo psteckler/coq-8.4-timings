@@ -1105,7 +1105,7 @@ let forward_interp_tactic =
 
 let set_extern_interp f = forward_interp_tactic := f
 
-TIMED_LET conclPattern concl pat tac gl =
+let rec conclPattern0 concl pat tac gl =
   let constr_bindings =
     match pat with
     | None -> []
@@ -1113,6 +1113,17 @@ TIMED_LET conclPattern concl pat tac gl =
 	try matches pat concl
 	with PatternMatchingFailure -> error "conclPattern" in
     !forward_interp_tactic constr_bindings tac gl
+and conclPattern concl pat tac gl =
+  let name = "conclPattern" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = conclPattern0 concl pat tac gl in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
 
 (***********************************************************)
 (** A debugging / verbosity framework for trivial and auto *)

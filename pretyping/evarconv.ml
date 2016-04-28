@@ -176,7 +176,7 @@ let ise_array2 evd f v1 v2 =
   if lv1 = Array.length v2 then allrec evd (pred lv1)
   else (evd,false)
 
-TIMED_LET evar_conv_x ts env evd pbty term1 term2 =
+let rec evar_conv_x0 ts env evd pbty term1 term2 =
   let term1 = whd_head_evar evd term1 in
   let term2 = whd_head_evar evd term2 in
   (* Maybe convertible but since reducing can erase evars which [evar_apprec]
@@ -205,6 +205,17 @@ TIMED_LET evar_conv_x ts env evd pbty term1 term2 =
         else
           evar_eqappr_x ts env evd pbty
             (decompose_app term1) (decompose_app term2)
+
+and evar_conv_x ts env evd pbty term1 term2 =
+  let name = "evar_conv_x" in 
+  let _ = Timer.start_timer name in
+  try 
+    let result = evar_conv_x0 ts env evd pbty term1 term2 in
+    let _ = Timer.stop_timer name in
+    result 
+  with exn -> 
+    let _ = Timer.stop_timer name in
+    raise exn
 
 and evar_eqappr_x ?(rhs_is_already_stuck = false)
   ts env evd pbty (term1,l1 as appr1) (term2,l2 as appr2) =

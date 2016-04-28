@@ -265,11 +265,22 @@ let check env evd c t =
 
 (* Type of a constr *)
 
-TIMED_LET type_of env evd c =
+let rec type_of0 env evd c =
   let j = execute env (ref evd) c in
   (* We are outside the kernel: we take fresh universes *)
   (* to avoid tactics and co to refresh universes themselves *)
   Termops.refresh_universes j.uj_type
+and type_of env evd c =
+  let name = "type_of" in
+  let _ = Timer.start_timer name in
+  try 
+    let result = type_of0 env evd c in
+    let _ = Timer.stop_timer name in 
+    result 
+  with
+    exn -> 
+      let _ = stop_timer name in 
+      raise exn
 
 (* Sort of a type *)
 
