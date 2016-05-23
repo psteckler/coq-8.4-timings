@@ -371,17 +371,28 @@ let refresh_hypinfo env sigma hypinfo =
 
 let rec unify_eqn0 env sigma hypinfo t =
   if isEvar t then None
-  else try
+  else 
+  let tm1 = ref 0.0 in (* put in scope for exception handler *)
+  let succ = ref false in
+  try
+    let pr_term term = Pp.string_of_ppcmds (Printer.pr_constr term) in 
     let {cl=cl; prf=prf; car=car; rel=rel; l2r=l2r; c1=c1; c2=c2; c=c; abs=abs} = !hypinfo in
     let left = if l2r then c1 else c2 in
+    let _ = Printf.printf "***** Unifying:\nLHS: %s\nRHS: %s\n%!" (pr_term left) (pr_term t) in
+    let _ = tm1 := Unix.gettimeofday () in
     let env', prf, c1, c2, car, rel =
       match abs with
       | Some (absprf, absprfty) ->
 	  let env' = clenv_unify ~flags:rewrite_unif_flags CONV left t cl in
-	    env', prf, c1, c2, car, rel
+	  let tm2 = Unix.gettimeofday () in
+	  let _ = Printf.printf "***** Succeeded (abs = Some ...) in time: %0.4f msec\n%!" ((tm2 -. !tm1) *. 1000.0) in
+	  let _ = succ := true in
+	  env', prf, c1, c2, car, rel
       | None ->
-	  let env' = clenv_unify ~flags:!hypinfo.flags CONV left t cl
-	  in
+	  let env' = clenv_unify ~flags:!hypinfo.flags CONV left t cl in
+	  let tm2 = Unix.gettimeofday () in
+	  let _ = Printf.printf "***** Succeeded (abs = None) in time: %0.4f msec\n%!" ((tm2 -. !tm1) *. 1000.0) in
+	  let _ = succ := true in
 	  let env' = Clenvtac.clenv_pose_dependent_evars true env' in
 (* 	  let env' = Clenv.clenv_pose_metas_as_evars env' (Evd.undefined_metas env'.evd) in *)
 	  let evd' = Typeclasses.resolve_typeclasses ~fail:true env'.env env'.evd in
@@ -408,7 +419,12 @@ let rec unify_eqn0 env sigma hypinfo t =
 	with Not_found ->
 	  (prf, (car, inverse car rel, c2, c1))
     in Some (env'.evd, res)
-  with e when Class_tactics.catchable e -> None
+  with e when Class_tactics.catchable e -> 
+    if not !succ then (
+      let tm2 = Unix.gettimeofday () in
+      Printf.printf "***** Failed in time: %0.4f msec\n%!" ((tm2 -. !tm1) *. 1000.0)
+    );
+    None
 and unify_eqn env sigma hypinfo t =
   let name = "unify_eqn" in
   let _ = Timer.start_timer name in

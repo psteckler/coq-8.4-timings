@@ -6,7 +6,6 @@ exception Bad_stack of string
 exception Bad_argument of string
 exception Bad_prefix of string
 exception Events_stack_mismatch
-exception No_timing_events
 exception Equal_paths
 exception Unequal_paths
 
@@ -23,7 +22,7 @@ and all_events = Start_event of start_event | Time_event of time_event
 let the_events : all_events list ref = ref []
 let times_table : (string,stack) Hashtbl.t = Hashtbl.create 100
 let call_tbl = Hashtbl.create 100
-let max_indent = 12
+let max_indent = 99
 (* end globals *)
 
 let flush_events () = the_events := []
@@ -82,17 +81,17 @@ let add_time_event ev =
 (* length-n prefix of a list *)
 let get_prefix lst n =
   let _ = if n < 0 then raise (Bad_prefix "Negative length") in
-  let len = List.length lst in
-  let _ = if n > len then raise (Bad_prefix "Too long") in
-  let rec tail_loop lst' ct accum =
+  let rec loop lst' ct accum =
     if ct = 0 then (
       List.rev accum
     )
     else (
-      tail_loop (List.tl lst') (ct - 1) (List.hd lst' :: accum)
+      match lst' with
+      | [] -> raise (Bad_prefix "Too long")
+      | (h::rest) -> loop rest (ct - 1) (h :: accum)
     )
   in
-  tail_loop lst n []
+  loop lst n []
 
 let add_call_to_tbl path t_ev =
   try
@@ -176,11 +175,13 @@ let build_call_tree () =
   in
   List.sort cmp !unsorted
 
-let indent ?(ch = ' ') n =
+let indent ?(ch = '|') n =
   let bound = min n max_indent in
   for i = 0 to bound - 1 do
-    Printf.printf "%c" ch
-  done
+    Printf.printf "%c " ch
+  done;
+  Printf.printf "%d -> " n
+
 
 (* the procedures we're interested in profiling *)
 let interesting_procedures = [ "cl_rewrite_clause_tac" ]
@@ -192,8 +193,8 @@ let print_call_tree () =
       let _ = populate_call_tbl () in
       let call_tree = build_call_tree () in
       let prn_elt (path,tm) =
-	let _ = indent ~ch:'+' ((List.length path) - 1) in
-	Printf.printf "%s: %0.4f\n%!" (List.hd path) tm 
+	let _ = indent ((List.length path) - 1) in
+	Printf.printf "%s: %0.4f msec\n%!" (List.hd path) tm 
       in
       List.iter prn_elt call_tree
     )
@@ -231,7 +232,7 @@ let stop_timer s =
     if !total_depth = 0 then (
       print_call_tree ()
     )
-  with (* should never get exception here *)
+  with (* should not happen *)
   | Bad_stack s -> Printf.printf "Missing call on stack: %s\n%!" s
   | exn -> (
     Printf.printf "stop_timer, got exception: %s\n%!" (Printexc.to_string exn); 

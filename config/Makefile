@@ -11,12 +11,12 @@
 COQ_CONFIGURED=yes
 
 # Local use (no installation)
-LOCAL=false
+LOCAL=true
 
 # Bytecode link flags for VM ("-custom" or "-dllib -lcoqrun")
-COQRUNBYTEFLAGS=-dllib -lcoqrun -dllpath '/usr/local/coq-versions/8.4.timings/lib/coq'
+COQRUNBYTEFLAGS=-dllib -lcoqrun -dllpath '/home/steck/coq-sources/coq-8.4pl6.timings'/kernel/byterun
 COQTOOLSBYTEFLAGS=
-export CAML_LD_LIBRARY_PATH='/home/steck/coq-sources/coq-8.4pl6.timings'/kernel/byterun:/home/steck/.opam/4.02.1+fp/lib/stublibs
+# you might want to set CAML_LD_LIBRARY_PATH by hand!
 
 # Paths for true installation
 # BINDIR=path where coqtop, coqc, coqmktop, coq-tex, coqdep, gallina and
@@ -24,13 +24,13 @@ export CAML_LD_LIBRARY_PATH='/home/steck/coq-sources/coq-8.4pl6.timings'/kernel/
 # LIBDIR=path where the Coq library will reside
 # MANDIR=path where to install manual pages
 # EMACSDIR=path where to put Coq's Emacs mode (coq.el)
-BINDIR="/usr/local/coq-versions/8.4.timings/bin"
-COQLIBINSTALL="/usr/local/coq-versions/8.4.timings/lib/coq"
-CONFIGDIR="/etc/xdg/coq"
-DATADIR="/usr/local/share/coq"
-MANDIR="/usr/local/coq-versions/8.4.timings/share/man"
-DOCDIR="/usr/local/coq-versions/8.4.timings/share/doc/coq"
-EMACSLIB="/usr/local/share/emacs/site-lisp"
+BINDIR="/home/steck/coq-sources/coq-8.4pl6.timings/bin"
+COQLIBINSTALL="/home/steck/coq-sources/coq-8.4pl6.timings"
+CONFIGDIR="/home/steck/coq-sources/coq-8.4pl6.timings/ide"
+DATADIR="/home/steck/coq-sources/coq-8.4pl6.timings/ide"
+MANDIR="/home/steck/coq-sources/coq-8.4pl6.timings/man"
+DOCDIR="/home/steck/coq-sources/coq-8.4pl6.timings/doc"
+EMACSLIB="/home/steck/coq-sources/coq-8.4pl6.timings/tools/emacs"
 EMACS=
 
 # Path to Coq distribution
@@ -56,7 +56,7 @@ CAMLP4COMPAT=-loc loc
 MYCAMLP4LIB="/home/steck/.opam/4.02.1+fp/lib/camlp5"
 
 # LablGTK
-COQIDEINCLUDES=
+COQIDEINCLUDES=-I /home/steck/.opam/4.02.1+fp/lib/lablgtk2
 
 # Objective-Caml compile command
 OCAML="ocaml"
@@ -112,7 +112,7 @@ DLLEXT=.so
 MKDIR=mkdir -p
 
 # where to put the coqdoc.sty style file
-COQDOCDIR="/usr/local/share/texmf/tex/latex/misc"
+COQDOCDIR="/home/steck/coq-sources/coq-8.4pl6.timings/tools/coqdoc"
 
 #the command STRIP
 # Unix systems and profiling: true
@@ -120,7 +120,7 @@ COQDOCDIR="/usr/local/share/texmf/tex/latex/misc"
 STRIP=strip
 
 # CoqIde (no/byte/opt)
-HASCOQIDE=no
+HASCOQIDE=opt
 IDEOPTFLAGS=
 IDEOPTDEPS=
 IDEOPTINT=X11
